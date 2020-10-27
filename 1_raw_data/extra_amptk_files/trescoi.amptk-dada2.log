@@ -1,0 +1,40 @@
+[10/24/20 12:05:34]: /Users/cct663/miniconda3/bin/amptk dada2 -i trescoi.demux.fq.gz --platform illumina -o trescoi
+
+[10/24/20 12:05:34]: OS: MacOSX 10.11.6, 4 cores, ~ 8 GB RAM. Python: 3.7.1
+[10/24/20 12:05:34]: Python Modules: numpy v1.16.3, pandas v0.24.2, matplotlib v3.0.3, psutil v5.6.2, natsort v6.0.0, biopython v1.73, edlib v1.2.4, biom-format v2.1.7
+[10/24/20 12:05:34]: AMPtk v1.4.0, USEARCH v9.2.64, VSEARCH v2.13.3
+[10/24/20 12:05:35]: R v3.5.1; DADA2 v1.10.0
+[10/24/20 12:05:35]: Loading FASTQ Records
+[10/24/20 12:05:35]: pigz --decompress -c -p 4 /Users/cct663/trescoi.demux.fq.gz
+[10/24/20 12:08:41]: vsearch --fastq_filter /Users/cct663/trescoi.cleaned_input.fq --fastq_qmax 55 --fastaout trescoi.original.fa --threads 4
+[10/24/20 12:10:31]: b'WARNING: The fastq_filter command does not support multithreading.\nOnly 1 thread used.\nvsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading input file 100%\n13307052 sequences kept (of which 0 truncated), 0 sequences discarded.\n'
+[10/24/20 12:10:54]: 13,307,052 reads (7.6 GB)
+[10/24/20 12:10:54]: Quality Filtering, expected errors < 1.0
+[10/24/20 12:10:54]: vsearch --fastq_filter trescoi.cleaned_input.fq --fastq_maxee 1.0 --fastqout trescoi.qual-filtered.fq --fastq_qmax 55 --fastq_maxns 0 --threads 4
+[10/24/20 12:12:45]: b'WARNING: The fastq_filter command does not support multithreading.\nOnly 1 thread used.\nvsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading input file 100%\n9561348 sequences kept (of which 0 truncated), 3745704 sequences discarded.\n'
+[10/24/20 12:13:05]: 9,561,348 reads passed
+[10/24/20 12:13:05]: Splitting FASTQ file by Sample into individual files
+[10/24/20 12:32:52]: Dropping A11xP19N035.fastq as fewer than 10 reads
+[10/24/20 12:32:52]: Running DADA2 pipeline
+[10/24/20 13:14:08]: 12,917 total amplicon sequence variants (ASVs)
+[10/24/20 13:14:08]: 890 denovo chimeras removed
+[10/24/20 13:14:08]: 12,027 valid ASVs
+[10/24/20 13:14:08]: Validating ASV orientation
+[10/24/20 13:14:08]: vsearch --usearch_global trescoi.ASVs.fa.bak --db trescoi.ASVs.fa.bak --self --id 0.95 --strand both --userout orient-map.txt --userfields query+target+qstrand+id
+[10/24/20 13:14:18]: b'vsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading file trescoi.ASVs.fa.bak 100%\n3389711 nt in 12027 seqs, min 100, max 300, avg 282\nMasking 100%\nCounting k-mers 100%\nCreating k-mer index 100%\nSearching 100%\nMatching unique query sequences: 7817 of 12027 (65.00%)\n'
+[10/24/20 13:14:18]: Dropping 0 OTUs: 
+[10/24/20 13:14:19]: 12,027 ASVs validated (0 dropped)
+[10/24/20 13:14:19]: Mapping reads to DADA2 ASVs
+[10/24/20 13:14:19]: vsearch --usearch_global trescoi.original.fa --db trescoi.ASVs.fa --id 0.97 --uc trescoi.dada2.map.uc --strand plus --otutabout trescoi.otu_table.txt --threads 4
+[10/24/20 14:29:55]: b'vsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading file trescoi.ASVs.fa 100%\n3389711 nt in 12027 seqs, min 100, max 300, avg 282\nMasking 100%\nCounting k-mers 100%\nCreating k-mer index 100%\nSearching 100%\nMatching unique query sequences: 11824139 of 13307052 (88.86%)\nWriting OTU table (classic) 100%\n'
+[10/24/20 14:29:59]: 11,824,139 reads mapped to ASVs (89%)
+[10/24/20 14:29:59]: Clustering ASVs at 97% to generate biological OTUs
+[10/24/20 14:29:59]: vsearch --cluster_smallmem trescoi.ASVs.fa --centroids trescoi.cluster.otus.fa --id 0.97 --strand plus --relabel OTU --qmask none --usersort --threads 4
+[10/24/20 14:30:05]: b'vsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading file trescoi.ASVs.fa 100%\n3389711 nt in 12027 seqs, min 100, max 300, avg 282\nCounting k-mers 100%\nClustering 100%\nSorting clusters 100%\nWriting clusters 100%\nClusters: 6586 Size min 1, max 103, avg 1.8\nSingletons: 4864, 40.4% of seqs, 73.9% of clusters\n'
+[10/24/20 14:30:05]: 6,586 OTUs generated
+[10/24/20 14:30:05]: vsearch --usearch_global trescoi.ASVs.fa --db trescoi.cluster.otus.fa --id 0.97 --uc trescoi.ASV_map.uc --strand plus --threads 4
+[10/24/20 14:30:08]: b'vsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading file trescoi.cluster.otus.fa 100%\n1799927 nt in 6586 seqs, min 100, max 300, avg 273\nMasking 100%\nCounting k-mers 100%\nCreating k-mer index 100%\nSearching 100%\nMatching unique query sequences: 12025 of 12027 (99.98%)\n'
+[10/24/20 14:30:08]: Mapping reads to OTUs
+[10/24/20 14:30:08]: vsearch --usearch_global trescoi.original.fa --db trescoi.cluster.otus.fa --id 0.97 --uc trescoi.map.uc --strand plus --otutabout trescoi.cluster.otu_table.txt --threads 4
+[10/24/20 15:28:41]: b'vsearch v2.13.3_macos_x86_64, 8.0GB RAM, 4 cores\nhttps://github.com/torognes/vsearch\n\nReading file trescoi.cluster.otus.fa 100%\n1799927 nt in 6586 seqs, min 100, max 300, avg 273\nMasking 100%\nCounting k-mers 100%\nCreating k-mer index 100%\nSearching 100%\nMatching unique query sequences: 11714506 of 13307052 (88.03%)\nWriting OTU table (classic) 100%\n'
+[10/24/20 15:28:46]: 11,714,506 reads mapped to OTUs (88%)

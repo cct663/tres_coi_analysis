@@ -1,0 +1,1720 @@
+Loading required package: Rcpp
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply, parLapply,
+    parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colMeans,
+    colnames, colSums, dirname, do.call, duplicated, eval, evalq,
+    Filter, Find, get, grep, grepl, intersect, is.unsorted, lapply,
+    lengths, Map, mapply, match, mget, order, paste, pmax, pmax.int,
+    pmin, pmin.int, Position, rank, rbind, Reduce, rowMeans, rownames,
+    rowSums, sapply, setdiff, sort, table, tapply, union, unique,
+    unsplit, which, which.max, which.min
+
+Loading required package: BiocParallel
+Loading required package: Biostrings
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:base’:
+
+    expand.grid
+
+Loading required package: IRanges
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading required package: Rsamtools
+Loading required package: GenomeInfoDb
+Loading required package: GenomicRanges
+Loading required package: GenomicAlignments
+Loading required package: SummarizedExperiment
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: DelayedArray
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following objects are masked from ‘package:Biobase’:
+
+    anyMissing, rowMedians
+
+
+Attaching package: ‘DelayedArray’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
+
+The following object is masked from ‘package:Biostrings’:
+
+    type
+
+The following objects are masked from ‘package:base’:
+
+    aperm, apply
+
+[1] "-------------"
+[1] "R 3.5.1"
+[1] "assertthat 0.2.1"
+[1] "base 3.5.1"
+[1] "Biobase 2.42.0"
+[1] "BiocGenerics 0.28.0"
+[1] "BiocParallel 1.16.6"
+[1] "Biostrings 2.50.2"
+[1] "bitops 1.0.6"
+[1] "colorspace 1.4.1"
+[1] "compiler 3.5.1"
+[1] "crayon 1.3.4"
+[1] "dada2 1.10.0"
+[1] "data.table 1.12.2"
+[1] "datasets 3.5.1"
+[1] "DelayedArray 0.8.0"
+[1] "dplyr 0.8.0.1"
+[1] "GenomeInfoDb 1.18.1"
+[1] "GenomeInfoDbData 1.2.0"
+[1] "GenomicAlignments 1.18.1"
+[1] "GenomicRanges 1.34.0"
+[1] "ggplot2 3.1.1"
+[1] "glue 1.3.1"
+[1] "graphics 3.5.1"
+[1] "grDevices 3.5.1"
+[1] "grid 3.5.1"
+[1] "gtable 0.3.0"
+[1] "hwriter 1.3.2"
+[1] "IRanges 2.16.0"
+[1] "lattice 0.20.38"
+[1] "latticeExtra 0.6.28"
+[1] "lazyeval 0.2.2"
+[1] "magrittr 1.5"
+[1] "Matrix 1.2.17"
+[1] "matrixStats 0.54.0"
+[1] "methods 3.5.1"
+[1] "munsell 0.5.0"
+[1] "parallel 3.5.1"
+[1] "pillar 1.3.1"
+[1] "pkgconfig 2.0.2"
+[1] "plyr 1.8.4"
+[1] "purrr 0.3.2"
+[1] "R6 2.4.0"
+[1] "RColorBrewer 1.1.2"
+[1] "Rcpp 1.0.1"
+[1] "RcppParallel 4.4.2"
+[1] "RCurl 1.95.4.12"
+[1] "reshape2 1.4.3"
+[1] "rlang 0.3.4"
+[1] "Rsamtools 1.34.0"
+[1] "S4Vectors 0.20.1"
+[1] "scales 1.0.0"
+[1] "ShortRead 1.40.0"
+[1] "stats 3.5.1"
+[1] "stats4 3.5.1"
+[1] "stringi 1.4.3"
+[1] "stringr 1.4.0"
+[1] "SummarizedExperiment 1.12.0"
+[1] "tibble 2.1.1"
+[1] "tidyselect 0.2.5"
+[1] "tools 3.5.1"
+[1] "utils 3.5.1"
+[1] "XVector 0.22.0"
+[1] "zlibbioc 1.28.0"
+[1] "-------------"
+[1] "Loading Data from folder"
+  [1] "trescoi_filtered/11239.fastq"       
+  [2] "trescoi_filtered/11764.fastq"       
+  [3] "trescoi_filtered/A01xL19N010a.fastq"
+  [4] "trescoi_filtered/A01xP19N045.fastq" 
+  [5] "trescoi_filtered/A01xP19N171.fastq" 
+  [6] "trescoi_filtered/A01xP19N214.fastq" 
+  [7] "trescoi_filtered/A01xP19N294.fastq" 
+  [8] "trescoi_filtered/A01xP19N503.fastq" 
+  [9] "trescoi_filtered/A02xL19N011e.fastq"
+ [10] "trescoi_filtered/A02xP19N053.fastq" 
+ [11] "trescoi_filtered/A02xP19N301.fastq" 
+ [12] "trescoi_filtered/A02xP19N446.fastq" 
+ [13] "trescoi_filtered/A02xP19N511.fastq" 
+ [14] "trescoi_filtered/A03xL19N014c.fastq"
+ [15] "trescoi_filtered/A03xP19N062.fastq" 
+ [16] "trescoi_filtered/A03xP19N270.fastq" 
+ [17] "trescoi_filtered/A03xP19N331.fastq" 
+ [18] "trescoi_filtered/A03xP19N457.fastq" 
+ [19] "trescoi_filtered/A04xL19N017b.fastq"
+ [20] "trescoi_filtered/A04xP19N075.fastq" 
+ [21] "trescoi_filtered/A04xP19N282.fastq" 
+ [22] "trescoi_filtered/A04xP19N359.fastq" 
+ [23] "trescoi_filtered/A04xP19N468.fastq" 
+ [24] "trescoi_filtered/A05xP19N089.fastq" 
+ [25] "trescoi_filtered/A05xP19N289.fastq" 
+ [26] "trescoi_filtered/A05xP19N374.fastq" 
+ [27] "trescoi_filtered/A05xP19N411.fastq" 
+ [28] "trescoi_filtered/A05xP19N475.fastq" 
+ [29] "trescoi_filtered/A06xP19N095.fastq" 
+ [30] "trescoi_filtered/A06xP19N222.fastq" 
+ [31] "trescoi_filtered/A06xP19N393.fastq" 
+ [32] "trescoi_filtered/A06xP19N419.fastq" 
+ [33] "trescoi_filtered/A06xP19N486.fastq" 
+ [34] "trescoi_filtered/A07xP19N106.fastq" 
+ [35] "trescoi_filtered/A07xP19N336.fastq" 
+ [36] "trescoi_filtered/A07xP19N401.fastq" 
+ [37] "trescoi_filtered/A07xP19N500.fastq" 
+ [38] "trescoi_filtered/A07xP19NB6.fastq"  
+ [39] "trescoi_filtered/A08xP19N114.fastq" 
+ [40] "trescoi_filtered/A08xP19N238.fastq" 
+ [41] "trescoi_filtered/A08xP19N347.fastq" 
+ [42] "trescoi_filtered/A08xP19N437.fastq" 
+ [43] "trescoi_filtered/A08xP19N520.fastq" 
+ [44] "trescoi_filtered/A09xL19N005a.fastq"
+ [45] "trescoi_filtered/A09xM18ND1.fastq"  
+ [46] "trescoi_filtered/A09xP19N010.fastq" 
+ [47] "trescoi_filtered/A09xP19N023.fastq" 
+ [48] "trescoi_filtered/A09xP19N026.fastq" 
+ [49] "trescoi_filtered/A09xP19N372.fastq" 
+ [50] "trescoi_filtered/A10xL19N018f.fastq"
+ [51] "trescoi_filtered/A10xM18ND9.fastq"  
+ [52] "trescoi_filtered/A10xP19N080.fastq" 
+ [53] "trescoi_filtered/A10xP19N126.fastq" 
+ [54] "trescoi_filtered/A10xP19N386.fastq" 
+ [55] "trescoi_filtered/A10xP19N461.fastq" 
+ [56] "trescoi_filtered/A11xL19N006e.fastq"
+ [57] "trescoi_filtered/A11xP19N029.fastq" 
+ [58] "trescoi_filtered/A11xP19N166.fastq" 
+ [59] "trescoi_filtered/A11xP19N427.fastq" 
+ [60] "trescoi_filtered/A12xL19N008d.fastq"
+ [61] "trescoi_filtered/A12xP19N036.fastq" 
+ [62] "trescoi_filtered/A12xP19N258.fastq" 
+ [63] "trescoi_filtered/A12xP19N440.fastq" 
+ [64] "trescoi_filtered/A12xP19N496.fastq" 
+ [65] "trescoi_filtered/B01xL19N010b.fastq"
+ [66] "trescoi_filtered/B01xP19N046.fastq" 
+ [67] "trescoi_filtered/B01xP19N187.fastq" 
+ [68] "trescoi_filtered/B01xP19N295.fastq" 
+ [69] "trescoi_filtered/B01xP19N504.fastq" 
+ [70] "trescoi_filtered/B02xL19N011f.fastq"
+ [71] "trescoi_filtered/B02xP19N054.fastq" 
+ [72] "trescoi_filtered/B02xP19N302.fastq" 
+ [73] "trescoi_filtered/B02xP19N447.fastq" 
+ [74] "trescoi_filtered/B02xP19N512.fastq" 
+ [75] "trescoi_filtered/B03xL19N015a.fastq"
+ [76] "trescoi_filtered/B03xP19N132.fastq" 
+ [77] "trescoi_filtered/B03xP19N271.fastq" 
+ [78] "trescoi_filtered/B03xP19N332.fastq" 
+ [79] "trescoi_filtered/B03xP19N458.fastq" 
+ [80] "trescoi_filtered/B04xL19N017c.fastq"
+ [81] "trescoi_filtered/B04xP19N076.fastq" 
+ [82] "trescoi_filtered/B04xP19N283.fastq" 
+ [83] "trescoi_filtered/B04xP19N360.fastq" 
+ [84] "trescoi_filtered/B04xP19N469.fastq" 
+ [85] "trescoi_filtered/B05xP19N290.fastq" 
+ [86] "trescoi_filtered/B05xP19N375.fastq" 
+ [87] "trescoi_filtered/B05xP19N412.fastq" 
+ [88] "trescoi_filtered/B05xP19N476.fastq" 
+ [89] "trescoi_filtered/B05xP19NB19.fastq" 
+ [90] "trescoi_filtered/B06xP19N133.fastq" 
+ [91] "trescoi_filtered/B06xP19N223.fastq" 
+ [92] "trescoi_filtered/B06xP19N394.fastq" 
+ [93] "trescoi_filtered/B06xP19N425.fastq" 
+ [94] "trescoi_filtered/B06xP19N487.fastq" 
+ [95] "trescoi_filtered/B07xP19N107.fastq" 
+ [96] "trescoi_filtered/B07xP19N231.fastq" 
+ [97] "trescoi_filtered/B07xP19N337.fastq" 
+ [98] "trescoi_filtered/B07xP19N402.fastq" 
+ [99] "trescoi_filtered/B07xP19N502.fastq" 
+[100] "trescoi_filtered/B08xP19N002.fastq" 
+[101] "trescoi_filtered/B08xP19N115.fastq" 
+[102] "trescoi_filtered/B08xP19N239.fastq" 
+[103] "trescoi_filtered/B08xP19N348.fastq" 
+[104] "trescoi_filtered/B08xP19N438.fastq" 
+[105] "trescoi_filtered/B09xLN19007c.fastq"
+[106] "trescoi_filtered/B09xM18ND2.fastq"  
+[107] "trescoi_filtered/B09xP19N011.fastq" 
+[108] "trescoi_filtered/B09xP19N024.fastq" 
+[109] "trescoi_filtered/B09xP19N027.fastq" 
+[110] "trescoi_filtered/B09xP19N380.fastq" 
+[111] "trescoi_filtered/B10xL19N005b.fastq"
+[112] "trescoi_filtered/B10xM18ND10.fastq" 
+[113] "trescoi_filtered/B10xP19N081.fastq" 
+[114] "trescoi_filtered/B10xP19N251.fastq" 
+[115] "trescoi_filtered/B10xP19N387.fastq" 
+[116] "trescoi_filtered/B10xP19N462.fastq" 
+[117] "trescoi_filtered/B11xL19N007a.fastq"
+[118] "trescoi_filtered/B11xP19N030.fastq" 
+[119] "trescoi_filtered/B11xP19N037.fastq" 
+[120] "trescoi_filtered/B11xP19N323.fastq" 
+[121] "trescoi_filtered/B11xP19N428.fastq" 
+[122] "trescoi_filtered/B12xL19N008e.fastq"
+[123] "trescoi_filtered/B12xP19N441.fastq" 
+[124] "trescoi_filtered/B12xP19N497.fastq" 
+[125] "trescoi_filtered/B12xP19NB7.fastq"  
+[126] "trescoi_filtered/C01xL19N010c.fastq"
+[127] "trescoi_filtered/C01xP19N047.fastq" 
+[128] "trescoi_filtered/C01xP19N188.fastq" 
+[129] "trescoi_filtered/C01xP19N296.fastq" 
+[130] "trescoi_filtered/C01xP19N505.fastq" 
+[131] "trescoi_filtered/C02xL19N012a.fastq"
+[132] "trescoi_filtered/C02xL19N019d.fastq"
+[133] "trescoi_filtered/C02xP19N055.fastq" 
+[134] "trescoi_filtered/C02xP19N303.fastq" 
+[135] "trescoi_filtered/C02xP19N513.fastq" 
+[136] "trescoi_filtered/C03xL19N015b.fastq"
+[137] "trescoi_filtered/C03xL19N020b.fastq"
+[138] "trescoi_filtered/C03xP19N064.fastq" 
+[139] "trescoi_filtered/C03xP19N272.fastq" 
+[140] "trescoi_filtered/C03xP19N333.fastq" 
+[141] "trescoi_filtered/C04xL19N019b.fastq"
+[142] "trescoi_filtered/C04xP19N077.fastq" 
+[143] "trescoi_filtered/C04xP19N284.fastq" 
+[144] "trescoi_filtered/C04xP19N361.fastq" 
+[145] "trescoi_filtered/C04xP19N470.fastq" 
+[146] "trescoi_filtered/C05xP19N090.fastq" 
+[147] "trescoi_filtered/C05xP19N291.fastq" 
+[148] "trescoi_filtered/C05xP19N376.fastq" 
+[149] "trescoi_filtered/C05xP19N413.fastq" 
+[150] "trescoi_filtered/C05xP19N477.fastq" 
+[151] "trescoi_filtered/C06xP19N097.fastq" 
+[152] "trescoi_filtered/C06xP19N225.fastq" 
+[153] "trescoi_filtered/C06xP19N395.fastq" 
+[154] "trescoi_filtered/C06xP19N488.fastq" 
+[155] "trescoi_filtered/C06xP19NB10.fastq" 
+[156] "trescoi_filtered/C07xP19N108.fastq" 
+[157] "trescoi_filtered/C07xP19N232.fastq" 
+[158] "trescoi_filtered/C07xP19N338.fastq" 
+[159] "trescoi_filtered/C07xP19N421.fastq" 
+[160] "trescoi_filtered/C07xP19N515.fastq" 
+[161] "trescoi_filtered/C08xP19N240.fastq" 
+[162] "trescoi_filtered/C08xP19N349.fastq" 
+[163] "trescoi_filtered/C08xP19N448.fastq" 
+[164] "trescoi_filtered/C08xP19NB16.fastq" 
+[165] "trescoi_filtered/C08xP19NB20.fastq" 
+[166] "trescoi_filtered/C09xLN19018a.fastq"
+[167] "trescoi_filtered/C09xM18ND3.fastq"  
+[168] "trescoi_filtered/C09xP19N040.fastq" 
+[169] "trescoi_filtered/C09xP19N184.fastq" 
+[170] "trescoi_filtered/C09xP19N249.fastq" 
+[171] "trescoi_filtered/C09xP19NB9.fastq"  
+[172] "trescoi_filtered/C10xL19N005c.fastq"
+[173] "trescoi_filtered/C10xP19N018.fastq" 
+[174] "trescoi_filtered/C10xP19N087.fastq" 
+[175] "trescoi_filtered/C10xP19N388.fastq" 
+[176] "trescoi_filtered/C10xP19N493.fastq" 
+[177] "trescoi_filtered/C11xL19N007b.fastq"
+[178] "trescoi_filtered/C11xP19N031.fastq" 
+[179] "trescoi_filtered/C11xP19N049.fastq" 
+[180] "trescoi_filtered/C11xP19N324.fastq" 
+[181] "trescoi_filtered/C11xP19N429.fastq" 
+[182] "trescoi_filtered/C12xP19N038.fastq" 
+[183] "trescoi_filtered/C12xP19N498.fastq" 
+[184] "trescoi_filtered/C12xP19NB11.fastq" 
+[185] "trescoi_filtered/C12xP19NB14.fastq" 
+[186] "trescoi_filtered/D01xL19N010d.fastq"
+[187] "trescoi_filtered/D01xP19N048.fastq" 
+[188] "trescoi_filtered/D01xP19N189.fastq" 
+[189] "trescoi_filtered/D01xP19N297.fastq" 
+[190] "trescoi_filtered/D01xP19N506.fastq" 
+[191] "trescoi_filtered/D02xL19N012b.fastq"
+[192] "trescoi_filtered/D02xP19N057.fastq" 
+[193] "trescoi_filtered/D02xP19N304.fastq" 
+[194] "trescoi_filtered/D02xP19N451.fastq" 
+[195] "trescoi_filtered/D02xP19N514.fastq" 
+[196] "trescoi_filtered/D03xP19N068.fastq" 
+[197] "trescoi_filtered/D03xP19N273.fastq" 
+[198] "trescoi_filtered/D03xP19N354.fastq" 
+[199] "trescoi_filtered/D03xP19N460.fastq" 
+[200] "trescoi_filtered/D03xP19NB15.fastq" 
+[201] "trescoi_filtered/D04xL19N018b.fastq"
+[202] "trescoi_filtered/D04xP19N082.fastq" 
+[203] "trescoi_filtered/D04xP19N285.fastq" 
+[204] "trescoi_filtered/D04xP19N362.fastq" 
+[205] "trescoi_filtered/D04xP19NB12.fastq" 
+[206] "trescoi_filtered/D05xP19N091.fastq" 
+[207] "trescoi_filtered/D05xP19N292.fastq" 
+[208] "trescoi_filtered/D05xP19N377.fastq" 
+[209] "trescoi_filtered/D05xP19N414.fastq" 
+[210] "trescoi_filtered/D05xP19N480.fastq" 
+[211] "trescoi_filtered/D06xP19N098.fastq" 
+[212] "trescoi_filtered/D06xP19N226.fastq" 
+[213] "trescoi_filtered/D06xP19N325.fastq" 
+[214] "trescoi_filtered/D06xP19N396.fastq" 
+[215] "trescoi_filtered/D06xP19N489.fastq" 
+[216] "trescoi_filtered/D07xP19N109.fastq" 
+[217] "trescoi_filtered/D07xP19N233.fastq" 
+[218] "trescoi_filtered/D07xP19N342.fastq" 
+[219] "trescoi_filtered/D07xP19N422.fastq" 
+[220] "trescoi_filtered/D07xP19NB13.fastq" 
+[221] "trescoi_filtered/D08xP19N004.fastq" 
+[222] "trescoi_filtered/D08xP19N116.fastq" 
+[223] "trescoi_filtered/D08xP19N241.fastq" 
+[224] "trescoi_filtered/D08xP19N350.fastq" 
+[225] "trescoi_filtered/D08xP19N449.fastq" 
+[226] "trescoi_filtered/D09xM18ND4.fastq"  
+[227] "trescoi_filtered/D09xP19N056.fastq" 
+[228] "trescoi_filtered/D09xP19N168.fastq" 
+[229] "trescoi_filtered/D09xP19N185.fastq" 
+[230] "trescoi_filtered/D09xP19N250.fastq" 
+[231] "trescoi_filtered/D09xP19N381.fastq" 
+[232] "trescoi_filtered/D10xL19N005d.fastq"
+[233] "trescoi_filtered/D10xP19N009.fastq" 
+[234] "trescoi_filtered/D10xP19N019.fastq" 
+[235] "trescoi_filtered/D10xP19N088.fastq" 
+[236] "trescoi_filtered/D10xP19N389.fastq" 
+[237] "trescoi_filtered/D11xL19N019a.fastq"
+[238] "trescoi_filtered/D11xP19N063.fastq" 
+[239] "trescoi_filtered/D11xP19N252.fastq" 
+[240] "trescoi_filtered/D11xP19N366.fastq" 
+[241] "trescoi_filtered/D11xP19N430.fastq" 
+[242] "trescoi_filtered/D12xL19N008f.fastq"
+[243] "trescoi_filtered/D12xP19N039.fastq" 
+[244] "trescoi_filtered/D12xP19N278.fastq" 
+[245] "trescoi_filtered/D12xP19N442.fastq" 
+[246] "trescoi_filtered/D12xP19N499.fastq" 
+[247] "trescoi_filtered/E01xL19N011a.fastq"
+[248] "trescoi_filtered/E01xP19N131.fastq" 
+[249] "trescoi_filtered/E01xP19N190.fastq" 
+[250] "trescoi_filtered/E01xP19N298.fastq" 
+[251] "trescoi_filtered/E01xP19N507.fastq" 
+[252] "trescoi_filtered/E02xL19N012c.fastq"
+[253] "trescoi_filtered/E02xP19N120.fastq" 
+[254] "trescoi_filtered/E02xP19N254.fastq" 
+[255] "trescoi_filtered/E02xP19N305.fastq" 
+[256] "trescoi_filtered/E02xP19NB18.fastq" 
+[257] "trescoi_filtered/E03xL19N015c.fastq"
+[258] "trescoi_filtered/E03xL19N020c.fastq"
+[259] "trescoi_filtered/E03xP19N069.fastq" 
+[260] "trescoi_filtered/E03xP19N274.fastq" 
+[261] "trescoi_filtered/E03xP19N355.fastq" 
+[262] "trescoi_filtered/E04xL19N018c.fastq"
+[263] "trescoi_filtered/E04xP19N083.fastq" 
+[264] "trescoi_filtered/E04xP19N286.fastq" 
+[265] "trescoi_filtered/E04xP19N363.fastq" 
+[266] "trescoi_filtered/E04xP19N471.fastq" 
+[267] "trescoi_filtered/E05xP19N092.fastq" 
+[268] "trescoi_filtered/E05xP19N378.fastq" 
+[269] "trescoi_filtered/E05xP19N415.fastq" 
+[270] "trescoi_filtered/E05xP19N481.fastq" 
+[271] "trescoi_filtered/E05xP19NB8.fastq"  
+[272] "trescoi_filtered/E06xP19N102.fastq" 
+[273] "trescoi_filtered/E06xP19N227.fastq" 
+[274] "trescoi_filtered/E06xP19N326.fastq" 
+[275] "trescoi_filtered/E06xP19N397.fastq" 
+[276] "trescoi_filtered/E06xP19N490.fastq" 
+[277] "trescoi_filtered/E07xP19N110.fastq" 
+[278] "trescoi_filtered/E07xP19N234.fastq" 
+[279] "trescoi_filtered/E07xP19N343.fastq" 
+[280] "trescoi_filtered/E07xP19N516.fastq" 
+[281] "trescoi_filtered/E07xP19NB3.fastq"  
+[282] "trescoi_filtered/E08xL19N019c.fastq"
+[283] "trescoi_filtered/E08xP19N006.fastq" 
+[284] "trescoi_filtered/E08xP19N242.fastq" 
+[285] "trescoi_filtered/E08xP19N351.fastq" 
+[286] "trescoi_filtered/E08xP19N463.fastq" 
+[287] "trescoi_filtered/E09xM18ND5.fastq"  
+[288] "trescoi_filtered/E09xP19N014.fastq" 
+[289] "trescoi_filtered/E09xP19N065.fastq" 
+[290] "trescoi_filtered/E09xP19N215.fastq" 
+[291] "trescoi_filtered/E09xP19N382.fastq" 
+[292] "trescoi_filtered/E09xP19N450.fastq" 
+[293] "trescoi_filtered/E10xL19N006a.fastq"
+[294] "trescoi_filtered/E10xP19N012.fastq" 
+[295] "trescoi_filtered/E10xP19N020.fastq" 
+[296] "trescoi_filtered/E10xP19N099.fastq" 
+[297] "trescoi_filtered/E10xP19N390.fastq" 
+[298] "trescoi_filtered/E11xL19N007d.fastq"
+[299] "trescoi_filtered/E11xP19N096.fastq" 
+[300] "trescoi_filtered/E11xP19N367.fastq" 
+[301] "trescoi_filtered/E11xP19N431.fastq" 
+[302] "trescoi_filtered/E11xP19NB17.fastq" 
+[303] "trescoi_filtered/E12xL19N009a.fastq"
+[304] "trescoi_filtered/E12xP19N041.fastq" 
+[305] "trescoi_filtered/E12xP19N279.fastq" 
+[306] "trescoi_filtered/E12xP19N443.fastq" 
+[307] "trescoi_filtered/E12xP19NB4.fastq"  
+[308] "trescoi_filtered/F01xL19N011b.fastq"
+[309] "trescoi_filtered/F01xP19N050.fastq" 
+[310] "trescoi_filtered/F01xP19N191.fastq" 
+[311] "trescoi_filtered/F01xP19N299.fastq" 
+[312] "trescoi_filtered/F01xP19N508.fastq" 
+[313] "trescoi_filtered/F02xL19N013a.fastq"
+[314] "trescoi_filtered/F02xP19N059.fastq" 
+[315] "trescoi_filtered/F02xP19N260.fastq" 
+[316] "trescoi_filtered/F02xP19N328.fastq" 
+[317] "trescoi_filtered/F02xP19N453.fastq" 
+[318] "trescoi_filtered/F03xL19N016a.fastq"
+[319] "trescoi_filtered/F03xP19N070.fastq" 
+[320] "trescoi_filtered/F03xP19N246.fastq" 
+[321] "trescoi_filtered/F03xP19N275.fastq" 
+[322] "trescoi_filtered/F03xP19N356.fastq" 
+[323] "trescoi_filtered/F04xL19N018d.fastq"
+[324] "trescoi_filtered/F04xP19N084.fastq" 
+[325] "trescoi_filtered/F04xP19N287.fastq" 
+[326] "trescoi_filtered/F04xP19N364.fastq" 
+[327] "trescoi_filtered/F04xP19N472.fastq" 
+[328] "trescoi_filtered/F05xP19N093.fastq" 
+[329] "trescoi_filtered/F05xP19N219.fastq" 
+[330] "trescoi_filtered/F05xP19N379.fastq" 
+[331] "trescoi_filtered/F05xP19N416.fastq" 
+[332] "trescoi_filtered/F05xP19N482.fastq" 
+[333] "trescoi_filtered/F06xP19N103.fastq" 
+[334] "trescoi_filtered/F06xP19N228.fastq" 
+[335] "trescoi_filtered/F06xP19N327.fastq" 
+[336] "trescoi_filtered/F06xP19N398.fastq" 
+[337] "trescoi_filtered/F06xP19N491.fastq" 
+[338] "trescoi_filtered/F07xP19N111.fastq" 
+[339] "trescoi_filtered/F07xP19N235.fastq" 
+[340] "trescoi_filtered/F07xP19N344.fastq" 
+[341] "trescoi_filtered/F07xP19N434.fastq" 
+[342] "trescoi_filtered/F07xP19N517.fastq" 
+[343] "trescoi_filtered/F08xP19N007.fastq" 
+[344] "trescoi_filtered/F08xP19N169.fastq" 
+[345] "trescoi_filtered/F08xP19N243.fastq" 
+[346] "trescoi_filtered/F08xP19N352.fastq" 
+[347] "trescoi_filtered/F08xP19N464.fastq" 
+[348] "trescoi_filtered/F09xM18ND6.fastq"  
+[349] "trescoi_filtered/F09xP19N015.fastq" 
+[350] "trescoi_filtered/F09xP19N066.fastq" 
+[351] "trescoi_filtered/F09xP19N257.fastq" 
+[352] "trescoi_filtered/F09xP19N383.fastq" 
+[353] "trescoi_filtered/F09xP19N452.fastq" 
+[354] "trescoi_filtered/F10xL19N006b.fastq"
+[355] "trescoi_filtered/F10xP19N013.fastq" 
+[356] "trescoi_filtered/F10xP19N022.fastq" 
+[357] "trescoi_filtered/F10xP19N100.fastq" 
+[358] "trescoi_filtered/F10xP19N408.fastq" 
+[359] "trescoi_filtered/F11xL19N008a.fastq"
+[360] "trescoi_filtered/F11xP19N033.fastq" 
+[361] "trescoi_filtered/F11xP19N420.fastq" 
+[362] "trescoi_filtered/F11xP19N432.fastq" 
+[363] "trescoi_filtered/F12xL19N009b.fastq"
+[364] "trescoi_filtered/F12xP19N042.fastq" 
+[365] "trescoi_filtered/F12xP19N167.fastq" 
+[366] "trescoi_filtered/F12xP19N280.fastq" 
+[367] "trescoi_filtered/F12xP19N444.fastq" 
+[368] "trescoi_filtered/G01xL19N011c.fastq"
+[369] "trescoi_filtered/G01xP19N051.fastq" 
+[370] "trescoi_filtered/G01xP19N410.fastq" 
+[371] "trescoi_filtered/G01xP19N509.fastq" 
+[372] "trescoi_filtered/G01xP19NB1.fastq"  
+[373] "trescoi_filtered/G02xL19N014a.fastq"
+[374] "trescoi_filtered/G02xL19N020a.fastq"
+[375] "trescoi_filtered/G02xP19N060.fastq" 
+[376] "trescoi_filtered/G02xP19N261.fastq" 
+[377] "trescoi_filtered/G02xP19N329.fastq" 
+[378] "trescoi_filtered/G03xL19N016b.fastq"
+[379] "trescoi_filtered/G03xP19N071.fastq" 
+[380] "trescoi_filtered/G03xP19N276.fastq" 
+[381] "trescoi_filtered/G03xP19N357.fastq" 
+[382] "trescoi_filtered/G03xP19N466.fastq" 
+[383] "trescoi_filtered/G04xL19N018e.fastq"
+[384] "trescoi_filtered/G04xP19N085.fastq" 
+[385] "trescoi_filtered/G04xP19N288.fastq" 
+[386] "trescoi_filtered/G04xP19N473.fastq" 
+[387] "trescoi_filtered/G04xP19NB2.fastq"  
+[388] "trescoi_filtered/G05xP19417.fastq"  
+[389] "trescoi_filtered/G05xP19N094.fastq" 
+[390] "trescoi_filtered/G05xP19N220.fastq" 
+[391] "trescoi_filtered/G05xP19N391.fastq" 
+[392] "trescoi_filtered/G05xP19N483.fastq" 
+[393] "trescoi_filtered/G06xP19N104.fastq" 
+[394] "trescoi_filtered/G06xP19N229.fastq" 
+[395] "trescoi_filtered/G06xP19N334.fastq" 
+[396] "trescoi_filtered/G06xP19N399.fastq" 
+[397] "trescoi_filtered/G06xP19N492.fastq" 
+[398] "trescoi_filtered/G07xP19N112.fastq" 
+[399] "trescoi_filtered/G07xP19N236.fastq" 
+[400] "trescoi_filtered/G07xP19N345.fastq" 
+[401] "trescoi_filtered/G07xP19N435.fastq" 
+[402] "trescoi_filtered/G07xP19N518.fastq" 
+[403] "trescoi_filtered/G08xP19N008.fastq" 
+[404] "trescoi_filtered/G08xP19N170.fastq" 
+[405] "trescoi_filtered/G08xP19N244.fastq" 
+[406] "trescoi_filtered/G08xP19N353.fastq" 
+[407] "trescoi_filtered/G08xP19N465.fastq" 
+[408] "trescoi_filtered/G09xM18ND7.fastq"  
+[409] "trescoi_filtered/G09xP19N016.fastq" 
+[410] "trescoi_filtered/G09xP19N078.fastq" 
+[411] "trescoi_filtered/G09xP19N268.fastq" 
+[412] "trescoi_filtered/G09xP19N384.fastq" 
+[413] "trescoi_filtered/G09xP19N454.fastq" 
+[414] "trescoi_filtered/G10xL19N006c.fastq"
+[415] "trescoi_filtered/G10xP19N017.fastq" 
+[416] "trescoi_filtered/G10xP19N025.fastq" 
+[417] "trescoi_filtered/G10xP19N101.fastq" 
+[418] "trescoi_filtered/G10xP19N409.fastq" 
+[419] "trescoi_filtered/G11xL19N008b.fastq"
+[420] "trescoi_filtered/G11xP19N034.fastq" 
+[421] "trescoi_filtered/G11xP19N433.fastq" 
+[422] "trescoi_filtered/G11xP19N455.fastq" 
+[423] "trescoi_filtered/G12xL19N009c.fastq"
+[424] "trescoi_filtered/G12xP19N043.fastq" 
+[425] "trescoi_filtered/G12xP19N213.fastq" 
+[426] "trescoi_filtered/G12xP19N281.fastq" 
+[427] "trescoi_filtered/G12xP19N445.fastq" 
+[428] "trescoi_filtered/H01xL19N011d.fastq"
+[429] "trescoi_filtered/H01xP19N121.fastq" 
+[430] "trescoi_filtered/H01xP19N127.fastq" 
+[431] "trescoi_filtered/H01xP19N256.fastq" 
+[432] "trescoi_filtered/H01xP19N300.fastq" 
+[433] "trescoi_filtered/H01xP19N510.fastq" 
+[434] "trescoi_filtered/H02xL19N014b.fastq"
+[435] "trescoi_filtered/H02xP19N061.fastq" 
+[436] "trescoi_filtered/H02xP19N269.fastq" 
+[437] "trescoi_filtered/H02xP19N330.fastq" 
+[438] "trescoi_filtered/H02xP19N456.fastq" 
+[439] "trescoi_filtered/H03xL19N017a.fastq"
+[440] "trescoi_filtered/H03xP19N074.fastq" 
+[441] "trescoi_filtered/H03xP19N277.fastq" 
+[442] "trescoi_filtered/H03xP19N358.fastq" 
+[443] "trescoi_filtered/H03xP19N467.fastq" 
+[444] "trescoi_filtered/H04xP19N086.fastq" 
+[445] "trescoi_filtered/H04xP19N117.fastq" 
+[446] "trescoi_filtered/H04xP19N119.fastq" 
+[447] "trescoi_filtered/H04xP19N365.fastq" 
+[448] "trescoi_filtered/H04xP19N474.fastq" 
+[449] "trescoi_filtered/H05xP19N052.fastq" 
+[450] "trescoi_filtered/H05xP19N221.fastq" 
+[451] "trescoi_filtered/H05xP19N392.fastq" 
+[452] "trescoi_filtered/H05xP19N418.fastq" 
+[453] "trescoi_filtered/H05xP19N485.fastq" 
+[454] "trescoi_filtered/H06xP19N105.fastq" 
+[455] "trescoi_filtered/H06xP19N230.fastq" 
+[456] "trescoi_filtered/H06xP19N247.fastq" 
+[457] "trescoi_filtered/H06xP19N335.fastq" 
+[458] "trescoi_filtered/H06xP19N400.fastq" 
+[459] "trescoi_filtered/H07xP19N113.fastq" 
+[460] "trescoi_filtered/H07xP19N237.fastq" 
+[461] "trescoi_filtered/H07xP19N346.fastq" 
+[462] "trescoi_filtered/H07xP19N436.fastq" 
+[463] "trescoi_filtered/H07xP19N519.fastq" 
+[464] "trescoi_filtered/H08xP19N021.fastq" 
+[465] "trescoi_filtered/H08xP19N245.fastq" 
+[466] "trescoi_filtered/H08xP19N248.fastq" 
+[467] "trescoi_filtered/H08xP19N371.fastq" 
+[468] "trescoi_filtered/H09xM18ND8.fastq"  
+[469] "trescoi_filtered/H09xP19N079.fastq" 
+[470] "trescoi_filtered/H09xP19N125.fastq" 
+[471] "trescoi_filtered/H09xP19N385.fastq" 
+[472] "trescoi_filtered/H09xP19N459.fastq" 
+[473] "trescoi_filtered/H09xP19NB5.fastq"  
+[474] "trescoi_filtered/H10xL19N006d.fastq"
+[475] "trescoi_filtered/H10xP19N028.fastq" 
+[476] "trescoi_filtered/H10xP19N032.fastq" 
+[477] "trescoi_filtered/H10xP19N124.fastq" 
+[478] "trescoi_filtered/H10xP19N426.fastq" 
+[479] "trescoi_filtered/H11xL19N008c.fastq"
+[480] "trescoi_filtered/H11xP19N253.fastq" 
+[481] "trescoi_filtered/H11xP19N439.fastq" 
+[482] "trescoi_filtered/H11xP19N478.fastq" 
+[483] "trescoi_filtered/H12xP19N044.fastq" 
+[484] "trescoi_filtered/H12xP19N118.fastq" 
+[485] "trescoi_filtered/H12xP19N122.fastq" 
+[486] "trescoi_filtered/H12xP19N267.fastq" 
+[487] "trescoi_filtered/H12xP19N293.fastq" 
+  [1] "11239"        "11764"        "A01xL19N010a" "A01xP19N045"  "A01xP19N171" 
+  [6] "A01xP19N214"  "A01xP19N294"  "A01xP19N503"  "A02xL19N011e" "A02xP19N053" 
+ [11] "A02xP19N301"  "A02xP19N446"  "A02xP19N511"  "A03xL19N014c" "A03xP19N062" 
+ [16] "A03xP19N270"  "A03xP19N331"  "A03xP19N457"  "A04xL19N017b" "A04xP19N075" 
+ [21] "A04xP19N282"  "A04xP19N359"  "A04xP19N468"  "A05xP19N089"  "A05xP19N289" 
+ [26] "A05xP19N374"  "A05xP19N411"  "A05xP19N475"  "A06xP19N095"  "A06xP19N222" 
+ [31] "A06xP19N393"  "A06xP19N419"  "A06xP19N486"  "A07xP19N106"  "A07xP19N336" 
+ [36] "A07xP19N401"  "A07xP19N500"  "A07xP19NB6"   "A08xP19N114"  "A08xP19N238" 
+ [41] "A08xP19N347"  "A08xP19N437"  "A08xP19N520"  "A09xL19N005a" "A09xM18ND1"  
+ [46] "A09xP19N010"  "A09xP19N023"  "A09xP19N026"  "A09xP19N372"  "A10xL19N018f"
+ [51] "A10xM18ND9"   "A10xP19N080"  "A10xP19N126"  "A10xP19N386"  "A10xP19N461" 
+ [56] "A11xL19N006e" "A11xP19N029"  "A11xP19N166"  "A11xP19N427"  "A12xL19N008d"
+ [61] "A12xP19N036"  "A12xP19N258"  "A12xP19N440"  "A12xP19N496"  "B01xL19N010b"
+ [66] "B01xP19N046"  "B01xP19N187"  "B01xP19N295"  "B01xP19N504"  "B02xL19N011f"
+ [71] "B02xP19N054"  "B02xP19N302"  "B02xP19N447"  "B02xP19N512"  "B03xL19N015a"
+ [76] "B03xP19N132"  "B03xP19N271"  "B03xP19N332"  "B03xP19N458"  "B04xL19N017c"
+ [81] "B04xP19N076"  "B04xP19N283"  "B04xP19N360"  "B04xP19N469"  "B05xP19N290" 
+ [86] "B05xP19N375"  "B05xP19N412"  "B05xP19N476"  "B05xP19NB19"  "B06xP19N133" 
+ [91] "B06xP19N223"  "B06xP19N394"  "B06xP19N425"  "B06xP19N487"  "B07xP19N107" 
+ [96] "B07xP19N231"  "B07xP19N337"  "B07xP19N402"  "B07xP19N502"  "B08xP19N002" 
+[101] "B08xP19N115"  "B08xP19N239"  "B08xP19N348"  "B08xP19N438"  "B09xLN19007c"
+[106] "B09xM18ND2"   "B09xP19N011"  "B09xP19N024"  "B09xP19N027"  "B09xP19N380" 
+[111] "B10xL19N005b" "B10xM18ND10"  "B10xP19N081"  "B10xP19N251"  "B10xP19N387" 
+[116] "B10xP19N462"  "B11xL19N007a" "B11xP19N030"  "B11xP19N037"  "B11xP19N323" 
+[121] "B11xP19N428"  "B12xL19N008e" "B12xP19N441"  "B12xP19N497"  "B12xP19NB7"  
+[126] "C01xL19N010c" "C01xP19N047"  "C01xP19N188"  "C01xP19N296"  "C01xP19N505" 
+[131] "C02xL19N012a" "C02xL19N019d" "C02xP19N055"  "C02xP19N303"  "C02xP19N513" 
+[136] "C03xL19N015b" "C03xL19N020b" "C03xP19N064"  "C03xP19N272"  "C03xP19N333" 
+[141] "C04xL19N019b" "C04xP19N077"  "C04xP19N284"  "C04xP19N361"  "C04xP19N470" 
+[146] "C05xP19N090"  "C05xP19N291"  "C05xP19N376"  "C05xP19N413"  "C05xP19N477" 
+[151] "C06xP19N097"  "C06xP19N225"  "C06xP19N395"  "C06xP19N488"  "C06xP19NB10" 
+[156] "C07xP19N108"  "C07xP19N232"  "C07xP19N338"  "C07xP19N421"  "C07xP19N515" 
+[161] "C08xP19N240"  "C08xP19N349"  "C08xP19N448"  "C08xP19NB16"  "C08xP19NB20" 
+[166] "C09xLN19018a" "C09xM18ND3"   "C09xP19N040"  "C09xP19N184"  "C09xP19N249" 
+[171] "C09xP19NB9"   "C10xL19N005c" "C10xP19N018"  "C10xP19N087"  "C10xP19N388" 
+[176] "C10xP19N493"  "C11xL19N007b" "C11xP19N031"  "C11xP19N049"  "C11xP19N324" 
+[181] "C11xP19N429"  "C12xP19N038"  "C12xP19N498"  "C12xP19NB11"  "C12xP19NB14" 
+[186] "D01xL19N010d" "D01xP19N048"  "D01xP19N189"  "D01xP19N297"  "D01xP19N506" 
+[191] "D02xL19N012b" "D02xP19N057"  "D02xP19N304"  "D02xP19N451"  "D02xP19N514" 
+[196] "D03xP19N068"  "D03xP19N273"  "D03xP19N354"  "D03xP19N460"  "D03xP19NB15" 
+[201] "D04xL19N018b" "D04xP19N082"  "D04xP19N285"  "D04xP19N362"  "D04xP19NB12" 
+[206] "D05xP19N091"  "D05xP19N292"  "D05xP19N377"  "D05xP19N414"  "D05xP19N480" 
+[211] "D06xP19N098"  "D06xP19N226"  "D06xP19N325"  "D06xP19N396"  "D06xP19N489" 
+[216] "D07xP19N109"  "D07xP19N233"  "D07xP19N342"  "D07xP19N422"  "D07xP19NB13" 
+[221] "D08xP19N004"  "D08xP19N116"  "D08xP19N241"  "D08xP19N350"  "D08xP19N449" 
+[226] "D09xM18ND4"   "D09xP19N056"  "D09xP19N168"  "D09xP19N185"  "D09xP19N250" 
+[231] "D09xP19N381"  "D10xL19N005d" "D10xP19N009"  "D10xP19N019"  "D10xP19N088" 
+[236] "D10xP19N389"  "D11xL19N019a" "D11xP19N063"  "D11xP19N252"  "D11xP19N366" 
+[241] "D11xP19N430"  "D12xL19N008f" "D12xP19N039"  "D12xP19N278"  "D12xP19N442" 
+[246] "D12xP19N499"  "E01xL19N011a" "E01xP19N131"  "E01xP19N190"  "E01xP19N298" 
+[251] "E01xP19N507"  "E02xL19N012c" "E02xP19N120"  "E02xP19N254"  "E02xP19N305" 
+[256] "E02xP19NB18"  "E03xL19N015c" "E03xL19N020c" "E03xP19N069"  "E03xP19N274" 
+[261] "E03xP19N355"  "E04xL19N018c" "E04xP19N083"  "E04xP19N286"  "E04xP19N363" 
+[266] "E04xP19N471"  "E05xP19N092"  "E05xP19N378"  "E05xP19N415"  "E05xP19N481" 
+[271] "E05xP19NB8"   "E06xP19N102"  "E06xP19N227"  "E06xP19N326"  "E06xP19N397" 
+[276] "E06xP19N490"  "E07xP19N110"  "E07xP19N234"  "E07xP19N343"  "E07xP19N516" 
+[281] "E07xP19NB3"   "E08xL19N019c" "E08xP19N006"  "E08xP19N242"  "E08xP19N351" 
+[286] "E08xP19N463"  "E09xM18ND5"   "E09xP19N014"  "E09xP19N065"  "E09xP19N215" 
+[291] "E09xP19N382"  "E09xP19N450"  "E10xL19N006a" "E10xP19N012"  "E10xP19N020" 
+[296] "E10xP19N099"  "E10xP19N390"  "E11xL19N007d" "E11xP19N096"  "E11xP19N367" 
+[301] "E11xP19N431"  "E11xP19NB17"  "E12xL19N009a" "E12xP19N041"  "E12xP19N279" 
+[306] "E12xP19N443"  "E12xP19NB4"   "F01xL19N011b" "F01xP19N050"  "F01xP19N191" 
+[311] "F01xP19N299"  "F01xP19N508"  "F02xL19N013a" "F02xP19N059"  "F02xP19N260" 
+[316] "F02xP19N328"  "F02xP19N453"  "F03xL19N016a" "F03xP19N070"  "F03xP19N246" 
+[321] "F03xP19N275"  "F03xP19N356"  "F04xL19N018d" "F04xP19N084"  "F04xP19N287" 
+[326] "F04xP19N364"  "F04xP19N472"  "F05xP19N093"  "F05xP19N219"  "F05xP19N379" 
+[331] "F05xP19N416"  "F05xP19N482"  "F06xP19N103"  "F06xP19N228"  "F06xP19N327" 
+[336] "F06xP19N398"  "F06xP19N491"  "F07xP19N111"  "F07xP19N235"  "F07xP19N344" 
+[341] "F07xP19N434"  "F07xP19N517"  "F08xP19N007"  "F08xP19N169"  "F08xP19N243" 
+[346] "F08xP19N352"  "F08xP19N464"  "F09xM18ND6"   "F09xP19N015"  "F09xP19N066" 
+[351] "F09xP19N257"  "F09xP19N383"  "F09xP19N452"  "F10xL19N006b" "F10xP19N013" 
+[356] "F10xP19N022"  "F10xP19N100"  "F10xP19N408"  "F11xL19N008a" "F11xP19N033" 
+[361] "F11xP19N420"  "F11xP19N432"  "F12xL19N009b" "F12xP19N042"  "F12xP19N167" 
+[366] "F12xP19N280"  "F12xP19N444"  "G01xL19N011c" "G01xP19N051"  "G01xP19N410" 
+[371] "G01xP19N509"  "G01xP19NB1"   "G02xL19N014a" "G02xL19N020a" "G02xP19N060" 
+[376] "G02xP19N261"  "G02xP19N329"  "G03xL19N016b" "G03xP19N071"  "G03xP19N276" 
+[381] "G03xP19N357"  "G03xP19N466"  "G04xL19N018e" "G04xP19N085"  "G04xP19N288" 
+[386] "G04xP19N473"  "G04xP19NB2"   "G05xP19417"   "G05xP19N094"  "G05xP19N220" 
+[391] "G05xP19N391"  "G05xP19N483"  "G06xP19N104"  "G06xP19N229"  "G06xP19N334" 
+[396] "G06xP19N399"  "G06xP19N492"  "G07xP19N112"  "G07xP19N236"  "G07xP19N345" 
+[401] "G07xP19N435"  "G07xP19N518"  "G08xP19N008"  "G08xP19N170"  "G08xP19N244" 
+[406] "G08xP19N353"  "G08xP19N465"  "G09xM18ND7"   "G09xP19N016"  "G09xP19N078" 
+[411] "G09xP19N268"  "G09xP19N384"  "G09xP19N454"  "G10xL19N006c" "G10xP19N017" 
+[416] "G10xP19N025"  "G10xP19N101"  "G10xP19N409"  "G11xL19N008b" "G11xP19N034" 
+[421] "G11xP19N433"  "G11xP19N455"  "G12xL19N009c" "G12xP19N043"  "G12xP19N213" 
+[426] "G12xP19N281"  "G12xP19N445"  "H01xL19N011d" "H01xP19N121"  "H01xP19N127" 
+[431] "H01xP19N256"  "H01xP19N300"  "H01xP19N510"  "H02xL19N014b" "H02xP19N061" 
+[436] "H02xP19N269"  "H02xP19N330"  "H02xP19N456"  "H03xL19N017a" "H03xP19N074" 
+[441] "H03xP19N277"  "H03xP19N358"  "H03xP19N467"  "H04xP19N086"  "H04xP19N117" 
+[446] "H04xP19N119"  "H04xP19N365"  "H04xP19N474"  "H05xP19N052"  "H05xP19N221" 
+[451] "H05xP19N392"  "H05xP19N418"  "H05xP19N485"  "H06xP19N105"  "H06xP19N230" 
+[456] "H06xP19N247"  "H06xP19N335"  "H06xP19N400"  "H07xP19N113"  "H07xP19N237" 
+[461] "H07xP19N346"  "H07xP19N436"  "H07xP19N519"  "H08xP19N021"  "H08xP19N245" 
+[466] "H08xP19N248"  "H08xP19N371"  "H09xM18ND8"   "H09xP19N079"  "H09xP19N125" 
+[471] "H09xP19N385"  "H09xP19N459"  "H09xP19NB5"   "H10xL19N006d" "H10xP19N028" 
+[476] "H10xP19N032"  "H10xP19N124"  "H10xP19N426"  "H11xL19N008c" "H11xP19N253" 
+[481] "H11xP19N439"  "H11xP19N478"  "H12xP19N044"  "H12xP19N118"  "H12xP19N122" 
+[486] "H12xP19N267"  "H12xP19N293" 
+[1] "-------------"
+[1] "Dereplicating data"
+Dereplicating sequence entries in Fastq file: trescoi_filtered/11239.fastq
+Encountered 136 unique sequences from 257 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/11764.fastq
+Encountered 15 unique sequences from 26 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A01xL19N010a.fastq
+Encountered 107 unique sequences from 206 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A01xP19N045.fastq
+Encountered 8730 unique sequences from 31799 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A01xP19N171.fastq
+Encountered 24 unique sequences from 29 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A01xP19N214.fastq
+Encountered 136 unique sequences from 257 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A01xP19N294.fastq
+Encountered 10662 unique sequences from 39820 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A01xP19N503.fastq
+Encountered 5659 unique sequences from 19670 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A02xL19N011e.fastq
+Encountered 3934 unique sequences from 16302 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A02xP19N053.fastq
+Encountered 7194 unique sequences from 26235 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A02xP19N301.fastq
+Encountered 6653 unique sequences from 24163 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A02xP19N446.fastq
+Encountered 177 unique sequences from 430 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A02xP19N511.fastq
+Encountered 69 unique sequences from 99 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A03xL19N014c.fastq
+Encountered 7361 unique sequences from 35777 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A03xP19N062.fastq
+Encountered 3068 unique sequences from 10137 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A03xP19N270.fastq
+Encountered 879 unique sequences from 2110 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A03xP19N331.fastq
+Encountered 8146 unique sequences from 21432 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A03xP19N457.fastq
+Encountered 43 unique sequences from 52 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A04xL19N017b.fastq
+Encountered 5160 unique sequences from 15718 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A04xP19N075.fastq
+Encountered 584 unique sequences from 1608 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A04xP19N282.fastq
+Encountered 7011 unique sequences from 27495 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A04xP19N359.fastq
+Encountered 9125 unique sequences from 32646 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A04xP19N468.fastq
+Encountered 41 unique sequences from 57 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A05xP19N089.fastq
+Encountered 3982 unique sequences from 10669 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A05xP19N289.fastq
+Encountered 5616 unique sequences from 27750 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A05xP19N374.fastq
+Encountered 6469 unique sequences from 18413 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A05xP19N411.fastq
+Encountered 989 unique sequences from 2823 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A05xP19N475.fastq
+Encountered 7014 unique sequences from 38824 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A06xP19N095.fastq
+Encountered 4567 unique sequences from 17762 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A06xP19N222.fastq
+Encountered 1405 unique sequences from 3852 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A06xP19N393.fastq
+Encountered 8088 unique sequences from 25404 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A06xP19N419.fastq
+Encountered 4383 unique sequences from 15643 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A06xP19N486.fastq
+Encountered 8431 unique sequences from 41215 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A07xP19N106.fastq
+Encountered 3720 unique sequences from 11451 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A07xP19N336.fastq
+Encountered 3295 unique sequences from 11444 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A07xP19N401.fastq
+Encountered 9682 unique sequences from 27036 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A07xP19N500.fastq
+Encountered 14663 unique sequences from 57455 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A07xP19NB6.fastq
+Encountered 80 unique sequences from 146 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A08xP19N114.fastq
+Encountered 1051 unique sequences from 2586 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A08xP19N238.fastq
+Encountered 9377 unique sequences from 36352 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A08xP19N347.fastq
+Encountered 322 unique sequences from 649 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A08xP19N437.fastq
+Encountered 5459 unique sequences from 15255 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A08xP19N520.fastq
+Encountered 16289 unique sequences from 89873 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A09xL19N005a.fastq
+Encountered 60 unique sequences from 77 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A09xM18ND1.fastq
+Encountered 9497 unique sequences from 25605 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A09xP19N010.fastq
+Encountered 24828 unique sequences from 91490 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A09xP19N023.fastq
+Encountered 3222 unique sequences from 14932 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A09xP19N026.fastq
+Encountered 7991 unique sequences from 32735 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A09xP19N372.fastq
+Encountered 52 unique sequences from 84 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A10xL19N018f.fastq
+Encountered 1856 unique sequences from 4624 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A10xM18ND9.fastq
+Encountered 1818 unique sequences from 4747 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A10xP19N080.fastq
+Encountered 6883 unique sequences from 32274 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A10xP19N126.fastq
+Encountered 1402 unique sequences from 4107 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A10xP19N386.fastq
+Encountered 311 unique sequences from 792 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A10xP19N461.fastq
+Encountered 23 unique sequences from 26 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A11xL19N006e.fastq
+Encountered 42 unique sequences from 60 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A11xP19N029.fastq
+Encountered 173 unique sequences from 389 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A11xP19N166.fastq
+Encountered 4736 unique sequences from 23395 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A11xP19N427.fastq
+Encountered 4379 unique sequences from 14160 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A12xL19N008d.fastq
+Encountered 45 unique sequences from 68 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A12xP19N036.fastq
+Encountered 35 unique sequences from 44 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A12xP19N258.fastq
+Encountered 1149 unique sequences from 3679 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A12xP19N440.fastq
+Encountered 1529 unique sequences from 4521 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/A12xP19N496.fastq
+Encountered 7632 unique sequences from 37113 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B01xL19N010b.fastq
+Encountered 7165 unique sequences from 23328 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B01xP19N046.fastq
+Encountered 7601 unique sequences from 37038 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B01xP19N187.fastq
+Encountered 9774 unique sequences from 48290 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B01xP19N295.fastq
+Encountered 9931 unique sequences from 36269 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B01xP19N504.fastq
+Encountered 3749 unique sequences from 14148 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B02xL19N011f.fastq
+Encountered 1540 unique sequences from 4419 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B02xP19N054.fastq
+Encountered 7001 unique sequences from 38297 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B02xP19N302.fastq
+Encountered 8058 unique sequences from 25940 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B02xP19N447.fastq
+Encountered 3460 unique sequences from 11582 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B02xP19N512.fastq
+Encountered 76 unique sequences from 141 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B03xL19N015a.fastq
+Encountered 8681 unique sequences from 39263 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B03xP19N132.fastq
+Encountered 12775 unique sequences from 41785 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B03xP19N271.fastq
+Encountered 78 unique sequences from 114 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B03xP19N332.fastq
+Encountered 6004 unique sequences from 16895 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B03xP19N458.fastq
+Encountered 24 unique sequences from 38 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B04xL19N017c.fastq
+Encountered 4720 unique sequences from 22417 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B04xP19N076.fastq
+Encountered 2631 unique sequences from 7007 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B04xP19N283.fastq
+Encountered 3759 unique sequences from 21353 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B04xP19N360.fastq
+Encountered 6115 unique sequences from 19371 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B04xP19N469.fastq
+Encountered 42 unique sequences from 57 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B05xP19N290.fastq
+Encountered 4117 unique sequences from 20814 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B05xP19N375.fastq
+Encountered 7817 unique sequences from 25650 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B05xP19N412.fastq
+Encountered 3168 unique sequences from 14103 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B05xP19N476.fastq
+Encountered 29 unique sequences from 40 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B05xP19NB19.fastq
+Encountered 40 unique sequences from 60 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B06xP19N133.fastq
+Encountered 11767 unique sequences from 66336 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B06xP19N223.fastq
+Encountered 52 unique sequences from 109 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B06xP19N394.fastq
+Encountered 4807 unique sequences from 13681 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B06xP19N425.fastq
+Encountered 4561 unique sequences from 13345 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B06xP19N487.fastq
+Encountered 29 unique sequences from 48 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B07xP19N107.fastq
+Encountered 5970 unique sequences from 25113 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B07xP19N231.fastq
+Encountered 78 unique sequences from 156 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B07xP19N337.fastq
+Encountered 1207 unique sequences from 2954 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B07xP19N402.fastq
+Encountered 8851 unique sequences from 25899 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B07xP19N502.fastq
+Encountered 1137 unique sequences from 3323 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B08xP19N002.fastq
+Encountered 3666 unique sequences from 10479 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B08xP19N115.fastq
+Encountered 1606 unique sequences from 3753 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B08xP19N239.fastq
+Encountered 40 unique sequences from 52 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B08xP19N348.fastq
+Encountered 1320 unique sequences from 3383 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B08xP19N438.fastq
+Encountered 6424 unique sequences from 19817 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B09xLN19007c.fastq
+Encountered 52 unique sequences from 76 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B09xM18ND2.fastq
+Encountered 3330 unique sequences from 8668 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B09xP19N011.fastq
+Encountered 5999 unique sequences from 32444 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B09xP19N024.fastq
+Encountered 3359 unique sequences from 12196 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B09xP19N027.fastq
+Encountered 4606 unique sequences from 12544 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B09xP19N380.fastq
+Encountered 3446 unique sequences from 11637 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B10xL19N005b.fastq
+Encountered 667 unique sequences from 1676 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B10xM18ND10.fastq
+Encountered 3293 unique sequences from 10425 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B10xP19N081.fastq
+Encountered 10069 unique sequences from 23529 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B10xP19N251.fastq
+Encountered 9321 unique sequences from 48677 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B10xP19N387.fastq
+Encountered 3515 unique sequences from 10950 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B10xP19N462.fastq
+Encountered 24 unique sequences from 36 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B11xL19N007a.fastq
+Encountered 1231 unique sequences from 3264 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B11xP19N030.fastq
+Encountered 7175 unique sequences from 22145 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B11xP19N037.fastq
+Encountered 11 unique sequences from 14 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B11xP19N323.fastq
+Encountered 7861 unique sequences from 24049 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B11xP19N428.fastq
+Encountered 8767 unique sequences from 34263 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B12xL19N008e.fastq
+Encountered 1807 unique sequences from 6163 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B12xP19N441.fastq
+Encountered 19 unique sequences from 19 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B12xP19N497.fastq
+Encountered 8810 unique sequences from 32242 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/B12xP19NB7.fastq
+Encountered 39 unique sequences from 49 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C01xL19N010c.fastq
+Encountered 8680 unique sequences from 29444 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C01xP19N047.fastq
+Encountered 5918 unique sequences from 24896 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C01xP19N188.fastq
+Encountered 7714 unique sequences from 38140 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C01xP19N296.fastq
+Encountered 9846 unique sequences from 38988 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C01xP19N505.fastq
+Encountered 3258 unique sequences from 9731 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C02xL19N012a.fastq
+Encountered 2740 unique sequences from 10349 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C02xL19N019d.fastq
+Encountered 7255 unique sequences from 27449 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C02xP19N055.fastq
+Encountered 3437 unique sequences from 9755 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C02xP19N303.fastq
+Encountered 8085 unique sequences from 31148 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C02xP19N513.fastq
+Encountered 100 unique sequences from 216 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C03xL19N015b.fastq
+Encountered 6675 unique sequences from 21847 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C03xL19N020b.fastq
+Encountered 5917 unique sequences from 21265 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C03xP19N064.fastq
+Encountered 5733 unique sequences from 25370 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C03xP19N272.fastq
+Encountered 970 unique sequences from 1956 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C03xP19N333.fastq
+Encountered 9330 unique sequences from 31227 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C04xL19N019b.fastq
+Encountered 6316 unique sequences from 25793 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C04xP19N077.fastq
+Encountered 299 unique sequences from 667 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C04xP19N284.fastq
+Encountered 4270 unique sequences from 18780 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C04xP19N361.fastq
+Encountered 7361 unique sequences from 29403 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C04xP19N470.fastq
+Encountered 2654 unique sequences from 12493 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C05xP19N090.fastq
+Encountered 2040 unique sequences from 7051 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C05xP19N291.fastq
+Encountered 68 unique sequences from 148 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C05xP19N376.fastq
+Encountered 8276 unique sequences from 23995 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C05xP19N413.fastq
+Encountered 2577 unique sequences from 11456 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C05xP19N477.fastq
+Encountered 25 unique sequences from 34 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C06xP19N097.fastq
+Encountered 5135 unique sequences from 14213 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C06xP19N225.fastq
+Encountered 5937 unique sequences from 26095 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C06xP19N395.fastq
+Encountered 8839 unique sequences from 32681 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C06xP19N488.fastq
+Encountered 33 unique sequences from 49 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C06xP19NB10.fastq
+Encountered 61 unique sequences from 87 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C07xP19N108.fastq
+Encountered 10274 unique sequences from 31873 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C07xP19N232.fastq
+Encountered 69 unique sequences from 120 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C07xP19N338.fastq
+Encountered 437 unique sequences from 1127 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C07xP19N421.fastq
+Encountered 6585 unique sequences from 29230 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C07xP19N515.fastq
+Encountered 15045 unique sequences from 57993 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C08xP19N240.fastq
+Encountered 5366 unique sequences from 22549 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C08xP19N349.fastq
+Encountered 153 unique sequences from 278 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C08xP19N448.fastq
+Encountered 5337 unique sequences from 12661 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C08xP19NB16.fastq
+Encountered 41 unique sequences from 58 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C08xP19NB20.fastq
+Encountered 11 unique sequences from 13 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C09xLN19018a.fastq
+Encountered 184 unique sequences from 356 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C09xM18ND3.fastq
+Encountered 3123 unique sequences from 8587 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C09xP19N040.fastq
+Encountered 5149 unique sequences from 18893 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C09xP19N184.fastq
+Encountered 2554 unique sequences from 7690 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C09xP19N249.fastq
+Encountered 9515 unique sequences from 55583 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C09xP19NB9.fastq
+Encountered 34 unique sequences from 45 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C10xL19N005c.fastq
+Encountered 681 unique sequences from 2080 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C10xP19N018.fastq
+Encountered 5845 unique sequences from 16519 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C10xP19N087.fastq
+Encountered 1161 unique sequences from 2622 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C10xP19N388.fastq
+Encountered 1831 unique sequences from 7223 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C10xP19N493.fastq
+Encountered 37 unique sequences from 53 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C11xL19N007b.fastq
+Encountered 30 unique sequences from 55 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C11xP19N031.fastq
+Encountered 29 unique sequences from 48 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C11xP19N049.fastq
+Encountered 49 unique sequences from 124 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C11xP19N324.fastq
+Encountered 11573 unique sequences from 33060 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C11xP19N429.fastq
+Encountered 61 unique sequences from 114 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C12xP19N038.fastq
+Encountered 12821 unique sequences from 64836 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C12xP19N498.fastq
+Encountered 6813 unique sequences from 23801 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C12xP19NB11.fastq
+Encountered 36 unique sequences from 44 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/C12xP19NB14.fastq
+Encountered 83 unique sequences from 146 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D01xL19N010d.fastq
+Encountered 11723 unique sequences from 51528 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D01xP19N048.fastq
+Encountered 6308 unique sequences from 39597 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D01xP19N189.fastq
+Encountered 12465 unique sequences from 40613 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D01xP19N297.fastq
+Encountered 7076 unique sequences from 25902 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D01xP19N506.fastq
+Encountered 6019 unique sequences from 20499 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D02xL19N012b.fastq
+Encountered 11007 unique sequences from 32597 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D02xP19N057.fastq
+Encountered 4699 unique sequences from 19035 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D02xP19N304.fastq
+Encountered 7521 unique sequences from 28004 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D02xP19N451.fastq
+Encountered 6596 unique sequences from 34415 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D02xP19N514.fastq
+Encountered 33 unique sequences from 72 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D03xP19N068.fastq
+Encountered 843 unique sequences from 2548 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D03xP19N273.fastq
+Encountered 711 unique sequences from 1937 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D03xP19N354.fastq
+Encountered 5360 unique sequences from 14745 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D03xP19N460.fastq
+Encountered 2451 unique sequences from 7266 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D03xP19NB15.fastq
+Encountered 24 unique sequences from 38 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D04xL19N018b.fastq
+Encountered 3647 unique sequences from 12042 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D04xP19N082.fastq
+Encountered 1103 unique sequences from 2616 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D04xP19N285.fastq
+Encountered 4560 unique sequences from 16062 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D04xP19N362.fastq
+Encountered 5021 unique sequences from 14054 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D04xP19NB12.fastq
+Encountered 225 unique sequences from 449 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D05xP19N091.fastq
+Encountered 5507 unique sequences from 19042 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D05xP19N292.fastq
+Encountered 2936 unique sequences from 14679 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D05xP19N377.fastq
+Encountered 8296 unique sequences from 26773 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D05xP19N414.fastq
+Encountered 1943 unique sequences from 5823 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D05xP19N480.fastq
+Encountered 5061 unique sequences from 26131 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D06xP19N098.fastq
+Encountered 5700 unique sequences from 15554 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D06xP19N226.fastq
+Encountered 5665 unique sequences from 26834 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D06xP19N325.fastq
+Encountered 38 unique sequences from 52 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D06xP19N396.fastq
+Encountered 4740 unique sequences from 15361 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D06xP19N489.fastq
+Encountered 9970 unique sequences from 33602 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D07xP19N109.fastq
+Encountered 7314 unique sequences from 23953 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D07xP19N233.fastq
+Encountered 5249 unique sequences from 28195 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D07xP19N342.fastq
+Encountered 2049 unique sequences from 8237 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D07xP19N422.fastq
+Encountered 8379 unique sequences from 23034 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D07xP19NB13.fastq
+Encountered 66 unique sequences from 94 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D08xP19N004.fastq
+Encountered 19109 unique sequences from 67412 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D08xP19N116.fastq
+Encountered 2070 unique sequences from 5238 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D08xP19N241.fastq
+Encountered 87 unique sequences from 118 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D08xP19N350.fastq
+Encountered 11 unique sequences from 13 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D08xP19N449.fastq
+Encountered 7129 unique sequences from 22260 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D09xM18ND4.fastq
+Encountered 3863 unique sequences from 11934 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D09xP19N056.fastq
+Encountered 8479 unique sequences from 23615 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D09xP19N168.fastq
+Encountered 246 unique sequences from 608 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D09xP19N185.fastq
+Encountered 29 unique sequences from 43 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D09xP19N250.fastq
+Encountered 52 unique sequences from 81 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D09xP19N381.fastq
+Encountered 908 unique sequences from 3173 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D10xL19N005d.fastq
+Encountered 1293 unique sequences from 3896 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D10xP19N009.fastq
+Encountered 24 unique sequences from 31 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D10xP19N019.fastq
+Encountered 2743 unique sequences from 6894 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D10xP19N088.fastq
+Encountered 2986 unique sequences from 7876 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D10xP19N389.fastq
+Encountered 24 unique sequences from 35 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D11xL19N019a.fastq
+Encountered 1194 unique sequences from 2881 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D11xP19N063.fastq
+Encountered 19 unique sequences from 22 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D11xP19N252.fastq
+Encountered 9225 unique sequences from 44546 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D11xP19N366.fastq
+Encountered 3933 unique sequences from 9476 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D11xP19N430.fastq
+Encountered 2463 unique sequences from 9419 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D12xL19N008f.fastq
+Encountered 815 unique sequences from 2930 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D12xP19N039.fastq
+Encountered 33 unique sequences from 48 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D12xP19N278.fastq
+Encountered 7308 unique sequences from 21783 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D12xP19N442.fastq
+Encountered 679 unique sequences from 1894 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/D12xP19N499.fastq
+Encountered 9137 unique sequences from 34587 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E01xL19N011a.fastq
+Encountered 14032 unique sequences from 81857 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E01xP19N131.fastq
+Encountered 15501 unique sequences from 70172 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E01xP19N190.fastq
+Encountered 4120 unique sequences from 15472 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E01xP19N298.fastq
+Encountered 2113 unique sequences from 5297 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E01xP19N507.fastq
+Encountered 5059 unique sequences from 17652 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E02xL19N012c.fastq
+Encountered 8498 unique sequences from 51347 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E02xP19N120.fastq
+Encountered 14851 unique sequences from 47874 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E02xP19N254.fastq
+Encountered 11971 unique sequences from 53728 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E02xP19N305.fastq
+Encountered 7430 unique sequences from 29494 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E02xP19NB18.fastq
+Encountered 52 unique sequences from 66 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E03xL19N015c.fastq
+Encountered 11917 unique sequences from 53538 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E03xL19N020c.fastq
+Encountered 7494 unique sequences from 27698 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E03xP19N069.fastq
+Encountered 3637 unique sequences from 13024 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E03xP19N274.fastq
+Encountered 12914 unique sequences from 42714 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E03xP19N355.fastq
+Encountered 2588 unique sequences from 6796 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E04xL19N018c.fastq
+Encountered 4872 unique sequences from 19994 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E04xP19N083.fastq
+Encountered 23 unique sequences from 23 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E04xP19N286.fastq
+Encountered 7267 unique sequences from 20691 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E04xP19N363.fastq
+Encountered 5581 unique sequences from 24678 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E04xP19N471.fastq
+Encountered 15333 unique sequences from 85997 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E05xP19N092.fastq
+Encountered 1729 unique sequences from 4845 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E05xP19N378.fastq
+Encountered 4890 unique sequences from 13818 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E05xP19N415.fastq
+Encountered 57 unique sequences from 105 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E05xP19N481.fastq
+Encountered 2138 unique sequences from 9583 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E05xP19NB8.fastq
+Encountered 64 unique sequences from 120 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E06xP19N102.fastq
+Encountered 9855 unique sequences from 63958 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E06xP19N227.fastq
+Encountered 7761 unique sequences from 42939 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E06xP19N326.fastq
+Encountered 4520 unique sequences from 14987 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E06xP19N397.fastq
+Encountered 8839 unique sequences from 40533 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E06xP19N490.fastq
+Encountered 18312 unique sequences from 79442 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E07xP19N110.fastq
+Encountered 3667 unique sequences from 11873 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E07xP19N234.fastq
+Encountered 6441 unique sequences from 38706 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E07xP19N343.fastq
+Encountered 9460 unique sequences from 31450 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E07xP19N516.fastq
+Encountered 16201 unique sequences from 73732 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E07xP19NB3.fastq
+Encountered 572 unique sequences from 1492 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E08xL19N019c.fastq
+Encountered 18 unique sequences from 19 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E08xP19N006.fastq
+Encountered 2386 unique sequences from 8228 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E08xP19N242.fastq
+Encountered 4045 unique sequences from 11893 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E08xP19N351.fastq
+Encountered 2837 unique sequences from 7914 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E08xP19N463.fastq
+Encountered 5433 unique sequences from 17628 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E09xM18ND5.fastq
+Encountered 2321 unique sequences from 6601 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E09xP19N014.fastq
+Encountered 12862 unique sequences from 84448 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E09xP19N065.fastq
+Encountered 5335 unique sequences from 15997 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E09xP19N215.fastq
+Encountered 271 unique sequences from 593 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E09xP19N382.fastq
+Encountered 9945 unique sequences from 56492 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E09xP19N450.fastq
+Encountered 1234 unique sequences from 3652 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E10xL19N006a.fastq
+Encountered 6695 unique sequences from 30886 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E10xP19N012.fastq
+Encountered 106 unique sequences from 154 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E10xP19N020.fastq
+Encountered 9772 unique sequences from 33082 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E10xP19N099.fastq
+Encountered 6840 unique sequences from 24946 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E10xP19N390.fastq
+Encountered 10053 unique sequences from 52707 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E11xL19N007d.fastq
+Encountered 6923 unique sequences from 27122 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E11xP19N096.fastq
+Encountered 114 unique sequences from 165 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E11xP19N367.fastq
+Encountered 7781 unique sequences from 21709 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E11xP19N431.fastq
+Encountered 11621 unique sequences from 61312 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E11xP19NB17.fastq
+Encountered 46 unique sequences from 53 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E12xL19N009a.fastq
+Encountered 9295 unique sequences from 42255 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E12xP19N041.fastq
+Encountered 12986 unique sequences from 69391 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E12xP19N279.fastq
+Encountered 4568 unique sequences from 12465 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E12xP19N443.fastq
+Encountered 2855 unique sequences from 7762 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/E12xP19NB4.fastq
+Encountered 1636 unique sequences from 4496 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F01xL19N011b.fastq
+Encountered 19252 unique sequences from 68196 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F01xP19N050.fastq
+Encountered 4075 unique sequences from 11886 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F01xP19N191.fastq
+Encountered 6822 unique sequences from 22017 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F01xP19N299.fastq
+Encountered 8657 unique sequences from 34940 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F01xP19N508.fastq
+Encountered 795 unique sequences from 2123 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F02xL19N013a.fastq
+Encountered 9486 unique sequences from 52495 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F02xP19N059.fastq
+Encountered 6550 unique sequences from 21230 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F02xP19N260.fastq
+Encountered 9188 unique sequences from 41328 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F02xP19N328.fastq
+Encountered 5663 unique sequences from 17491 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F02xP19N453.fastq
+Encountered 240 unique sequences from 567 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F03xL19N016a.fastq
+Encountered 5875 unique sequences from 29050 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F03xP19N070.fastq
+Encountered 5207 unique sequences from 15452 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F03xP19N246.fastq
+Encountered 9122 unique sequences from 42359 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F03xP19N275.fastq
+Encountered 6916 unique sequences from 41996 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F03xP19N356.fastq
+Encountered 8972 unique sequences from 23338 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F04xL19N018d.fastq
+Encountered 5348 unique sequences from 16004 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F04xP19N084.fastq
+Encountered 2134 unique sequences from 7618 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F04xP19N287.fastq
+Encountered 11869 unique sequences from 66439 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F04xP19N364.fastq
+Encountered 8318 unique sequences from 27752 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F04xP19N472.fastq
+Encountered 7177 unique sequences from 33074 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F05xP19N093.fastq
+Encountered 1587 unique sequences from 5148 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F05xP19N219.fastq
+Encountered 4693 unique sequences from 11636 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F05xP19N379.fastq
+Encountered 5534 unique sequences from 18153 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F05xP19N416.fastq
+Encountered 9813 unique sequences from 48335 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F05xP19N482.fastq
+Encountered 10976 unique sequences from 63235 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F06xP19N103.fastq
+Encountered 1798 unique sequences from 5942 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F06xP19N228.fastq
+Encountered 6493 unique sequences from 29172 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F06xP19N327.fastq
+Encountered 6517 unique sequences from 24712 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F06xP19N398.fastq
+Encountered 9666 unique sequences from 32235 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F06xP19N491.fastq
+Encountered 12495 unique sequences from 56551 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F07xP19N111.fastq
+Encountered 6564 unique sequences from 30811 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F07xP19N235.fastq
+Encountered 4458 unique sequences from 15930 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F07xP19N344.fastq
+Encountered 6435 unique sequences from 28028 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F07xP19N434.fastq
+Encountered 7111 unique sequences from 20830 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F07xP19N517.fastq
+Encountered 7223 unique sequences from 32395 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F08xP19N007.fastq
+Encountered 1181 unique sequences from 3070 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F08xP19N169.fastq
+Encountered 3155 unique sequences from 9893 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F08xP19N243.fastq
+Encountered 9580 unique sequences from 48907 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F08xP19N352.fastq
+Encountered 5107 unique sequences from 22279 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F08xP19N464.fastq
+Encountered 5704 unique sequences from 18723 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F09xM18ND6.fastq
+Encountered 3611 unique sequences from 10864 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F09xP19N015.fastq
+Encountered 16108 unique sequences from 69742 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F09xP19N066.fastq
+Encountered 9736 unique sequences from 27013 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F09xP19N257.fastq
+Encountered 5025 unique sequences from 15909 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F09xP19N383.fastq
+Encountered 6795 unique sequences from 34181 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F09xP19N452.fastq
+Encountered 85 unique sequences from 101 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F10xL19N006b.fastq
+Encountered 4863 unique sequences from 20163 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F10xP19N013.fastq
+Encountered 74 unique sequences from 100 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F10xP19N022.fastq
+Encountered 7737 unique sequences from 32439 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F10xP19N100.fastq
+Encountered 6462 unique sequences from 23402 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F10xP19N408.fastq
+Encountered 9050 unique sequences from 26277 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F11xL19N008a.fastq
+Encountered 4535 unique sequences from 17616 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F11xP19N033.fastq
+Encountered 3586 unique sequences from 17048 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F11xP19N420.fastq
+Encountered 10577 unique sequences from 30297 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F11xP19N432.fastq
+Encountered 37 unique sequences from 46 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F12xL19N009b.fastq
+Encountered 2764 unique sequences from 12355 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F12xP19N042.fastq
+Encountered 1174 unique sequences from 2901 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F12xP19N167.fastq
+Encountered 117 unique sequences from 253 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F12xP19N280.fastq
+Encountered 4765 unique sequences from 14890 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/F12xP19N444.fastq
+Encountered 4466 unique sequences from 16950 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G01xL19N011c.fastq
+Encountered 3765 unique sequences from 20132 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G01xP19N051.fastq
+Encountered 1574 unique sequences from 4510 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G01xP19N410.fastq
+Encountered 3412 unique sequences from 9288 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G01xP19N509.fastq
+Encountered 3028 unique sequences from 10413 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G01xP19NB1.fastq
+Encountered 299 unique sequences from 680 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G02xL19N014a.fastq
+Encountered 8361 unique sequences from 42358 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G02xL19N020a.fastq
+Encountered 6472 unique sequences from 31428 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G02xP19N060.fastq
+Encountered 2003 unique sequences from 6782 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G02xP19N261.fastq
+Encountered 8327 unique sequences from 49055 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G02xP19N329.fastq
+Encountered 4512 unique sequences from 13202 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G03xL19N016b.fastq
+Encountered 8614 unique sequences from 27316 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G03xP19N071.fastq
+Encountered 8459 unique sequences from 24763 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G03xP19N276.fastq
+Encountered 18563 unique sequences from 68063 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G03xP19N357.fastq
+Encountered 8162 unique sequences from 27244 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G03xP19N466.fastq
+Encountered 2073 unique sequences from 6099 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G04xL19N018e.fastq
+Encountered 4011 unique sequences from 11087 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G04xP19N085.fastq
+Encountered 3730 unique sequences from 12391 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G04xP19N288.fastq
+Encountered 15111 unique sequences from 73259 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G04xP19N473.fastq
+Encountered 984 unique sequences from 3298 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G04xP19NB2.fastq
+Encountered 50 unique sequences from 77 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G05xP19417.fastq
+Encountered 11223 unique sequences from 55345 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G05xP19N094.fastq
+Encountered 807 unique sequences from 2113 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G05xP19N220.fastq
+Encountered 3813 unique sequences from 11655 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G05xP19N391.fastq
+Encountered 6610 unique sequences from 23948 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G05xP19N483.fastq
+Encountered 1331 unique sequences from 4731 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G06xP19N104.fastq
+Encountered 7809 unique sequences from 39569 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G06xP19N229.fastq
+Encountered 9144 unique sequences from 48174 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G06xP19N334.fastq
+Encountered 6581 unique sequences from 25014 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G06xP19N399.fastq
+Encountered 10793 unique sequences from 30346 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G06xP19N492.fastq
+Encountered 10761 unique sequences from 48690 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G07xP19N112.fastq
+Encountered 4642 unique sequences from 24129 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G07xP19N236.fastq
+Encountered 8044 unique sequences from 31620 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G07xP19N345.fastq
+Encountered 7031 unique sequences from 40844 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G07xP19N435.fastq
+Encountered 7094 unique sequences from 27241 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G07xP19N518.fastq
+Encountered 10477 unique sequences from 35157 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G08xP19N008.fastq
+Encountered 3677 unique sequences from 13927 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G08xP19N170.fastq
+Encountered 1529 unique sequences from 4214 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G08xP19N244.fastq
+Encountered 4880 unique sequences from 20645 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G08xP19N353.fastq
+Encountered 9615 unique sequences from 40437 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G08xP19N465.fastq
+Encountered 5488 unique sequences from 13227 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G09xM18ND7.fastq
+Encountered 5764 unique sequences from 15070 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G09xP19N016.fastq
+Encountered 10668 unique sequences from 58101 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G09xP19N078.fastq
+Encountered 6720 unique sequences from 16898 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G09xP19N268.fastq
+Encountered 8160 unique sequences from 38803 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G09xP19N384.fastq
+Encountered 3112 unique sequences from 11554 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G09xP19N454.fastq
+Encountered 301 unique sequences from 674 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G10xL19N006c.fastq
+Encountered 933 unique sequences from 2560 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G10xP19N017.fastq
+Encountered 257 unique sequences from 623 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G10xP19N025.fastq
+Encountered 7477 unique sequences from 24705 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G10xP19N101.fastq
+Encountered 6397 unique sequences from 26124 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G10xP19N409.fastq
+Encountered 3709 unique sequences from 13084 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G11xL19N008b.fastq
+Encountered 4670 unique sequences from 16856 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G11xP19N034.fastq
+Encountered 19 unique sequences from 24 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G11xP19N433.fastq
+Encountered 7648 unique sequences from 34109 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G11xP19N455.fastq
+Encountered 9027 unique sequences from 30996 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G12xL19N009c.fastq
+Encountered 6581 unique sequences from 29875 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G12xP19N043.fastq
+Encountered 23 unique sequences from 31 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G12xP19N213.fastq
+Encountered 1830 unique sequences from 4811 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G12xP19N281.fastq
+Encountered 4242 unique sequences from 13895 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/G12xP19N445.fastq
+Encountered 3271 unique sequences from 9691 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H01xL19N011d.fastq
+Encountered 2427 unique sequences from 7426 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H01xP19N121.fastq
+Encountered 436 unique sequences from 911 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H01xP19N127.fastq
+Encountered 2048 unique sequences from 5386 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H01xP19N256.fastq
+Encountered 7438 unique sequences from 25474 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H01xP19N300.fastq
+Encountered 10424 unique sequences from 42482 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H01xP19N510.fastq
+Encountered 4058 unique sequences from 15676 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H02xL19N014b.fastq
+Encountered 3759 unique sequences from 13933 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H02xP19N061.fastq
+Encountered 2992 unique sequences from 10066 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H02xP19N269.fastq
+Encountered 5063 unique sequences from 15778 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H02xP19N330.fastq
+Encountered 10416 unique sequences from 36832 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H02xP19N456.fastq
+Encountered 816 unique sequences from 2636 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H03xL19N017a.fastq
+Encountered 352 unique sequences from 711 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H03xP19N074.fastq
+Encountered 4122 unique sequences from 12512 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H03xP19N277.fastq
+Encountered 13005 unique sequences from 39262 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H03xP19N358.fastq
+Encountered 8763 unique sequences from 30381 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H03xP19N467.fastq
+Encountered 889 unique sequences from 2510 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H04xP19N086.fastq
+Encountered 19821 unique sequences from 71853 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H04xP19N117.fastq
+Encountered 2785 unique sequences from 11383 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H04xP19N119.fastq
+Encountered 69 unique sequences from 125 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H04xP19N365.fastq
+Encountered 13258 unique sequences from 43480 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H04xP19N474.fastq
+Encountered 8360 unique sequences from 58818 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H05xP19N052.fastq
+Encountered 10948 unique sequences from 59003 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H05xP19N221.fastq
+Encountered 24 unique sequences from 32 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H05xP19N392.fastq
+Encountered 10815 unique sequences from 38813 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H05xP19N418.fastq
+Encountered 3049 unique sequences from 15299 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H05xP19N485.fastq
+Encountered 1812 unique sequences from 7678 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H06xP19N105.fastq
+Encountered 5404 unique sequences from 23342 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H06xP19N230.fastq
+Encountered 7812 unique sequences from 25983 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H06xP19N247.fastq
+Encountered 684 unique sequences from 2241 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H06xP19N335.fastq
+Encountered 1666 unique sequences from 5215 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H06xP19N400.fastq
+Encountered 8805 unique sequences from 38146 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H07xP19N113.fastq
+Encountered 3526 unique sequences from 10080 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H07xP19N237.fastq
+Encountered 10887 unique sequences from 48883 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H07xP19N346.fastq
+Encountered 4845 unique sequences from 23920 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H07xP19N436.fastq
+Encountered 12573 unique sequences from 35819 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H07xP19N519.fastq
+Encountered 21199 unique sequences from 96321 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H08xP19N021.fastq
+Encountered 6675 unique sequences from 28383 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H08xP19N245.fastq
+Encountered 6582 unique sequences from 23420 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H08xP19N248.fastq
+Encountered 167 unique sequences from 424 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H08xP19N371.fastq
+Encountered 15 unique sequences from 26 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H09xM18ND8.fastq
+Encountered 3774 unique sequences from 11721 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H09xP19N079.fastq
+Encountered 4345 unique sequences from 11307 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H09xP19N125.fastq
+Encountered 9866 unique sequences from 45555 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H09xP19N385.fastq
+Encountered 4149 unique sequences from 22589 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H09xP19N459.fastq
+Encountered 733 unique sequences from 2092 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H09xP19NB5.fastq
+Encountered 20 unique sequences from 27 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H10xL19N006d.fastq
+Encountered 1854 unique sequences from 6052 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H10xP19N028.fastq
+Encountered 2896 unique sequences from 7241 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H10xP19N032.fastq
+Encountered 2165 unique sequences from 5124 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H10xP19N124.fastq
+Encountered 8999 unique sequences from 41663 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H10xP19N426.fastq
+Encountered 6284 unique sequences from 29323 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H11xL19N008c.fastq
+Encountered 95 unique sequences from 185 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H11xP19N253.fastq
+Encountered 5287 unique sequences from 22614 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H11xP19N439.fastq
+Encountered 55 unique sequences from 76 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H11xP19N478.fastq
+Encountered 3042 unique sequences from 8152 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H12xP19N044.fastq
+Encountered 27 unique sequences from 35 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H12xP19N118.fastq
+Encountered 3058 unique sequences from 9607 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H12xP19N122.fastq
+Encountered 3083 unique sequences from 8224 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H12xP19N267.fastq
+Encountered 6538 unique sequences from 40785 total sequences read.
+Dereplicating sequence entries in Fastq file: trescoi_filtered/H12xP19N293.fastq
+Encountered 4785 unique sequences from 13320 total sequences read.
+[1] "-------------"
+[1] "Sample inference"
+Initializing error rates to maximum possible estimate.
+selfConsist step 1 .......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+   selfConsist step 2
+   selfConsist step 3
+   selfConsist step 4
+   selfConsist step 5
+   selfConsist step 6
+Convergence after  6  rounds.
+Identified 890 bimeras out of 12917 input sequences.

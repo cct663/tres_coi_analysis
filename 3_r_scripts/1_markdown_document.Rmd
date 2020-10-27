@@ -1,6 +1,6 @@
 ---
-title: "Vitousek Analysis Guide"
-author: "Sabrina McNew & Conor Taff"
+title: "Tree Swallow COI"
+author: "Jenny Uehling, Jenn Houtz, Conor Taff, etc"
 date: "Last Updated: `r format(Sys.time(), '%B %d %Y at %H:%M')`"
 output: 
   html_document:
@@ -8,6 +8,7 @@ output:
     toc_float: true
     theme: cerulean
     code_folding: hide
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -19,132 +20,154 @@ library(here)
 library(sjPlot)
 ```
 
-## Basic Project Workflow
+# Overview
 
-There is no single right way to keep an organized and reproducible project directory. This is just one set of recommendations of a strategy that works for us and is at least a good starting place. 
+  This is a summary document for processing and working with COI data from tree swallow nestlings and adults using fecal samples collected in the field. The wetlab procedures are not described here. A lot of this is data cleaning and checking with a few basic plots and analyses at the end. The figures produced here are pasted in from the separate R script, to find the actual code to produce the analyses check that main script in this same repository.
+  
+# AMPtk Pipeline
 
-1. Make a clear plan for what will constitute a distinct 'project' and what data are needed for that project. It's easy to jump right into data analysis, but it really saves time down the road to have all the raw data organized first. Which data tables will be needed and which columns will each table need to have? Adding more data later is of course possible and sometimes unavoidable, but it can make it hard to stay organized! 
+  All of the raw sequences for these samples were processed using the `AMPtk` pipeline in the command line [@amptk]. We followed very closely the workflow described on the project website `amptk.readthedocs.io/en/latest`. Before running `AMPtk` you need to install the software in a conda environment, install `USEARCH` and download the COI database. Those steps are kind of a pain, but they are described in detail on the website and not repeated here. 
 
-2. Put together those data sets. For tree swallow data, this will likely involve compiling some data from different places and from the database. In an ideal world, this data would be as 'raw' as possible, but our 'raw' form data is often already summarized to some extent (e.g., feeding rates from rfids rather than all the raw rfid files). Save these raw data files as tab delimited text or comma separated value files. **Make sure your data are tidy!!** If you aren't sure what that means you can find lots of guides to tidy data online.
+A few notes to avoid headaches repeating this later: 
+ 
+- It seems that currently there is no way to run AMPtk on Mac with OS Catalina because it can't execute the 32bit `USEARCH` program. Use an older computer, virtual machine, or cloud computing.
+- The pipeline expects your sequences to be named: `sampleID_whatever_filler_R1/F1.fastq.gz`. The BRC sequences come back with the sample name in the middle. I haven't yet figured out how to make `AMPtk` recognize that, so I've just been batch-renaming the files to get the sample name first.
+ 
+ Once `AMPtk` is installed. The entire pipeline that I've run to this point involves just three commands (will take several hours on a home laptop to run with samples in hundreds). Output files will be saved in the folder where you have set up your conda environment.
+ 
+1. Pre-processing sequence data. Takes a set prefix to add to all files and the forward and reverse primer sequences. Specify input folder where sequences are stored.
 
-3. Go to your GitHub account and make a new repository. Give it a descriptive name that is not too long. You can also use this repository as a template to start your new project by either forking it or by clicking the 'template' button that will start a new repository with it's own name but keep all the structure and files associated with this repository, then you can edit as needed for your new project. If you use this as a template, several of the steps listed below will already be done for you.
+> `amptk illumina -i /directory/with/sequences -o trescoi` 
+> `-f GCHCCHGAYATRGCHTTYCC -r TCDGGRTGNCCRAARAAYCA`
 
-4. Go to your repository. Click the green 'code' button and copy the link to clone the https repository. [Note that the first time you are setting GitHub & RStudio on your computer there may be some extra steps. See links to getting started below.]
+2. Denoising with `DADA2` [@dada2]. This takes in the processed sequences from step one and applies the denoising algorithm that identifies ASVs and models sequencing error to arrive at a final list of ASVs for F/R reads. Forward and reverse reads are then merged together.
 
-5. Open RStudio, choose to start a new project. Choose 'version control' and 'Git'. Put in the url you copied from your repository. Choose a folder for your project to live in on your local machine and give the project directory a name (using the repo name works fine!). 
+> `amptk dada2 -i tres.coi.demux.fg.gz --platform illumina -o trescoi`
+ 
+3. Assigning taxonomy. This uses the default suggestions from `AMPtk` documentation, but there are many other options. It applies the 'hybrid taxonomy algorithm', which looks at matches to i) Global Alignment to the downloaded COI arthropod database, ii) UTAX classification, and iii) SINTAX classification. More info is on the website, but basically it retains the best hit that also has the most levels of taxonomic ranks. The arthropod COI database needs to be downloaded and set up for this to run.
 
-6. Now the project is on your machine and you can start making changes before pusing them back up to GitHub! Before starting analysis, I'd recommend making the following folder structure as a general rule (of course different projects might have different requirements). In this template project, all of these folders have been made already. 
+> `amptk taxonomy -i trescoi.cluster.otu_table.txt -f trescoi.cluster.otus.fa -d COI`
 
-* **0_manuscript**: Store word/text documents when you start writing the manuscript. 
-* **1_raw_data**: Store your starting raw data. Never modify this folder contents in code.
-* **2_modified_data**: Store new data objects created by your code if needed.
-* **3_r_scripts**: Store R scripts and R Markdown code
-* **4_output_figures**: Store any figure outputs that you want to save as individual files.
-* **5_other_outputs**: Store things like tables or more complicated outputs. 
-* **9_supporting_files**: Store older files (e.g., an excel file used to make your starting data).
-* **README.md**: Created by GitHub. Text file created by GitHub. Good place to use as a 'lab notebook'.
-* **Project**: The R project. All your code will use relative path names to the folders above. 
+Those three commands produce a bunch of output files, but only three are needed to pull into `R` for subsequent analyses. 
 
-7. Open the project and make a new R script and a new markdown document. Save them into the '3_r_scripts'
-directory. Give them short, meaningful names. If you will have multiple scripts that need to be run in order, starting the file names with numbers will keep them all in order. For all of your files, think hard about using a consistent, logical naming scheme. Breaking up your code into different shorter scripts (e.g. cleaning/preprocessing, modeling, complicated plots etc.) can be helpful if you find yourself getting lost in your code. 
+- **trescoi.cluster.otu_table.txt** has samples in columns and OTUs in rows with reads in each cell
+- **trescoi.cluster.taxonomy.txt** has full taxonomic information for each OTU
+- **trescoi.mapping_file.txt** has one row for each sample to add metadata
 
-8. Start your coding and analysis! As you create or read objects, store them into the appropriate folders above. For more complicated analysis you might have subfolders within some of the above or additional folders not listed here.
+Those three files are read into the `R` script in this repository as the basis of everything here with the addition of sample metadata. The additional `AMPtk` files are saved in a folder with the repository but are not used further. 
 
-9. Using the 'Git' panel in RStudio. You can commit your changes and push them back up to GitHub (with a note about what you changed). It's also good practice to 'Pull' your project down from GitHub each time you start a new session to make sure you have the up to date version (this is most important if you are collaborating with other people who might have made changes between your sessions, if you forget in your own session it's usually no big deal). You can commit your changes as often as you like. Maybe each time you finish a session working in R, or each time you are about to delete or modify a different section. Each time you commit will be a point that you can return to using version control on Git if you need to go back to that point later.
+**NOTE:** There are many other optional steps in `AMPtk`. For example, one set of commands works to try to remove barcode bleed over where sequences from one barcode/sample are accidentally attributed to other samples. There are different types of classifiers and options, etc. What I've done here is (I think) kind of the basic or bare-bones pipeline.
 
-10. As a general rule, we often write out code first in an organized and well annotated R script, and then migrate the right chunks of that code into a Markdown dowcument that puts together explanation, code, figures, and interpretation into a nice output format. There are a bunch of suggestions for organizing the code itself in the R script included here. 
+# Moving to R
 
-11. The goal for following this workflow is all of the parts that go into a project (paper) are stored together in a single folder (repository) that is complete and sufficient to reproduce everything. This should make it a lot easier to upload data and code when a paper is accepted and to share contents with other people.
+  The first part of the main script deals with importing those three `AMPtk` files and merging them into a single `phyloseq` object [@phyloseq]. There is a fair amount of wrangling that happens in the script, but it's really all just reformatting and merging things together into the format that `phyloseq` expects. It isn't necessary to use `phyloseq` for a lot of these things, but once the data is merged into that object it is very easy to work with all of their functions for subsetting, filtering, merging, plotting etc. The one thing that is not in here at the moment is a phylogenetic tree for the relationships between the food items. `phyloseq` will accept a tree also and that would allow for things like calculating unifrac & Faith's phylogenetic diversity or plotting diets on trees etc. We could add that later if desired. I have code in our microbiome processing scripts that builds a tree from the gene sequences but we would have to adapt it from there. There may also be something in `AMPtk` that would do this for us.
+  
+# Sequencing Depth
 
-## Creating a Markdown File
+  One of the first things worth checking is how many sequences we have per sample. This is showing the number of sequences retained for each sample *after* merging, denoising, whatever other filtering dada2 did, and removing everything except for Arthropods. So many of these samples did have quite a few more reads in the initial return. There are two reasons to look at the read counts. First, to see if samples 'worked' for getting data. Most of what we've heard from other people using these techniques is that they expect 5-15% of their samples to just fail to return reads for some reason (no dna, bad extraction, bad amplification, not enough sample added to sequencer, etc). We have been really loading our MiSeq runs with the max samples and they are trying to pool all 384 at even DNA concentrations, so I think it's not surprising that a fair number would fall out. The second reason to look at this is to decide if we might want to rarefy samples to an even depth of reads for some analyses. This could be especially important for comparing alpha diversity metrics where more samples might = more diversity (I say might because it isn't clear to me that it will keep increasing the way it would with microbiome where you may not get complete sampling of the community). Anyway, here is the log total number of reads per sample for all samples combine (log scale makes it easier to see the variation on the low end, which is what we care about). 
+  
+![](total_reads.png)\  
+  
+I added in a reference line showing where 150 reads would fall. That is a pretty low number to rarefy to, but even there we lose a bunch of samples that are very low. It's probably worth some extra investigation into what the effect of rarefying to 150 is. It might be that in many of those samples all 150 reads are from the same single food item and in some of the higher read samples you still recover the full (or mostly full) community even with only 150 samples. One thing with this plot is that it does include negative controls and nestlings. Here is the same plot with them broken out.
 
-The big benefit of Markdown as opposed to just using R scripts is that it is much easier to intersperse text, code, and output in a way that is readable. That makes it great for summarizing your project in a way that is good for sharing with collaborators (or your future self). The code does run slower than through a script though and if you are writing long scripts it can be a bit more of a pain to organize the R scripts into chunks for markdown. For that reason it's often easiest to have both or to work first in an r script with notes and relevant sections saved and summarized in Markdown. You can still organize the code in a similar way (loading packages and data in the first chunks, etc) as suggested in the R script template in this repository. 
+![](total_reads_split.png)\
 
-### Markdown Styles
+This does help some. It looks like all but one negative control has very low reads. One thing that we may need to think about is that even though these negative controls have low reads overall, they *do* have some reads that hit on arthropod and other sequences. I'm not sure if that means that there was some cross contamination in the lab procedure, or if this is a result of the index-bleed that I mentioned above. We could try to get the `AMPtk` function running for index bleed or alternatively, we could try doing something like only counting a prey item as encountered if there are more than 50 (?) reads for that taxa within a sample. Eliot & Dave are currently using 50 reads as a cuttoff for their warbler diet data. Just as a quick check I looked at pruning to a certain number of reads for the negative control samples. If you only include taxa with >25 reads there are only 3 genera retained across all the negative controls, that might be a reasonable criteria.
 
-You can customize the output of Markdown in a lot of different ways using the header at the top and commands for each code chunk (html or pdf, table of contents, colors, etc). The settings above give a nice html template with code folding (visible but only on a click) and a floating table of contents, but there are lots of guides showing how to change these things. You can even include citations and use reference managers to ultimately export into word. Because you can embed code within paragraphs, it would be possible to create an entire reproducible *manuscript* in Markdown that would automatically update as you change numbers in tables etc (though that might be a goal for down the road!).
-
-Here is how you embed a new figure created in Markdown. I'm installing the Palmer Penguins package to plot with. This package has been suggested as a good alternative to the `iris` dataset that is often used in R tutorials because of RA Fisher's association with that dataset and with horribly racist eugenics...plus penguins are cooler than flowers.
-
-```{r cars, warning = FALSE, message = FALSE}
-# Create a simple plot in markdown
-  #install.packages("palmerpenguins")
-  library(palmerpenguins)
-  penguins <- palmerpenguins::penguins
-  ggplot(penguins, aes( x = bill_length_mm, y = bill_depth_mm)) +
-    geom_point(aes (color = species)) + 
-    scale_color_manual(values = c("darkorange", "darkorchid", "cyan4")) + theme_classic()
-```
-
-You can of course do a huge amount of customization of the plotting appearance and labels, but that is the subject for a different tutorial.
-
-### Saved Figures in Markdown
-
-You can also include figures or tables generated in a script in your Markdown summary file by referencing the saved file in your project directory like this (assuming the png/jpg/tiff is saved in the same directory as your markdown script):
-
-![](hero_figure.png)\
-
-That figure was made in the example '1_main_script.R' that goes along with this repository. This could be useful if you run some analyses that take a long time in your R script and want to include just the output figure or table in your markdown summary. You can also display figures from a code chunk. With most of these things in R there are many different ways to do the same things and if you figure out a technique that works well go ahead and use it!
-
-### Saved Tables in Markdown
-
-You can also produce nice tables in Markdown. There are various different ways to do this, but one example given here is to save your table using the `tab_model` function from `sjPlot` and then just load the table directly into markdown. This method works really well for linear models (but doesn't work if you want to output your markdown file as a pdf). You could also do the table construction directly in markdown if that makes more sense for your project.
-
-```{r}
-m <- readRDS(here::here("5_other_outputs/hero_table.rds"))
-m
-```
+For now I'm not doing any rarefying, just to move on, but this probably still needs some consideration for a final decision or--more likely--some sensitivity analysis using different thresholds to make sure there isn't a huge effect on interpretations.
 
 
-### Coding Style
+# Filtering in Phyloseq 
 
-Pick a consistent coding and annotation style and stick with it!! Try to be disciplined. It will make it much easier for you and collaborators to read your code. Think about things like snake_case or ~~CamelCase~~ (edit by Sabrina: 
-snake_case is Style Guide Approved; edit by Conor: I *used* to use CamelCase and `.` a lot as a separator in names, but I agree snake_case with underscores is easier to read and I always avoid `.` now too, but the most important thing is being consistent, when you switch back and forth between capitals and lowercase it can really slow you down trying to remember your object and column names), indentations and spaces, object names, etc. See the link below to the tidyverse style guide.
+The next steps in the R script are doing a bunch of possible filtering steps using `phyloseq`. There are kind of a lot of choices here and a bewildering variety of different combinations of options that are all plausible. Probably it will make sense to do some analyses that include different sets of these options. Basically, these are the considerations to think about. The example code to do each of these actions is in the R script and there are also really good `phyloseq` vignettes online that demonstrate all of these steps.
 
-## Useful Resources
+- **Agglomerate Taxa**: Many ASVs don't have full species level identification. We can group together at the genus/family/order level to include those samples, or just to make it easier to interpret differences with fewer taxa. There is an easy function to do this so it's really a choice to be made.
+- **Remove x-tons**: Removing singletons is very common. Some kind of sensitivity analysis removing 1-tons, 5-tons, 25-tons, etc might be good. See issue described above for negative controls.
+- **Transform to Relative Abundance**: For some analyses we'll want relative abundance rather than raw reads. The function is in the script. This should be done after rarefaction if using even depths.
+- **Filter out rare taxa**: It's easy to do things like remove taxa <x% of all reads or <x% of reads within each sample or that appear in <x% of all samples. There are a few reasons to do this. First, it might be helpful for issues discussed above relating to clean up that could be sequencing mistakes, etc. Second, for looking at differential allocation of diet (e.g., to adults vs. nestlings) there is no power to detect differences for diet items that are very rare, so it may be better use of statistical power to focus just on common diet items for those analyses (e.g., genera that are found in >10 or >20% of all fecal samples, etc).
+- **Filtering samples by attribute**: There is an easy subsetting function by sample metadata. For different analyses might want to do things like take out or only look at negative controls. Or just adults or nestlings, etc.
+- **Transform to Presence Absence**: Change relative abundance to 1/0 for each taxa. More reliable (probably) than relative abundance. I still think it is worth looking at some things both ways, but this may be the more conservative (or at least less controversial) way to present. Should be done after any filtering and rarefying above.
 
-The internet is full of resources for learning about R and a lot are very specific. This is a very incomplete list of resources that we can add to for things we found particularly helpful in getting set up. These links are focused on how to get started and keep your projects organized and reproducible and not on using code or packages for specific purposes (since that is a huge topic!).
+I've put in *one* set of possible transformation and filtering steps to the current script, but of course there are many different choices that could be made here either for different questions or with different justifications...
 
-### Github & RStudio
+# Make some plots
 
-https://happygitwithr.com/
+OK, so assuming we've gone through all the decision steps above, this is really the point to start thinking about actual analysis options for real biology questions. I'm making example plots for a couple of easy to look at quick things here mainly just to give examples of the plotting functions. Of course other things are possible too and these are just exploratory.
 
-### R Markdown
+#### Alpha diversity by age
 
-https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+![](age_alpha.png)\
 
-### Project Oriented Workflow
+#### Taxa observed diversity by age and site
 
-https://www.tidyverse.org/blog/2017/12/workflow-vs-script/
+![](age_alpha_site.png)\
 
-### Coding Style and Annotation
+#### Barplot of all genera
+Too many here to label, but I think it's cool to see that there is SO much diversity in genera and there are actually still quite a lot of genera that are found in 10/20/30% of all samples (red lines). 
 
-https://style.tidyverse.org/index.html
+![](genera_bar.png)\
 
-### Tidy Data and R For Data Science (R4DS)
+#### Common Genera
+This is just genera that are in >20% of all samples split out by adults and nestlings. The y axis is number of samples present so the scales aren't exactly comparable (should change to percent of sampels...need to figure out code for that).
 
-> "Happy families are all alike; every unhappy family is unhappy in its own way." - Leo Tolstoy 
+![](common_genera.png)\
 
-> "Tidy datasets are all alike, but every messy dataset is messy in its own way." - Hadley Wickham
+#### Ordinate Site
+This style of ordination plot could be useful for comparing the overall diets between any group of categorical variables. There are unfortunately also a lot of choices here too. Which filtered `phyloseq` object to use? Which method to use for ordination (MDS, PCoA, NMDS, DPCoA, etc)? Which distance metric to use (Bray, Jaccard, Unifrac, UMAP, etc?) This is DPCoA with Bray-Curtis distances...just for a start.
 
-The R4DS free book is a great resource for many of the issues discussed here, but definitely spend some time understanding the tidy data chapter. Keeping data tidy makes it very easy to move to longer or wider formats using `pivot_longer` or `pivot_wider` without having to resort to any kind of manual editing or copy pasting in excel. Ideally your analysis starts with a small number of tidy data frames and all subsequent steps are coded to proceed from those original data with no manual modifications or selections.
+![](site_ordinate.png)\
 
-https://r4ds.had.co.nz/tidy-data.html
+It sure looks like there are site difference here in overall diet. You could test for significant differences in the location of the multivariate centroid and degree of dispersion here by running PERMANOVAs using the `adonis2` and `permdisp` functions from the `vegan` package [@vegan]. These would obviously be significantly different.
 
-### How to Name your Files
-The names of your files should be 
-1. Machine readable 
-2. Human readable 
-2. Sortable 
+#### Ordinate Age
+Same as above but for age.
 
-For more information please see: 
-https://speakerdeck.com/jennybc/how-to-name-files
+![](age_ordinate.png)\
 
-## Ending your document
+There is also separation here. One thing that you notice here is that a lot of those 4/TH samples are nestlings whereas 1/2 has more adults in this dataset, so it's hard to split out the site vs. age difference from these plots.
 
-I've started to try to always end my R Markdown summaries by printing the session info for your R environment. That way the versions of all of your packages and the list of any you have loaded will be preserved with the output. The goal is that with this info someone else should be able to take your entire directory of folders, configure their R session with the right packages (annoying but possible) and then reproduce everything exactly as you have it in your final version on their own computer without the need for any additional files and all using relative path names.
+#### Ordinate Site within Age
 
-```{r}
-sessionInfo()
-```
+To check whether there really is a site difference, I'm now splitting each age into a separate panel.
 
+![](age_site_ordinate.png)\
+
+Cool! There really does seem to be a site difference and it is apparent in both the adults and nestlings. The colors don't match up here but those can all be set manually to match between figures with a little editing of the ggplot calls.
+
+#### Ordinate Age within Site
+
+Just for fun, here is the reverse faceting.
+
+![](site_age_ordinate.png)\
+
+Really cool! There also seems to be a consistent adult vs. nestling difference that is apparent across all four sites, but it less apparent when you merge all four sites together. Again this could all be tested, but it looks like a pretty clear difference to me! This is also including some 12 & 15 day olds as 'nestlings' and some males/females and different ages etc in the adult group, so it could be broken down more.
+
+#### Adult vs. Nestling Diets
+  
+  Now I'm plotting the frequency that different items appear in adult vs. nestling diets. This could be done in several different ways. Here I'm using only genera that are in >20% of all samples and I'm plotting a percentage of fecal samples for each group that had the item in them (i.e., presence/absence not relative abundance). I'll calculate separately for adults and 12 vs. 15 day old nestlings then plot them as scatterplots to look for correspondence. Points with large residuals are over/under-represented in one groups diet. Really this should be formally tested with some of the tools like `DESeq2` that will look for significant difference in logfold changes between the groups. 
+  
+![](compare.png)\
+
+Overall there seems to be a reasonably high correspondence between the samples from different ages, but it's interesting that adults vs. day 12 nestlings seems to be the most dissimilar. Looking at that middle panel, that one point that is much more common for nestlings is a genus of stoneflies (aquatic!) and the one that is more common for adults is a genus of crane flies (mostly terrestrial?). There are of course other ways this could be broken up too; I'm combining all the sites but based on the ordination plots above maybe these comparisons should be made within each site. It'll be really interesting to add in the younger age nestlings from 2020 to this where maybe the biggest difference could be expected. It seems like it would also be really useful to put rough size classes onto these genera or families. Ryan & Lily had that just at order level right? Maybe if it is filtered down to just the most common genera like this it wouldn't be such a daunting task to figure out some more features of each of them. 
+
+#### Plotting Networks
+
+Just as an example, there is also some potential to use network plotting and network metrics to describe the similarity of different samples and see how they cluster together. There are many options here. Just one example showing a network based on Bray-Curtis distance and coloring by site. Labels are showing box numbers.
+
+![](network.png)\
+
+#### Just for fun
+
+We've never really talked about this, but I was thinking it would be interesting to try to build a network of connections among the prey items that were detected in the same fecal samples. Maybe it would tell us something about the habitat that the bird was foraging in for that trip? Or maybe there wouldn't be any pattern. Anyway, I'm just playing around with it here to see if there is any obvious structure. There are plotting tools to make network plots based on dissimilarity within `phyloseq` that run off of `igraph`, but I think what I'm trying to do is different from those? Like above, this could be done differently for different sites or ages or subsets, etc. I'm just doing it here for all samples together for simplicity.
+
+![](food_network.png)\
+
+Well, that seemed like a cool idea but there doesn't seem to be much obvious going on in terms of food being found together in the same fecal sample. Not sure it is a total bust as there are probably things to think about with particular species or ages/sites that could be clouding things here. Leaving it for now anyway.
+
+# More?
+
+Obviously lots more we could do or think about doing with these data. The basic R script here should be pretty good as a start for how to work with the data. It should also be pretty easy to add in additional or different data from `AMPtk` to run through the same script.
+
+I do also have an entirely separate R pipeline to process samples and produce a `phyloseq` object that does not use `AMPtk`. I was thinking that the results were looking quite different, but it seems that a lot of that is because `AMPtk` was giving *some* match in many cases where there really was not a good match. Once I did the initial filtering in R to get down to Arthropods my impression is that they are actually pretty similar. I do have output from this full batch from the R pipeline, so I think I'll try to do a quick comparison, but unless there is a clear difference I think it's probably easier/better to just stick with `AMPtk` since it is an easy thing to cite and already has justification for all of its choice and default options plus it is trying to do something (somewhat) smart about dealing with matches from different databases whereas I was just taking the top hit from BOLD.
+
+# References
