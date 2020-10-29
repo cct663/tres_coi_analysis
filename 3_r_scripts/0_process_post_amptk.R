@@ -113,6 +113,7 @@
     # at the sepcies level wouldn't include those sequences
         coi_genus <- tax_glom(coi_ps2, taxrank = "genus")
         coi_fam <- tax_glom(coi_ps2, taxrank = "family")
+        coi_ord <- tax_glom(coi_ps2, taxrank = "order")
 
         glom_ps <- coi_genus    # change here which aglommeration you want to use for plots below
 
@@ -140,8 +141,11 @@
       
   # Limit to genera in 5% of samples (for network below)
       coi_05 <- prune_taxa(genefilter_sample(coi_pa, filterfun_sample(function(x) x > 0.1), A = 0.05 * nsamples(coi_pa)), coi_pa)
+      
+
 
 # Plot Patterns ----
+      
     plot_ps <- coi_pa     # which object to use for plotting
       
     # Richness by sample type. See help for many more options of different alpha metrics
@@ -198,19 +202,52 @@
                                 fift = taxa_sums(fifteen_20) / nrow(sample_data(fifteen_20)))
           p1 <- ggplot(compare, aes(x = adult, y = fift)) + geom_point(col = "slateblue") + 
                 geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("Adults") + ylab("15-Day Nestlings") +
-                xlim(0.1, 0.9) + ylim(0.1, 0.9)
+                xlim(0.05, 0.9) + ylim(0.05, 0.9)
           p2 <- ggplot(compare, aes(x = adult, y = twel)) + geom_point(col = "slateblue") + 
                 geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("Adults") + ylab("12-Day Nestlings") +
-                xlim(0.1, 0.9) + ylim(0.1, 0.9)
+                xlim(0.05, 0.9) + ylim(0.05, 0.9)
           p3 <- ggplot(compare, aes(x = twel, y = fift)) + geom_point(col = "slateblue") + 
                 geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("12-Day Nestlings") + ylab("15-Day Nestlings") +
-                xlim(0.1, 0.9) + ylim(0.1, 0.9)
+                xlim(0.05, 0.9) + ylim(0.05, 0.9)
           p4 <- ggarrange(p1, p2, p3, nrow = 1)
           ggsave(here("3_r_scripts/compare.png"), p4, width = 9.6, height = 3.4, device = "png")
           
     # Plot network
           p <- plot_net(glom_ps, maxdist = 0.4, point_label = "nest", color = "site")
           ggsave(here("3_r_scripts/network.png"), p, width = 7.5, height = 6.5, device = "png")
+          
+    # Plot season at order level (gets it down to 17 taxa like Ryan & Lily's Ecology Letters paper)
+          # Remove negative controls
+            ord_ps <- subset_samples(coi_ord, age != "neg_control")
+          # Transform to relative abundance
+            ord_ra <- transform_sample_counts(ord_ps, function(x) x / sum(x))
+          # Filter out taxa with relative abundance values below some threshold
+            ord_ra2 <- filter_taxa(ord_ra, function(x) mean(x) > 1e-5, TRUE)
+          # Take out the samples without info for now
+            ord_ra2 <- subset_samples(ord_ra2, is.na(band) == FALSE)
+          # Transform to presence absence
+            ord_pa <- transform_sample_counts(ord_ra2, function(x) ceiling(x))
+          
+          season <- as.data.frame(otu_table(ord_pa))
+          season$otu <- rownames(ords, )
+          season2 <- pivot_longer(data = season, !otu, names_to = "X.SampleID", values_to = "present")
+          season2 <- join(season2, map2, "X.SampleID")
+          map2$cap_doy <- as.numeric(map2$cap_doy)
+          tax <- as.data.frame(tax_table(ord_pa))
+          tax$otu <- rownames(tax)
+          tax <- tax[, c("otu", "order")]
+          season2 <- join(season2, tax, "otu")
+          
+          
+          p1 <- ggplot(season2, mapping = aes(x = cap_doy, y = present, col = order)) + geom_smooth(method = "loess", se = FALSE) +
+            theme_classic() + xlab("Capture day of year") + ylab("Percent of samples detected") +
+            facet_wrap(~ age, ncol = 1) + ylim(0, 1)
+          ggsave(here("3_r_scripts/age_season.png"), p1, width = 8.7, height = 6.8, device = "png")
+          
+          p2 <- ggplot(season2, mapping = aes(x = cap_doy, y = present, col = order)) + geom_smooth(method = "loess", se = FALSE) +
+            theme_classic() + xlab("Capture day of year") + ylab("Percent of samples detected") +
+            facet_wrap(~ site) + ylim(0, 1)
+          ggsave(here("3_r_scripts/site_season.png"), p2, width = 11, height = 6.5, device = "png")
 
 # Make a network of food items ----
     # This will require some wrangling so putting it in a new section

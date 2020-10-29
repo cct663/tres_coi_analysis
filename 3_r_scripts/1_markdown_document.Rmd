@@ -150,6 +150,18 @@ Really cool! There also seems to be a consistent adult vs. nestling difference t
 
 Overall there seems to be a reasonably high correspondence between the samples from different ages, but it's interesting that adults vs. day 12 nestlings seems to be the most dissimilar. Looking at that middle panel, that one point that is much more common for nestlings is a genus of stoneflies (aquatic!) and the one that is more common for adults is a genus of crane flies (mostly terrestrial?). There are of course other ways this could be broken up too; I'm combining all the sites but based on the ordination plots above maybe these comparisons should be made within each site. It'll be really interesting to add in the younger age nestlings from 2020 to this where maybe the biggest difference could be expected. It seems like it would also be really useful to put rough size classes onto these genera or families. Ryan & Lily had that just at order level right? Maybe if it is filtered down to just the most common genera like this it wouldn't be such a daunting task to figure out some more features of each of them. 
 
+#### Date by Age
+
+This could be a cool way to compare with the figures in Ryan & Lily's Ecology Letters paper on seasonal availability of different insects. I'm plotting here at the order level with smoothed lines and each sample as 1/0 for detection. Of course we could also do this with relative abundance or finer taxonomic levels, etc. Note that these are just loess smooths, so some of the wiggliness may be in areas with little data rather than real patterns. I removed the confidence intervals because it is impossible to see anything, but they are quite large around most of these lines especially early and late in the season. It's crazy how they ALWAYS have diptera!
+
+![](age_season.png)\
+
+#### Date by Site
+
+Same thing but for each site. I did also try splitting this out by age within site. We have very different sampling blocks of time at the different sites. I think a lot of these will be filled in much more after getting the next two sequencing runs, so I'm just leaving it like this for now.
+
+![](site_season.png)\
+
 #### Plotting Networks
 
 Just as an example, there is also some potential to use network plotting and network metrics to describe the similarity of different samples and see how they cluster together. There are many options here. Just one example showing a network based on Bray-Curtis distance and coloring by site. Labels are showing box numbers.
