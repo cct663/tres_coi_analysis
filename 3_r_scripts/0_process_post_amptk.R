@@ -125,13 +125,13 @@
       coi_ps2 <- prune_taxa(taxa_sums(glom_ps) > 5, glom_ps)
 
   # Transform to relative abundance
-      coi_ra <- transform_sample_counts(glom_ps, function(x) x / sum(x))
+      coi_ra <- transform_sample_counts(coi_ps2, function(x) x / sum(x))
       
   # Filter out taxa with relative abundance values below some threshold
       coi_ra2 <- filter_taxa(coi_ra, function(x) mean(x) > 1e-5, TRUE)
 
-  # Take out the samples without info for now
-      coi_ra2 <- subset_samples(coi_ra2, is.na(band) == FALSE)
+  # Take out the old test samples
+      coi_ra2 <- subset_samples(coi_ra2, age.1 != "old")
 
   # Transform to presence absence
       coi_pa <- transform_sample_counts(coi_ra2, function(x) ceiling(x))
@@ -218,18 +218,20 @@
           
     # Plot season at order level (gets it down to 17 taxa like Ryan & Lily's Ecology Letters paper)
           # Remove negative controls
-            ord_ps <- subset_samples(coi_ord, age != "neg_control")
+            ord_ps <- subset_samples(coi_ord, age != "neg_control" & age.1 != "old")
           # Transform to relative abundance
             ord_ra <- transform_sample_counts(ord_ps, function(x) x / sum(x))
           # Filter out taxa with relative abundance values below some threshold
             ord_ra2 <- filter_taxa(ord_ra, function(x) mean(x) > 1e-5, TRUE)
+          # Filter out taxa that aren't in 5% of samples
+            ord_ra2 <- prune_taxa(genefilter_sample(ord_ra2, filterfun_sample(function(x) x > 0.01), A = 0.05 * nsamples(ord_ra2)), ord_ra2)
           # Take out the samples without info for now
-            ord_ra2 <- subset_samples(ord_ra2, is.na(band) == FALSE)
+            #ord_ra2 <- subset_samples(ord_ra2, is.na(band) == FALSE)
           # Transform to presence absence
             ord_pa <- transform_sample_counts(ord_ra2, function(x) ceiling(x))
           
           season <- as.data.frame(otu_table(ord_pa))
-          season$otu <- rownames(ords, )
+          season$otu <- rownames(season, )
           season2 <- pivot_longer(data = season, !otu, names_to = "X.SampleID", values_to = "present")
           season2 <- join(season2, map2, "X.SampleID")
           map2$cap_doy <- as.numeric(map2$cap_doy)

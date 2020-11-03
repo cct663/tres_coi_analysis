@@ -1819,66 +1819,66 @@ P20N187	281174213	TRES	Ithaca	Unit_4	78	2020	Adult	F	CortMovement	Cort	172	2	SY	
 	281174701	TRES	Ithaca	Unit_2	126	2020	Adult	F	CortDose	Control	174	2	SY	18.5	28.1	126	00-Jan-00	00-Jan-00	B_D_A					00-Jan-00				Dex	8.5	00-Jan-00	ACTH	5.5	00-Jan-00	00-Jan-00				00-Jan-00		M20N207	200683			
 P20N190	281174216	TRES	Ithaca	TurkeyHill	123	2020	Adult	F	CortMovement	Control	174	2	SY	18.5	28.8	112	00-Jan-00	00-Jan-00	B_S					00-Jan-00																M20N208	200686	B20N027	194B4B1E3D	
 	272106861	TRES	Ithaca	Unit_2	121	2018	Nestling				169		15				00-Jan-00													00-Jan-00									Died	MI18N279				"Intestine came out (possibly hernia) during microbiome. Placed back in bird, seemed fined, behaving normally. Returned to nest. No feathers and no blood."
-L19N005a					L19N005	NA	Nestling		NA	NA	NA	NA	6																															
-L19N005b					L19N005	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N005c					L19N005	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N005d					L19N005	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N006a					L19N006	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N006b					L19N006	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N006c					L19N006	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N006d					L19N006	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N006e					L19N006	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N007a					L19N007	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N007b					L19N007	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N007d					L19N007	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N008a					L19N008	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N008b					L19N008	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N008c					L19N008	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N008d					L19N008	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N008e					L19N008	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N008f					L19N008	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N009a					L19N009	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N009b					L19N009	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N009c					L19N009	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N010a					L19N010	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N010b					L19N010	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N010c					L19N010	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N010d					L19N010	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N011a					L19N011	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N011b					L19N011	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N011c					L19N011	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N011d					L19N011	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N011e					L19N011	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N011f					L19N011	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N012a					L19N012	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N012b					L19N012	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N012c					L19N012	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N013a					L19N013	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N014a					L19N014	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N014b					L19N014	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N014c					L19N014	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N015a					L19N015	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N015b					L19N015	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N015c					L19N015	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N016a					L19N016	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N016b					L19N016	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N017a					L19N017	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N017b					L19N017	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N017c					L19N017	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N018b					L19N018	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N018c					L19N018	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N018d					L19N018	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N018e					L19N018	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N018f					L19N018	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N019a					L19N019	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N019b					L19N019	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N019c					L19N019	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N019d					L19N019	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N020a					L19N020	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N020b					L19N020	NA	Nestling	NA	NA	NA	NA	NA	6																															
-L19N020c					L19N020	NA	Nestling	NA	NA	NA	NA	NA	6																															
-LN19007c					LN19007	NA	Nestling	NA	NA	NA	NA	NA	6																															
-LN19018a					LN19018	NA	Nestling	NA	NA	NA	NA	NA	6																															
+L19N005a		TRES	Ithaca	Unit_4	94	2019	Nestling			NA	161	1	6																															
+L19N005b		TRES	Ithaca	Unit_4	94	2019	Nestling			NA	161	1	6																															
+L19N005c		TRES	Ithaca	Unit_4	94	2019	Nestling			NA	161	1	6																															
+L19N005d		TRES	Ithaca	Unit_4	94	2019	Nestling			NA	161	1	6																															
+L19N006a		TRES	Ithaca	Turkey_Hill	3	2019	Nestling			NA	162	1	6																															
+L19N006b		TRES	Ithaca	Turkey_Hill	3	2019	Nestling			NA	162	1	6																															
+L19N006c		TRES	Ithaca	Turkey_Hill	3	2019	Nestling			NA	162	1	6																															
+L19N006d		TRES	Ithaca	Turkey_Hill	3	2019	Nestling			NA	162	1	6																															
+L19N006e		TRES	Ithaca	Turkey_Hill	3	2019	Nestling			NA	162	1	6																															
+L19N007a		TRES	Ithaca	Turkey_Hill	106	2019	Nestling			NA	162	1	6																															
+L19N007b		TRES	Ithaca	Turkey_Hill	106	2019	Nestling			NA	162	1	6																															
+L19N007d		TRES	Ithaca	Turkey_Hill	106	2019	Nestling			NA	162	1	6																															
+L19N008a		TRES	Ithaca	Turkey_Hill	121	2019	Nestling			NA	162	1	6																															
+L19N008b		TRES	Ithaca	Turkey_Hill	121	2019	Nestling			NA	162	1	6																															
+L19N008c		TRES	Ithaca	Turkey_Hill	121	2019	Nestling			NA	162	1	6																															
+L19N008d		TRES	Ithaca	Turkey_Hill	121	2019	Nestling			NA	162	1	6																															
+L19N008e		TRES	Ithaca	Turkey_Hill	121	2019	Nestling			NA	162	1	6																															
+L19N008f		TRES	Ithaca	Turkey_Hill	121	2019	Nestling			NA	162	1	6																															
+L19N009a		TRES	Ithaca	Turkey_Hill	51	2019	Nestling			NA	163	1	6																															
+L19N009b		TRES	Ithaca	Turkey_Hill	51	2019	Nestling			NA	163	1	6																															
+L19N009c		TRES	Ithaca	Turkey_Hill	51	2019	Nestling			NA	163	1	6																															
+L19N010a		TRES	Ithaca	Unit_4	78	2019	Nestling			NA	163	1	6																															
+L19N010b		TRES	Ithaca	Unit_4	78	2019	Nestling			NA	163	1	6																															
+L19N010c		TRES	Ithaca	Unit_4	78	2019	Nestling			NA	163	1	6																															
+L19N010d		TRES	Ithaca	Unit_4	78	2019	Nestling			NA	163	1	6																															
+L19N011a		TRES	Ithaca	Unit_4	80	2019	Nestling			NA	163	1	6																															
+L19N011b		TRES	Ithaca	Unit_4	80	2019	Nestling			NA	163	1	6																															
+L19N011c		TRES	Ithaca	Unit_4	80	2019	Nestling			NA	163	1	6																															
+L19N011d		TRES	Ithaca	Unit_4	80	2019	Nestling			NA	163	1	6																															
+L19N011e		TRES	Ithaca	Unit_4	80	2019	Nestling			NA	163	1	6																															
+L19N011f		TRES	Ithaca	Unit_4	80	2019	Nestling			NA	163	1	6																															
+L19N012a		TRES	Ithaca	Unit_4	87	2019	Nestling			NA	164	1	6																															
+L19N012b		TRES	Ithaca	Unit_4	87	2019	Nestling			NA	164	1	6																															
+L19N012c		TRES	Ithaca	Unit_4	87	2019	Nestling			NA	164	1	6																															
+L19N013a		TRES	Ithaca	Turkey_Hill	86	2019	Nestling			NA	165	1	6																															
+L19N014a		TRES	Ithaca	Unit_4	71	2019	Nestling			NA	165	1	6																															
+L19N014b		TRES	Ithaca	Unit_4	71	2019	Nestling			NA	165	1	6																															
+L19N014c		TRES	Ithaca	Unit_4	71	2019	Nestling			NA	165	1	6																															
+L19N015a		TRES	Ithaca	Unit_4	93	2019	Nestling			NA	166	1	6																															
+L19N015b		TRES	Ithaca	Unit_4	93	2019	Nestling			NA	166	1	6																															
+L19N015c		TRES	Ithaca	Unit_4	93	2019	Nestling			NA	166	1	6																															
+L19N016a		TRES	Ithaca	Unit_4	95	2019	Nestling			NA	168	1	6																															
+L19N016b		TRES	Ithaca	Unit_4	95	2019	Nestling			NA	168	1	6																															
+L19N017a		TRES	Ithaca	Turkey_Hill	97	2019	Nestling			NA	168	1	6																															
+L19N017b		TRES	Ithaca	Turkey_Hill	97	2019	Nestling			NA	168	1	6																															
+L19N017c		TRES	Ithaca	Turkey_Hill	97	2019	Nestling			NA	168	1	6																															
+L19N018b		TRES	Ithaca	Unit_4	61	2019	Nestling			NA	170	1	6																															
+L19N018c		TRES	Ithaca	Unit_4	61	2019	Nestling			NA	170	1	6																															
+L19N018d		TRES	Ithaca	Unit_4	61	2019	Nestling			NA	170	1	6																															
+L19N018e		TRES	Ithaca	Unit_4	61	2019	Nestling			NA	170	1	6																															
+L19N018f		TRES	Ithaca	Unit_4	61	2019	Nestling			NA	170	1	6																															
+L19N019a		TRES	Ithaca	Unit_4	84	2019	Nestling			NA	171	1	6																															
+L19N019b		TRES	Ithaca	Unit_4	84	2019	Nestling			NA	171	1	6																															
+L19N019c		TRES	Ithaca	Unit_4	84	2019	Nestling			NA	171	1	6																															
+L19N019d		TRES	Ithaca	Unit_4	84	2019	Nestling			NA	171	1	6																															
+L19N020a		TRES	Ithaca	Unit_4	15	2019	Nestling			NA	175	1	6																															
+L19N020b		TRES	Ithaca	Unit_4	15	2019	Nestling			NA	175	1	6																															
+L19N020c		TRES	Ithaca	Unit_4	15	2019	Nestling			NA	175	1	6																															
+LN19007c		TRES	Ithaca	Turkey_Hill	106	2019	Nestling			NA	162	1	6																															
+LN19018a		TRES	Ithaca	Unit_4	61	2019	Nestling			NA	170	1	6																															
 M18ND1					NA	NA	Adult	NA	NA	NA	NA	NA	old																															
 M18ND10					NA	NA	Adult	NA	NA	NA	NA	NA	old																															
 M18ND2					NA	NA	Adult	NA	NA	NA	NA	NA	old																															
