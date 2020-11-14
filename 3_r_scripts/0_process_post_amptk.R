@@ -12,6 +12,7 @@
     # igraph for network plots
 
     # Will need to install these libraries first if not yet installed
+    # To install phyloseq, must install BiocManager and then use the following command: BiocManager::install(c("phyloseq"))
 
 # Load and wrangle data ----
 
@@ -22,7 +23,7 @@
     
     # Load the number of reads by taxa per sample table. Format for phyloseq.
         otu_ab <- read.delim(here("1_raw_data", paste0(amptk_prefix, ".cluster.otu_table.txt")))
-        rownames(otu_ab) <- otu_ab$X.OTU.ID   # give rownmaes from sample names
+        rownames(otu_ab) <- otu_ab$X.OTU.ID   # give rownames from sample names
         otu_ab <- otu_ab[, 2:ncol(otu_ab)]    # remove the column of sample names
     
     # Read the mapping table
@@ -130,8 +131,8 @@
   # Filter out taxa with relative abundance values below some threshold
       coi_ra2 <- filter_taxa(coi_ra, function(x) mean(x) > 1e-5, TRUE)
 
-  # Take out the samples without info for now
-      coi_ra2 <- subset_samples(coi_ra2, is.na(band) == FALSE)
+  # Take out the testing samples from 2019 (were labelled as M19NXXX and do not have nest information)
+      coi_ra2 <- subset_samples(coi_ra2, is.na(nest) == FALSE)
 
   # Transform to presence absence
       coi_pa <- transform_sample_counts(coi_ra2, function(x) ceiling(x))
@@ -195,9 +196,11 @@
 
     # Plot adult vs. nestling diets
           adult_20 <- subset_samples(coi_20, age == "Adult")
+          six_20 <- subset_samples(coi_20, age.1 == "6")
           twelve_20 <- subset_samples(coi_20, age.1 == "12")
           fifteen_20 <- subset_samples(coi_20, age.1 == "15")
           compare <- data.frame(adult = taxa_sums(adult_20) / nrow(sample_data(adult_20)),
+                                six = taxa_sums(six_20) / nrow(sample_data(six_20)),
                                 twel = taxa_sums(twelve_20) / nrow(sample_data(twelve_20)),
                                 fift = taxa_sums(fifteen_20) / nrow(sample_data(fifteen_20)))
           p1 <- ggplot(compare, aes(x = adult, y = fift)) + geom_point(col = "slateblue") + 
@@ -209,8 +212,17 @@
           p3 <- ggplot(compare, aes(x = twel, y = fift)) + geom_point(col = "slateblue") + 
                 geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("12-Day Nestlings") + ylab("15-Day Nestlings") +
                 xlim(0.05, 0.9) + ylim(0.05, 0.9)
-          p4 <- ggarrange(p1, p2, p3, nrow = 1)
-          ggsave(here("3_r_scripts/compare.png"), p4, width = 9.6, height = 3.4, device = "png")
+          p4 <- ggplot(compare, aes(x = adult, y = six)) + geom_point(col = "slateblue") + 
+              geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("Adults") + ylab("6-Day Nestlings") +
+              xlim(0.05, 0.9) + ylim(0.05, 0.9)
+          p5 <- ggplot(compare, aes(x = twel, y = six)) + geom_point(col = "slateblue") + 
+              geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("12-Day Nestlings") + ylab("6-Day Nestlings") +
+              xlim(0.05, 0.9) + ylim(0.05, 0.9)
+          p6 <- ggplot(compare, aes(x = fift, y = six)) + geom_point(col = "slateblue") + 
+             geom_smooth(col = "coral3", method = "lm") + theme_classic() + xlab("15-Day Nestlings") + ylab("6-Day Nestlings") +
+              xlim(0.05, 0.9) + ylim(0.05, 0.9)
+          p7 <- ggarrange(p1, p2, p3, p4, p5, p6, nrow = 1)
+          ggsave(here("3_r_scripts/compare.png"), p7, width = 11, height = 3.4, device = "png")
           
     # Plot network
           p <- plot_net(glom_ps, maxdist = 0.4, point_label = "nest", color = "site")
