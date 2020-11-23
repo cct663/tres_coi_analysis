@@ -132,6 +132,14 @@
         coi_ord <- tax_glom(coi_ps2, taxrank = "order")
 
         glom_ps <- coi_fam    # change here which aglommeration you want to use for plots below
+        
+  # Merge family to life history
+        otu_lh <- plyr::join(as.data.frame(tax_table(coi_fam)), life_history, "family", "left", "first")
+        coi_fam2 <- phyloseq(
+          otu_table(coi_fam),
+          tax_table(as.matrix(otu_lh)),
+          sample_data(coi_fam)
+        )
 
 # Filtering criteria ----
         
