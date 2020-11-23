@@ -4,6 +4,7 @@
   # explanations.
 
 # Load libraries ----
+
   pacman::p_load("tidyverse", "phyloseq", "plyr", "vegan", "here", "ggpubr", "igraph")
     # tidyverse & plyr for data wrangling
     # phyloseq & vegan for community analyses and plotting
@@ -66,11 +67,14 @@
             otu_tax$database <- gsub("None;k", "None", otu_tax$database)
             otu_tax$accession <- gsub("Animalia,p", "None", otu_tax$accession)
         
-        # For phyloseq this has to be added as a matrix rather than data frame    
-            otu_tax <- as.matrix(otu_tax)
         # This is saving just the taxonomic ranks rather than the database info.
             otu_tax2 <- otu_tax[, 10:16]
-    
+            # Add in information about larval stage aquatic vs. terrestrial
+            life_history <- read.csv(here("5_other_outputs", "unique_families_aquatic_terrestrial_IDs.csv"))    # prepared outside of R
+            otu_tax2 <- join(otu_tax2, life_history, "family")
+        # For phyloseq this has to be added as a matrix rather than data frame    
+            otu_tax2 <- as.matrix(otu_tax2)
+            
     # Add in the sample information to each sample
         s_info <- read.delim(here("1_raw_data", "tres_sample_info.txt"))    # prepared outside of AMPtk
         map2 <- join(map, s_info, "sampleID", "left", "first")
@@ -81,6 +85,7 @@
           # write.table(missing, "missing_info.txt", sep = "\t")      
 
 # Build initial phyloseq object ----
+        
     OTU = otu_table(otu_ab, taxa_are_rows = TRUE)
     TAX = tax_table(otu_tax2)
     SAM = sample_data(map2)
@@ -88,6 +93,7 @@
     coi_ps <- phyloseq(OTU, TAX, SAM)
 
 # Check sample effort ----
+    
   # Subset just to arthropods
       coi_ps2 <- subset_taxa(coi_ps, phylum == "Arthropoda")
 
@@ -104,6 +110,15 @@
       ggsave(here("3_r_scripts/total_reads.png"), plot = p, width = 8, height = 4.5, device = "png")
       ggsave(here("3_r_scripts/total_reads_split.png"), plot = p2, width = 8.2, height = 4, device = "png")
 
+      # Extract the unique arthropod families found in the dataset
+        unique_families <- get_taxa_unique(coi_ps2, taxonomic.rank = "family")
+      # Save file with list of unique families to use to research aquatic vs.
+        # terrestrial families -- this file will be modified outside of R
+        # with online research about each family.
+        write.csv(unique_families, here("5_other_outputs/unique_families.csv"))
+        # This file was then taken out of R to research aquatic vs. terrestrial
+        # families.
+      
   # Rarefy to even depth of ??
     # running this would rarefy to an even depth moving forward
       #coi_ps2 <- rarefy_even_depth(coi_ps2, sample.size = 150, rngseed = 92)
@@ -111,14 +126,15 @@
 # Agglomerate taxa ----
   # Depending on the analyses, we may want to agglomerate to different taxonomic ranks.
     # Many of the sequence IDs do not go all the way to species, so in those cases analyses
-    # at the sepcies level wouldn't include those sequences
+    # at the species level wouldn't include those sequences
         coi_genus <- tax_glom(coi_ps2, taxrank = "genus")
         coi_fam <- tax_glom(coi_ps2, taxrank = "family")
         coi_ord <- tax_glom(coi_ps2, taxrank = "order")
 
-        glom_ps <- coi_genus    # change here which aglommeration you want to use for plots below
+        glom_ps <- coi_fam    # change here which aglommeration you want to use for plots below
 
 # Filtering criteria ----
+        
   # Remove negative controls
       glom_ps <- subset_samples(glom_ps, age != "neg_control")
         
@@ -131,13 +147,11 @@
   # Filter out taxa with relative abundance values below some threshold
       coi_ra2 <- filter_taxa(coi_ra, function(x) mean(x) > 1e-5, TRUE)
 
-<<<<<<< HEAD
   # Take out the old test samples
       coi_ra2 <- subset_samples(coi_ra2, age.1 != "old")
-=======
+
   # Take out the testing samples from 2019 (were labelled as M19NXXX and do not have nest information)
       coi_ra2 <- subset_samples(coi_ra2, is.na(nest) == FALSE)
->>>>>>> 90410789e4ba82663f41e6e7aa623ce2af4a9112
 
   # Transform to presence absence
       coi_pa <- transform_sample_counts(coi_ra2, function(x) ceiling(x))
@@ -148,33 +162,45 @@
   # Limit to genera in 5% of samples (for network below)
       coi_05 <- prune_taxa(genefilter_sample(coi_pa, filterfun_sample(function(x) x > 0.1), A = 0.05 * nsamples(coi_pa)), coi_pa)
       
-
-
 # Plot Patterns ----
       
     plot_ps <- coi_pa     # which object to use for plotting
       
     # Richness by sample type. See help for many more options of different alpha metrics
         p <- plot_richness(plot_ps, x = "age.1", measures = c("Observed", "InvSimpson", "Shannon")) + 
-              geom_boxplot(alpha = 0.3, aes(fill = age.1)) 
+              geom_boxplot(alpha = 0.3, aes(fill = age.1))
+        # set order for ages for neatness in plots 
+        age_order = c("6", "12", "15", "SY", "ASY", "AHY")
+        p$data$age.1 <- as.character(p$data$age.1)
+        p$data$age.1 <- factor(p$data$age.1, levels=age_order)
         ggsave(here("3_r_scripts/age_alpha.png"), p, width = 10, height = 4, device = "png")
         
     # Richness by age and site
         p <- plot_richness(plot_ps, x = "age.1", measures = c("Observed")) + 
               geom_boxplot(alpha = 0.3, aes(fill = age.1)) + facet_wrap(~ site)
+        # set order for ages for neatness in plots 
+        age_order = c("6", "12", "15", "SY", "ASY", "AHY")
+        p$data$age.1 <- as.character(p$data$age.1)
+        p$data$age.1 <- factor(p$data$age.1, levels=age_order)       
         ggsave(here("3_r_scripts/age_alpha_site.png"), p, width = 9, height = 6.5, device = "png")
-        
+ 
+    # Richness by adult capture number and site
+        coi_adults <- subset_samples(plot_ps, cap_num != "")
+        p <- plot_richness(coi_adults, x = "cap_num", measures = c("Observed")) + 
+          geom_boxplot(alpha = 0.3, aes(fill = cap_num)) + facet_wrap(~ site)
+        ggsave(here("3_r_scripts/capnum_alpha_site.png"), p, width = 9, height = 6.5, device = "png")
+               
     # All genera
-        p <- plot_bar(plot_ps, "genus") + theme_classic() + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
+        p <- plot_bar(plot_ps, "family") + theme_classic() + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
               geom_hline(yintercept = 393 * 0.1, linetype = "dotted", col = "coral3") + 
               geom_hline(yintercept = 393 * 0.2, linetype = "dotted", col = "coral3") + 
               geom_hline(yintercept = 393 * 0.3, linetype = "dotted", col = "coral3")
-        ggsave(here("3_r_scripts/genera_bar.png"), width = 10, height = 4.5, device = "png")
+        ggsave(here("3_r_scripts/family_bar.png"), width = 10, height = 4.5, device = "png")
         
     # Genera over 20% split by age
-        p <- plot_bar(coi_20, "genus") + theme_classic() + theme(axis.text.x = element_text(angle = 90)) + 
+        p <- plot_bar(coi_20, "family") + theme_classic() + theme(axis.text.x = element_text(angle = 90)) + 
             facet_wrap(~ age, ncol = 1)
-        ggsave(here("3_r_scripts/common_genera.png"), width = 10, height = 6, device = "png")
+        ggsave(here("3_r_scripts/common_families.png"), width = 10, height = 6, device = "png")
    
     # Plot some ordinations
         
