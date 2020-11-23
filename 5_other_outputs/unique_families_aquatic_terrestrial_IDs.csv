@@ -1,0 +1,169 @@
+order_for_organization,family,life_history,certainty_life_history,common_name,sources,notes
+Araneae,Linyphiidae,terrestrial,no,Small spiders,https://en.wikipedia.org/wiki/Linyphiidae,Really don't know about this one
+Araneae,Lycosidae,terrestrial,no,Wolf spiders,https://bugguide.net/node/view/1967,Says that they may live in marshes too? Would this be considered aquatic?
+Araneae,Philodromidae,terrestrial,no,Philodromid crab spiders,https://en.wikipedia.org/wiki/Philodromidae,I'm assuming a spider has terrestrial larvae but not sure.
+Araneae,Thomisidae,terrestrial,no,Crab spiders,https://bugguide.net/node/view/1957,
+Araneae,Salticidae,terrestrial,no,Jumping spiders,https://bugguide.net/node/view/1962,
+Araneae,Pisauridae,terrestrial,no,Nursery web spiders,https://bugguide.net/node/view/1963,Are all spider larvae terrestrial? I'm assuming so?
+Araneae,Anyphaenidae,terrestrial,,Ghost spiders,https://bugguide.net/node/view/38439,
+Araneae,Araneidae,terrestrial,,Orb weavers,https://bugguide.net/node/view/1972,
+Coleoptera,Staphylinidae,terrestrial,no,Rove beetle,http://entnemdept.ufl.edu/creatures/misc/beetles/rove_beetles.htm,Source says that they occupy moist environments but none of them are truly aquatic
+Coleoptera,Curculionidae,terrestrial,no,Snout and bark beetles,https://bugguide.net/node/view/139,Most larvae and adults occur and feed on all parts of plants
+Coleoptera,Scirtidae,aquatic,,Marsh beetles,https://en.wikipedia.org/wiki/Scirtidae,
+Coleoptera,Dermestidae,terrestrial,,Dermestid beetles,https://en.wikipedia.org/wiki/Dermestidae,
+Coleoptera,Cantharidae,terrestrial,,Soldier beetles,https://bugguide.net/node/view/118,
+Coleoptera,Hydrophilidae,both,no,Water scavenger beetles,https://bugguide.net/node/view/9594; https://en.wikipedia.org/wiki/Hydrophilidae#Habitat,Mostly aquatic (larval and adult form)Énot sure how to classify
+Coleoptera,Elateridae,terrestrial,,Click beetles,https://bugguide.net/node/view/115,
+Coleoptera,Dytiscidae,aquatic,,Predaceous diving beetles,https://bugguide.net/node/view/195; https://en.wikipedia.org/wiki/Dytiscidae#Larvae_and_development,
+Coleoptera,Chrysomelidae,terrestrial,,Leaf beetles,https://bugguide.net/node/view/180,
+Coleoptera,Carabidae,terrestrial,no,Ground beetles,https://bugguide.net/node/view/186,All supposedly terrestrial?
+Coleoptera,Bostrichidae,terrestrial,no,Horned powder-post beetles,https://bugguide.net/node/view/18100; https://idtools.org/id/wbb/families/Wood_Boring_Beetle_Keys/Woodboring_Families/Media/Html/Fact_sheets/Bostrichidae.html,
+Coleoptera,Scarabaeidae,terrestrial,,Scarab beetles,https://bugguide.net/node/view/187,
+Coleoptera,Psephenidae,aquatic,,Water penny beetles,https://bugguide.net/node/view/36129,
+Coleoptera,Stenotrachelidae,terrestrial,,False longhorn beetles,https://bugguide.net/node/view/59047,
+Coleoptera,Ptinidae,terrestrial,no,Death-watch and spider beetles,https://bugguide.net/node/view/9391,
+Coleoptera,Nitidulidae,terrestrial,no,Sap-feeding beetles,https://bugguide.net/node/view/8441,
+Collembola,Bourletiellidae,unknown,,Springtails,https://bugguide.net/node/view/85554/,Really have no idea.
+Diplopoda,Paradoxosomatidae,terrestrial,no,Flat-backed millipedes,https://bugguide.net/node/view/26410,I'm assuming these are terrestrial?
+Diptera,Chironomidae,aquatic,,Non-biting midges,https://en.wikipedia.org/wiki/Chironomidae,
+Diptera,Limoniidae,aquatic,no,Limoniid crane flies,https://bugguide.net/node/view/14937; https://www.americaninsects.net/f/limoniidae.html,"Many Limoniid Crane Flies are aquatic during the larval period but there are two genuses that are not (Gnophomyia in decaying wood, Gonomyia in soil)"
+Diptera,Tachinidae,terrestrial,no,Tachinid flies,https://en.wikipedia.org/wiki/Tachinidae,Usually parasites of athropods
+Diptera,Anisopodidae,unknown,no,Wood gnats,https://bugguide.net/node/view/12265,"Larvae found in or near decaying wood or vegetation, fermenting sap, animal manure, tree trunks, mud, and sometimes sewage"
+Diptera,Mycetophilidae,terrestrial,,Fungus gnats,https://en.wikipedia.org/wiki/Mycetophilidae,
+Diptera,Empididae,both,no,Dagger flies and balloon flies,https://en.wikipedia.org/wiki/Empididae,"Larvae are found in moist soil, rotten wood, dung, or aquatic habitats"
+Diptera,Calliphoridae,terrestrial,,Blow flies,https://en.wikipedia.org/wiki/Calliphoridae,Larvae are scavengers of carrion and dung
+Diptera,Ceratopogonidae,both,,Biting midges,https://en.wikipedia.org/wiki/Ceratopogonidae,"""They are not strictly aquatic or terrestrial."""
+Diptera,Culicidae,aquatic,,Mosquito,https://en.wikipedia.org/wiki/Mosquito,
+Diptera,Rhagionidae,terrestrial,no,Snipe flies,https://en.wikipedia.org/wiki/Rhagionidae,"Larvae are mostly terrestrial, but some are aquatic"
+Diptera,Tipulidae,both,no,Crane fly,https://en.wikipedia.org/wiki/Crane_fly#Biology,Crane flies may be mostly aquatic but this source said that some can live on dry land?
+Diptera,Chaoboridae,aquatic,,Phantom midges or glassworms,https://en.wikipedia.org/wiki/Chaoboridae,
+Diptera,Cecidomyiidae,terrestrial,no,Gall midges or gall gnats,https://bugguide.net/node/view/8383,I think this bug only feeds on galls/plants
+Diptera,Muscidae,terrestrial,,"House flies, stable flies",https://en.wikipedia.org/wiki/Muscidae,Larvae develop in decaying plant material or manure
+Diptera,Sarcophagidae,terrestrial,,Flesh fly,https://en.wikipedia.org/wiki/Flesh_fly,
+Diptera,Dolichopodidae,terrestrial,no,Long-legged flies,https://en.wikipedia.org/wiki/Dolichopodidae,"Larvae live in moist environment such as soil, moist sand, or rotting organic matter."
+Diptera,Trichoceridae,terrestrial,,Winter crane flies,https://bugguide.net/node/view/8522,
+Diptera,Drosophilidae,terrestrial,no,,https://en.wikipedia.org/wiki/Drosophilidae,Do not know about this one
+Diptera,Platystomatidae,terrestrial,,Signal flies,https://en.wikipedia.org/wiki/Platystomatidae; https://bugguide.net/node/view/98,
+Diptera,Sepsidae,terrestrial,,Black scavenger flies,https://bugguide.net/node/view/8677,
+Diptera,Sphaeroceridae,terrestrial,,Small dung flies,https://en.wikipedia.org/wiki/Sphaeroceridae,
+Diptera,Agromyzidae,terrestrial,,Leaf miner flies,https://bugguide.net/node/view/28354,
+Diptera,Simuliidae,aquatic,,Black flies,https://bugguide.net/node/view/16613,
+Diptera,Pipunculidae,terrestrial,,Big-headed flies,https://bugguide.net/node/view/67160,Larvae are parasitic
+Diptera,Stratiomyidae,both,,Soldier flies,https://bugguide.net/node/view/6994,"Looks like larvae can be both aquatic and terrestrial, depending on which genus"
+Diptera,Hybotidae,unknown,no,Hybotid dance flies,https://www.biotaxa.org/Zootaxa/article/download/zootaxa.4521.2.10/36019,"It looks like this family is mostly terrestrial, but not much is known about them."
+Diptera,Ulidiidae,terrestrial,no,Picture-winged flies,https://bugguide.net/node/view/5916; https://wiki.bugwood.org/NPIPM:Ulidiidae#Life_Cycle_and_Seasonal_History,"Not sure, sources say larvae develop in decaying matter?"
+Diptera,Tabanidae,both,,Horse and deer flies,https://bugguide.net/node/view/117,Based on description it seems like these can be both aquatic and terrestrial?
+Diptera,Dixidae,aquatic,,Meniscus midges,https://bugguide.net/node/view/193839,
+Diptera,Clusiidae,terrestrial,no,Druid flies,https://bugguide.net/node/view/51816; https://en.wikipedia.org/wiki/Clusiidae,Larvae are found in the bark of trees (from wikipedia?)
+Diptera,Ephydridae,both,no,Shore flies,https://bugguide.net/node/view/9357,
+Diptera,Asilidae,terrestrial,,Robber flies,https://bugguide.net/node/view/151,Larvae usually in soil or decaying wood
+Diptera,Syrphidae,both,,Syrphid flies,https://bugguide.net/node/view/196,
+Diptera,Anthomyiidae,terrestrial,,Root-maggot flies,https://bugguide.net/node/view/8083,
+Diptera,Lonchaeidae,terrestrial,,Lance flies,https://bugguide.net/node/view/14162,
+Diptera,Phoridae,unknown,no,Scuttle flies,https://bugguide.net/node/view/14163,Bug guide says not much is known about the life histories of this family
+Diptera,Keroplatidae,terrestrial,no,Predatory fungus gnats,https://bugguide.net/node/view/14942,"Larvae inhabit damp, dark places, sometimes caves?"
+Diptera,Heleomyzidae,terrestrial,no,,https://bugguide.net/node/view/12760,"Larvae feed on decaying plant and animal matter, mushrooms, and various fungi"
+Diptera,Lonchopteridae,terrestrial,no,Pointed-winged flies,https://bugguide.net/node/view/29320,Says larvae occur in dry and moist areas?
+Diptera,Lauxaniidae,terrestrial,,,https://bugguide.net/node/view/7021,Larvae feed on decaying vegetation in moist areas.
+Diptera,Cylindrotomidae,both,,Cylindrotomid Crane Flies,https://bugguide.net/node/view/34409; https://en.wikipedia.org/wiki/Cylindrotomidae,
+Diptera,Opomyzidae,terrestrial,,,https://bugguide.net/node/view/91454,Larvae probably stem borers?
+Diptera,Sciaridae,terrestrial,,Dark-winged fungus gnat,https://bugguide.net/node/view/7014,"Larvae on fungi, decaying vegetation, plant roots, rotten wood, under bark, etc."
+Diptera,Chloropidae,terrestrial,no,Frit flies,https://bugguide.net/node/view/15512,
+Diptera,Corethrellidae,aquatic,,Frog-biting midges,https://bugguide.net/node/view/473219,Larvae in small bodies of water such as those isolated at the edges of bogs or small lakes
+Diptera,Fanniidae,terrestrial,,,https://bugguide.net/node/view/100523,Larvae live as scavengers in various kinds of decaying organic matter
+Diptera,Sciomyzidae,aquatic,,Marsh flies,https://bugguide.net/node/view/7740,
+Diptera,Milichiidae,terrestrial,,Freeloader flies,https://bugguide.net/node/view/23319,
+Diptera,Tephritidae,terrestrial,,Fruit flies,https://bugguide.net/node/view/7017,
+Diptera,Pediciidae,both,no,Hairy-eyed crane flies,https://bugguide.net/node/view/14939; https://uwm.edu/field-station/giant-eastern-crane-fly/,
+Diptera,Therevidae,terrestrial,,Stiletto flies,https://bugguide.net/node/view/7015,
+Diptera,Scathophagidae,both,no,Dung flies,https://bugguide.net/node/view/87,"Some larvae live in dung, others are leaf miners, stem-borers or feed in seed capsules, still others are aquatic predators and predators on other insect larvae in wet situations"
+Diptera,Bibionidae,terrestrial,,March flies,https://bugguide.net/node/view/3834,
+Diptera,Bombyliidae,terrestrial,no,Bee flies,https://bugguide.net/node/view/185,
+Diptera,Psychodidae,both,no,Moth flies and sand flies,https://bugguide.net/node/view/3128,Not totally clear if larvae might sometimes be in aquatic habitats?
+Diptera,Ptychopteridae,both,no,Phantom and fold-winged crane flies,https://bugguide.net/node/view/120,Larvae are in mud around wetlands -- is this aquatic or terrestrial?
+Ephemeroptera,Heptageniidae,aquatic,,Flatheaded mayflies,https://bugguide.net/node/view/22105,
+Ephemeroptera,Baetidae,aquatic,,Small mayflies or small minnow mayflies,https://en.wikipedia.org/wiki/Baetidae,
+Ephemeroptera,Caenidae,aquatic,,Small squaregilled mayflies,https://www.waterbugkey.vcsu.edu/php/familydetail.php?idnum=8&show=1405&fa=Caenidae&o=Ephemeroptera&ls=larvae; https://bugguide.net/node/view/45092,
+Ephemeroptera,Siphlonuridae,aquatic,,Primitive minnow mayflies,https://bugguide.net/node/view/49078,Assuming this is aquatic given that they are mayflies?
+Ephemeroptera,Ephemerellidae,aquatic,no,Spiny crawler mayflies,https://bugguide.net/node/view/13696; https://en.wikipedia.org/wiki/Ephemerellidae,"The wikipedia source says that these are ""semi-aquatic""Ébut aren't mayfly larvae fully aquatic?"
+Ephemeroptera,Ephemeridae,aquatic,,Common burrower mayflies,https://bugguide.net/node/view/13468,
+Ephemeroptera,Leptohyphidae,aquatic,,Little stout crawler mayflies,https://bugguide.net/node/view/496390/,
+Ephemeroptera,Isonychiidae,aquatic,,Brushlegged mayflies,https://bugguide.net/node/view/45090/; https://www.waterbugkey.vcsu.edu/php/familydetail.php?idnum=8&f=Isonychiidae&ls=larvae,
+Ephemeroptera,Leptophlebiidae,aquatic,,Pronggilled mayflies,https://bugguide.net/node/view/17305,
+Hemiptera,Gerridae,aquatic,,Water striders,https://en.wikipedia.org/wiki/Gerridae,
+Hemiptera,Membracidae,terrestrial,no,Treehopper,https://bugguide.net/node/view/174,I think this bug is only found in trees and shrubs?
+Hemiptera,Miridae,terrestrial,no,Capsid bugs,https://bugguide.net/node/view/94,Not sure on this one
+Hemiptera,Delphacidae,terrestrial,,Delphacid planthoppers,https://bugguide.net/node/view/111,"Not sure on this one, might be somewhat aquatic if they are found in wet meadows?"
+Hemiptera,Corixidae,aquatic,,Water boatmen,https://bugguide.net/node/view/4964,
+Hemiptera,Cicadellidae,terrestrial,,Leafhoppers,https://bugguide.net/node/view/146,
+Hemiptera,Aphrophoridae,terrestrial,no,Spittlebugs,https://bugguide.net/node/view/145,
+Hemiptera,Aphididae,terrestrial,,Aphids,https://bugguide.net/node/view/147,
+Hemiptera,Pentatomidae,terrestrial,,Stink bugs,https://bugguide.net/node/view/182,"Emerging nymphs are ""gregarious"""
+Hemiptera,Saldidae,unknown,,Shore bugs,https://bugguide.net/node/view/13930; https://en.wikipedia.org/wiki/Saldidae,Says they can be submerged? Seems like they're between aquatic and terrestrial
+Hemiptera,Mesoveliidae,aquatic,no,Water treaders,https://bugguide.net/node/view/8999,
+Hymenoptera,Figitidae,terrestrial,no,Parasitoid wasps,https://en.wikipedia.org/wiki/Figitidae,
+Hymenoptera,Tenthredinidae,terrestrial,,Sawflies,https://en.wikipedia.org/wiki/Tenthredinidae,
+Hymenoptera,Ichneumonidae,terrestrial,,Ichneumon wasps,https://en.wikipedia.org/wiki/Ichneumonidae#Reproduction_and_diet,"Parasitoid wasp family, larvae in host insects"
+Hymenoptera,Diapriidae,terrestrial,,,https://bugguide.net/node/view/15955,Larvae are parasitic
+Hymenoptera,Braconidae,terrestrial,,Braconid wasps,https://bugguide.net/node/view/170,Parasitic
+Hymenoptera,Pteromalidae,terrestrial,no,Pteromalid wasps,https://bugguide.net/node/view/16408,"Parasitoid wasps, so assuming terrestrial?"
+Hymenoptera,Andrenidae,terrestrial,,"Miner, Bare-miner, Fairy, and Oxaeine Be",https://bugguide.net/node/view/4968,
+Hymenoptera,Formicidae,terrestrial,,Ants,https://bugguide.net/node/view/165,
+Hymenoptera,Xyelidae,terrestrial,,Xyelid sawflies,https://bugguide.net/node/view/17911,
+Lepidoptera,Crambidae,both,no,Grass moth,https://www.ndsu.edu/ndmoths/ndmoths/family/family_crambidae.htm,"Larvae are stem borers, root feeders, leaf tiers/miners, or on/in aquatic vegetation"
+Lepidoptera,Elachistidae,terrestrial,no,Grass-miner moths,https://mississippientomologicalmuseum.org.msstate.edu/Researchtaxapages/Lepidoptera/Elachistidae/Elachistidaehome.html,"Larvae are leaf tiers, leaf rollers, leaf miners, seed feeders, stem borers, or external feeders on various dicots and monocots"
+Lepidoptera,Tineidae,terrestrial,no,Fungus moths or tineid moths,https://en.wikipedia.org/wiki/Tineidae,"Larvae feed on fungi, lichens, detritus"
+Lepidoptera,Noctuidae,terrestrial,,Owlet moths,https://en.wikipedia.org/wiki/Noctuidae,
+Lepidoptera,Tortricidae,terrestrial,,Tortricid moths,https://bugguide.net/node/view/9524,
+Lepidoptera,Limacodidae,terrestrial,,Slug caterpillar moths,https://bugguide.net/node/view/131,
+Lepidoptera,Psychidae,terrestrial,,Bagworm moth,https://bugguide.net/node/view/122,
+Lepidoptera,Gelechiidae,terrestrial,,Twirler moths,https://bugguide.net/node/view/7747,
+Lepidoptera,Coleophoridae,terrestrial,,Casebearer moths,https://bugguide.net/node/view/22006,
+Lepidoptera,Sesiidae,terrestrial,,Clearwing moths,https://bugguide.net/node/view/161,
+Lepidoptera,Geometridae,terrestrial,,Geometrid moths,https://bugguide.net/node/view/188,
+Lepidoptera,Lasiocampidae,terrestrial,,Tent caterpillar and lappet moths,https://bugguide.net/node/view/178,
+Lepidoptera,Blastobasidae,terrestrial,,Scavenger moths,https://bugguide.net/node/view/903637; https://en.wikipedia.org/wiki/Blastobasidae,
+Lepidoptera,Momphidae,terrestrial,,Momphid moths,https://bugguide.net/node/view/903638; https://en.wikipedia.org/wiki/Momphidae,
+Lepidoptera,Glyphipterigidae,terrestrial,,Sedge and false diamondback moths,https://bugguide.net/node/view/28836,
+Megaloptera,Sialidae,aquatic,,Alderflies,https://bugguide.net/node/view/143,
+Mesostigmata,Blattisociidae,terrestrial,no,Mites,https://en.wikipedia.org/wiki/Blattisociidae,I'm assuming mites are terrestrial but I'm not sure.
+Mesostigmata,Parasitidae,terrestrial,no,Mites,https://en.wikipedia.org/wiki/Parasitidae,Predatory mites; assume they are terrestrial?
+Mesostigmata,Eviphididae,unknown,,,https://en.wikipedia.org/wiki/Eviphididae,Mites?
+Mesostigmata,Dermanyssidae,unknown,no,,https://en.wikipedia.org/wiki/Dermanyssidae,More unknown mites!!
+Neuroptera,Hemerobiidae,terrestrial,no,Brown lacewings,https://bugguide.net/node/view/3577,
+Odonata,Coenagrionidae,aquatic,,Narrow-winged damselflies,http://cfb.unh.edu/StreamKey/html/organisms/OOdonata/SO_Zygoptera/FCoenagrionidae/Coenagrionidae.html,
+Odonata,Gomphidae,aquatic,,Club-tailed dragonflies,,
+Odonata,Corduliidae,aquatic,,Emeralds,https://bugguide.net/node/view/2594; https://en.wikipedia.org/wiki/Odonata,
+Odonata,Libellulidae,aquatic,no,Skimmers,https://bugguide.net/node/view/381,Are all Odonates aquatic larvae?
+Odonata,Lestidae,aquatic,,Spread-winged damselflies,https://bugguide.net/node/view/298,
+Odonata,Calopterygidae,aquatic,,Broad-winged damselflies,https://bugguide.net/node/view/362,
+Plecoptera,Perlidae,aquatic,,Common stoneflies,https://en.wikipedia.org/wiki/Perlidae; https://bugguide.net/node/view/43174,Usually found in streams and rivers
+Plecoptera,Chloroperlidae,aquatic,,Green stoneflies,https://bugguide.net/node/view/43112,
+Plecoptera,Leuctridae,aquatic,no,Roll-winged stoneflies,https://en.wikipedia.org/wiki/Leuctridae,Assuming this is aquatic because they are stoneflies?
+Plecoptera,Nemouridae,aquatic,,Spring stoneflies,https://bugguide.net/node/view/179542; https://en.wikipedia.org/wiki/Plecoptera,
+Plecoptera,Perlodidae,aquatic,,Perlodid stoneflies,https://bugguide.net/node/view/20605,
+Psocodea,Dasydemellidae,terrestrial,no,Shagg psocids,https://bugguide.net/node/view/636907,Some type of lice?? Tim help me.
+Psocoptera/Psocodea,Caeciliusidae,terrestrial,no,Lizard barklice,https://en.wikipedia.org/wiki/Psocoptera; https://bugguide.net/node/view/83286,I think this is terrestrial? Lay their eggs in crevices or on foliage
+Psocoptera/Psocodea,Psocidae,terrestrial,no,Common barklice,https://bugguide.net/node/view/83277,"Can't find any information about larvae, but habitat is listed as fully terrestrial on Bug Guide without delineation between adults and immatures."
+Psocoptera/Psocodea,Mesopsocidae,terrestrial,no,Middle barklice,https://bugguide.net/node/view/166614/; http://tolweb.org/Mesopsocidae/14480,
+Psocoptera/Psocodea,Peripsocidae,terrestrial,no,Stout barklice,https://bugguide.net/node/view/145679; http://tolweb.org/Peripsocidae/14473,
+Psocoptera/Psocodea,Liposcelididae,terrestrial,no,Booklice,https://bugguide.net/node/view/18966; http://tolweb.org/Liposcelididae/14455,
+Siphonaptera,Ceratophyllidae,terrestrial,no,Fleas,https://en.wikipedia.org/wiki/Ceratophyllidae,I am assuming that immature fleas are terrestrial but not sure?
+Thysanoptera,Thripidae,unknown,no,,https://bugguide.net/node/view/194781,
+Trichoptera,Leptoceridae,aquatic,,Long-horned caddisflies,https://bugguide.net/node/view/11600,
+Trichoptera,Limnephilidae,aquatic,,Northern caddisflies,https://bugguide.net/node/view/11604,
+Trichoptera,Phryganeidae,aquatic,,Giant casemaker caddisflies,https://bugguide.net/node/view/9213,
+Trichoptera,Hydropsychidae,aquatic,,Netspinning caddisflies,https://bugguide.net/node/view/13136,
+Trichoptera,Philopotamidae,aquatic,,Fingernet caddisflies,https://bugguide.net/node/view/38306,
+Trichoptera,Polycentropodidae,aquatic,,Tube-maker caddisflies,https://bugguide.net/node/view/52929; https://en.wikipedia.org/wiki/Polycentropodidae,
+Trichoptera,Glossosomatidae,aquatic,,Saddle case-maker caddisflies,https://bugguide.net/node/view/295484,
+Trombidiformes,Pionidae,both,no,Water mites,https://www-cambridge-org.proxy.library.cornell.edu/core/journals/memoirs-of-the-entomological-society-of-canada/article/study-of-the-systematics-of-the-water-mite-family-pionidae-prostigmata-parasitengona/54485EC0400FD4498632FA502E39644C; https://en.wikipedia.org/wiki/Pionidae,Really not sure about this one
+Trombidiformes,Arrenuridae,unknown,no,,https://en.wikipedia.org/wiki/Arrenuridae,I think this is some type of water mite?
+Trombidiformes,Unionicolidae,unknown,no,,https://bugguide.net/node/view/415006/bgpage,More water mites? Probably aquatic?
+Trombidiformes,Oxidae,unknown,,,https://en.wikipedia.org/wiki/Oxidae; https://bugguide.net/node/view/414998,More water mites? Probably aquatic?
+Trombidiformes,Limnesiidae,unknown,no,,https://en.wikipedia.org/wiki/Limnesiidae,Some type of mite
+Trombidiformes,Trombidiidae,terrestrial,no,True velvet mites,https://bugguide.net/node/view/2419,Larvae are parasites
+Trombidiformes,Hygrobatidae,aquatic,no,,https://www.biotaxa.org/Zootaxa/article/view/zootaxa.495.1.1,"I am basing my classification of this family purely on the fact that they are ""water mites."" I have no idea if they are aquatic or terrestrial."
+Trombidiformes,Pygmephoridae,unknown,no,,https://en.wikipedia.org/wiki/Pygmephoridae,Some type of mites
+Trombidiformes,Lebertiidae,aquatic,no,Water mites,https://bugguide.net/node/view/91710,Water mites? So they are aquatic?
+,Hemisarcoptidae,unknown,,,,Can't find anything about this family
