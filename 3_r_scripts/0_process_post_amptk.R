@@ -5,7 +5,7 @@
 
 # Load libraries ----
 
-  pacman::p_load("tidyverse", "phyloseq", "plyr", "vegan", "here", "ggpubr", "igraph")
+  pacman::p_load("tidyverse", "phyloseq", "plyr", "vegan", "here", "ggpubr", "igraph", "data.table", "dplyr")
     # tidyverse & plyr for data wrangling
     # phyloseq & vegan for community analyses and plotting
     # here for file reference by relative paths
@@ -67,19 +67,22 @@
             otu_tax$database <- gsub("None;k", "None", otu_tax$database)
             otu_tax$accession <- gsub("Animalia,p", "None", otu_tax$accession)
         
-        # This is saving just the taxonomic ranks rather than the database info.
+          # For phyloseq this has to be added as a matrix rather than data frame    
+            otu_tax <- as.matrix(otu_tax)
+          # This is saving just the taxonomic ranks rather than the database info.
             otu_tax2 <- otu_tax[, 10:16]
-            # Add in information about larval stage aquatic vs. terrestrial
-            life_history <- read.csv(here("5_other_outputs", "unique_families_aquatic_terrestrial_IDs.csv"))    # prepared outside of R
-            otu_tax2 <- join(otu_tax2, life_history, "family")
-        # For phyloseq this has to be added as a matrix rather than data frame    
-            otu_tax2 <- as.matrix(otu_tax2)
+
             
     # Add in the sample information to each sample
         s_info <- read.delim(here("1_raw_data", "tres_sample_info.txt"))    # prepared outside of AMPtk
         map2 <- join(map, s_info, "sampleID", "left", "first")
         rownames(map2) <- map2$X.SampleID
-    
+        
+        
+    # Print out some summary information about this dataset
+        
+        summary_table <- map2 %>% dplyr::count(site, age.1)
+
         # This will identify samples that don't match the metadata file and write them as a separate output
           # missing <- subset(map2, is.na(map2$band) == TRUE)
           # write.table(missing, "missing_info.txt", sep = "\t")      
@@ -119,9 +122,9 @@
         # This file was then taken out of R to research aquatic vs. terrestrial
         # families.
       
-  # Rarefy to even depth of ??
+  # Rarefy to even depth of 150
     # running this would rarefy to an even depth moving forward
-      #coi_ps2 <- rarefy_even_depth(coi_ps2, sample.size = 150, rngseed = 92)
+      # coi_ps2 <- rarefy_even_depth(coi_ps2, sample.size = 150, rngseed = 92)
 
 # Agglomerate taxa ----
   # Depending on the analyses, we may want to agglomerate to different taxonomic ranks.
@@ -134,6 +137,7 @@
         glom_ps <- coi_fam    # change here which aglommeration you want to use for plots below
         
   # Merge family to life history
+        life_history <- read.csv(here("5_other_outputs", "unique_families_aquatic_terrestrial_IDs.csv"))    # prepared outside of R
         otu_lh <- plyr::join(as.data.frame(tax_table(coi_fam)), life_history, "family", "left", "first")
         coi_fam2 <- phyloseq(
           otu_table(coi_fam),
@@ -141,6 +145,9 @@
           sample_data(coi_fam)
         )
 
+        glom_ps <- coi_fam2    # change here which aglommeration you want to use for plots below
+        
+        
 # Filtering criteria ----
         
   # Remove negative controls
@@ -152,7 +159,7 @@
   # Transform to relative abundance
       coi_ra <- transform_sample_counts(coi_ps2, function(x) x / sum(x))
       
-  # Filter out taxa with relative abundance values below some threshold
+  ## Filter out taxa with relative abundance values below some threshold
       coi_ra2 <- filter_taxa(coi_ra, function(x) mean(x) > 1e-5, TRUE)
 
   # Take out the old test samples
@@ -197,7 +204,19 @@
         p <- plot_richness(coi_adults, x = "cap_num", measures = c("Observed")) + 
           geom_boxplot(alpha = 0.3, aes(fill = cap_num)) + facet_wrap(~ site)
         ggsave(here("3_r_scripts/capnum_alpha_site.png"), p, width = 9, height = 6.5, device = "png")
-               
+        
+    # Richness by day of year
+        # First look at richness with a series of box plots
+        p <- plot_richness(plot_ps, x = "cap_doy", measures = c("Observed")) + 
+          geom_boxplot(alpha = 0.3, aes(fill = age.1)) + facet_wrap(~ site)
+        
+        # Now look at richness as a loess curve
+        richness <- data.table(p$data)
+        richness$cap_doy <- as.numeric(richness$cap_doy)
+        p <- ggplot(richness, mapping = aes(x = cap_doy, y = value)) + geom_point() + geom_smooth(method = "loess") +
+              theme_classic() + xlab("Capture day of year") + ylab("Alpha Diversity Measure") + facet_wrap(~ age, ncol = 1)
+        ggsave(here("3_r_scripts/age_site_richness.png"), p, width = 8.7, height = 6.8, device = "png")
+        
     # All genera
         p <- plot_bar(plot_ps, "family") + theme_classic() + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
               geom_hline(yintercept = 393 * 0.1, linetype = "dotted", col = "coral3") + 
@@ -209,7 +228,22 @@
         p <- plot_bar(coi_20, "family") + theme_classic() + theme(axis.text.x = element_text(angle = 90)) + 
             facet_wrap(~ age, ncol = 1)
         ggsave(here("3_r_scripts/common_families.png"), width = 10, height = 6, device = "png")
-   
+        
+    # Plot some aquatic vs. terrestrial plots across age and site
+        # Try many different figure options before settling on figure
+        p <- plot_bar(plot_ps, x="age.1", fill="life_history") + geom_bar(stat="identity")
+        p <- plot_bar(plot_ps, x="age", fill="life_history") + geom_bar(stat="identity")
+        p <- plot_bar(plot_ps, x="age", fill="life_history") + geom_bar(stat="identity") + facet_wrap(~ site)
+        
+        # set order for ages for neatness in plots 
+        p1 <- plot_bar(plot_ps, x="age.1", fill="life_history") + geom_bar(stat="identity") + facet_wrap(~ site)
+        age_order = c("6", "12", "15", "SY", "ASY", "AHY")
+        p1$data$age.1 <- as.character(p$data$age.1)
+        p1$data$age.1 <- factor(p$data$age.1, levels=age_order) 
+        
+        ggsave(here("3_r_scripts/lh_age_site.png"), p, width = 6, height = 8, device = "png")
+        ggsave(here("3_r_scripts/lh_age1_site.png"), p1, width = 10, height = 8, device = "png")
+        
     # Plot some ordinations
         
       # Site
@@ -291,7 +325,6 @@
           tax <- tax[, c("otu", "order")]
           season2 <- join(season2, tax, "otu")
           
-          
           p1 <- ggplot(season2, mapping = aes(x = cap_doy, y = present, col = order)) + geom_smooth(method = "loess", se = FALSE) +
             theme_classic() + xlab("Capture day of year") + ylab("Percent of samples detected") +
             facet_wrap(~ age, ncol = 1) + ylim(0, 1)
@@ -301,7 +334,7 @@
             theme_classic() + xlab("Capture day of year") + ylab("Percent of samples detected") +
             facet_wrap(~ site) + ylim(0, 1)
           ggsave(here("3_r_scripts/site_season.png"), p2, width = 11, height = 6.5, device = "png")
-
+          
 # Make a network of food items ----
     # This will require some wrangling so putting it in a new section
         # The phyloseq taxa table is an incidence matrix, convert to network
