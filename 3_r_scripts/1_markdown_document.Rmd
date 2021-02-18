@@ -22,7 +22,7 @@ library(sjPlot)
 
 # Overview
 
-  This is a summary document for processing and working with COI data from tree swallow nestlings and adults using fecal samples collected in the field. The wetlab procedures are not described here. A lot of this is data cleaning and checking with a few basic plots and analyses at the end. The figures produced here are pasted in from the separate R script, to find the actual code to produce the analyses check that main script in this same repository.
+  This is a summary document for processing and working with COI data from tree swallow nestlings and adults using fecal samples collected in the field. The wet lab procedures are not described here. A lot of this is data cleaning and checking with a few basic plots and analyses at the end. The figures produced here are pasted in from the separate R script, to find the actual code to produce the analyses check that main script in this same repository.
   
 # AMPtk Pipeline
 

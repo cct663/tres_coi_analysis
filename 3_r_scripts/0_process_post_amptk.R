@@ -3,6 +3,7 @@
   # in this script are saved in the repository and pasted in the Markdown document with
   # explanations.
 
+################################################################################
 # Load libraries ----
 
   pacman::p_load("tidyverse", "phyloseq", "plyr", "vegan", "here", "ggpubr", "igraph", "data.table", "dplyr")
@@ -15,9 +16,10 @@
     # Will need to install these libraries first if not yet installed
     # To install phyloseq, must install BiocManager and then use the following command: BiocManager::install(c("phyloseq"))
 
+################################################################################
 # Load and wrangle data ----
 
-    # the prefix used for amptk processing
+    # the prefix used for AMPtk processing
       # this is set in amptk and all files produced there have this prefix
       # when adapting this to a different set of data, change prefix
         amptk_prefix <- "trescoi"   
@@ -33,7 +35,6 @@
         # to merge in the sample metadata within the AMPtk pipeline.
           map <- read.delim(here("1_raw_data", paste0(amptk_prefix, ".mapping_file.txt")))
           
-          # 
             for(i in 1:nrow(map)){
               map$sampleID[i] <- strsplit(map$X.SampleID[i], "x")[[1]][2]
             }
@@ -71,22 +72,23 @@
             otu_tax <- as.matrix(otu_tax)
           # This is saving just the taxonomic ranks rather than the database info.
             otu_tax2 <- otu_tax[, 10:16]
-
             
     # Add in the sample information to each sample
         s_info <- read.delim(here("1_raw_data", "tres_sample_info.txt"))    # prepared outside of AMPtk
         map2 <- join(map, s_info, "sampleID", "left", "first")
         rownames(map2) <- map2$X.SampleID
         
-        
     # Print out some summary information about this dataset
+        summary_table <- map2 %>% dplyr::count(site, age.1, cap_num)
         
-        summary_table <- map2 %>% dplyr::count(site, age.1)
+        # This will identify how many samples there are in each category of site,
+          # age, and capture number.
 
-        # This will identify samples that don't match the metadata file and write them as a separate output
+        # This will also identify samples that don't match the metadata file and write them as a separate output
           # missing <- subset(map2, is.na(map2$band) == TRUE)
           # write.table(missing, "missing_info.txt", sep = "\t")      
 
+################################################################################
 # Build initial phyloseq object ----
         
     OTU = otu_table(otu_ab, taxa_are_rows = TRUE)
@@ -116,17 +118,18 @@
       # Extract the unique arthropod families found in the dataset
         unique_families <- get_taxa_unique(coi_ps2, taxonomic.rank = "family")
       # Save file with list of unique families to use to research aquatic vs.
-        # terrestrial families -- this file will be modified outside of R
-        # with online research about each family.
+        # terrestrial families.
         write.csv(unique_families, here("5_other_outputs/unique_families.csv"))
         # This file was then taken out of R to research aquatic vs. terrestrial
-        # families.
+        # families, and will be re-imported later.
       
   # Rarefy to even depth of 150
     # running this would rarefy to an even depth moving forward
       # coi_ps2 <- rarefy_even_depth(coi_ps2, sample.size = 150, rngseed = 92)
 
+################################################################################
 # Agglomerate taxa ----
+        
   # Depending on the analyses, we may want to agglomerate to different taxonomic ranks.
     # Many of the sequence IDs do not go all the way to species, so in those cases analyses
     # at the species level wouldn't include those sequences
@@ -134,8 +137,6 @@
         coi_fam <- tax_glom(coi_ps2, taxrank = "family")
         coi_ord <- tax_glom(coi_ps2, taxrank = "order")
 
-        glom_ps <- coi_fam    # change here which aglommeration you want to use for plots below
-        
   # Merge family to life history
         life_history <- read.csv(here("5_other_outputs", "unique_families_aquatic_terrestrial_IDs.csv"))    # prepared outside of R
         otu_lh <- plyr::join(as.data.frame(tax_table(coi_fam)), life_history, "family", "left", "first")
@@ -145,15 +146,16 @@
           sample_data(coi_fam)
         )
 
-        glom_ps <- coi_fam2    # change here which aglommeration you want to use for plots below
+        glom_ps <- coi_fam2    # change here which agglomeration you want to use for plots below
         
-        
+################################################################################
 # Filtering criteria ----
         
   # Remove negative controls
       glom_ps <- subset_samples(glom_ps, age != "neg_control")
         
-  # Remove 5-tons (could change to singletons of 50 reads or whatever)
+  # Remove OTUs with less than 5 reads in a sample aka 5-tons
+        # (could change to singletons, 50-tons, or whatever)
       coi_ps2 <- prune_taxa(taxa_sums(glom_ps) > 5, glom_ps)
 
   # Transform to relative abundance
@@ -177,12 +179,18 @@
   # Limit to genera in 5% of samples (for network below)
       coi_05 <- prune_taxa(genefilter_sample(coi_pa, filterfun_sample(function(x) x > 0.1), A = 0.05 * nsamples(coi_pa)), coi_pa)
       
-# Plot Patterns ----
+################################################################################
+# Plot Patterns: Select objects to plot ----
       
-    plot_ps <- coi_pa     # which object to use for plotting
+      # Note that we will use coi_ra2 for plots for relative abundance, and 
+      # coi_pa for plots for presence/absence.
       
-    # Richness by sample type. See help for many more options of different alpha metrics
-        p <- plot_richness(plot_ps, x = "age.1", measures = c("Observed", "InvSimpson", "Shannon")) + 
+################################################################################
+# Plot Patterns: Richness ----
+      
+      # Richness by sample type. See help for many more options of different alpha metrics
+      # Cannot use coi_ra2 here because plot_richness only accepts integers
+        p <- plot_richness(coi_pa, x = "age.1", measures = c("Observed", "InvSimpson", "Shannon")) + 
               geom_boxplot(alpha = 0.3, aes(fill = age.1))
         # set order for ages for neatness in plots 
         age_order = c("6", "12", "15", "SY", "ASY", "AHY")
@@ -190,83 +198,235 @@
         p$data$age.1 <- factor(p$data$age.1, levels=age_order)
         ggsave(here("3_r_scripts/age_alpha.png"), p, width = 10, height = 4, device = "png")
         
-    # Richness by age and site
-        p <- plot_richness(plot_ps, x = "age.1", measures = c("Observed")) + 
-              geom_boxplot(alpha = 0.3, aes(fill = age.1)) + facet_wrap(~ site)
+    # Richness by age (nestling days and adult years) and site
+        p <- plot_richness(coi_pa, x = "age.1", measures = c("Observed")) +
+            geom_boxplot(alpha = 0.3, aes(fill = age.1)) + facet_wrap(~ site) +
+            xlab("Age") +
+            theme_classic() + theme(axis.text.x = element_text(angle = 90, size = 12)) + 
+            theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+            theme(axis.title = element_text(size = 16)) +
+            theme(strip.text = element_text(size = 16)) +
+            guides(fill=guide_legend(title="Age"))
+        # set order for sites for neatness in plots 
+        site_order = c("Turkey_Hill", "Unit_4", "Unit_1", "Unit_2")
+        p$data$site <- as.character(p$data$site)
+        p$data$site <- factor(p$data$site, levels=site_order)
         # set order for ages for neatness in plots 
         age_order = c("6", "12", "15", "SY", "ASY", "AHY")
         p$data$age.1 <- as.character(p$data$age.1)
-        p$data$age.1 <- factor(p$data$age.1, levels=age_order)       
+        p$data$age.1 <- factor(p$data$age.1, levels=age_order)
         ggsave(here("3_r_scripts/age_alpha_site.png"), p, width = 9, height = 6.5, device = "png")
- 
+        
+      # Richness by age (just nestling vs. adult) and site
+        p <- plot_richness(coi_pa, x = "age", measures = c("Observed")) +
+          geom_boxplot(alpha = 0.3, aes(fill = age)) + facet_wrap(~ site) +
+          xlab("Age") +
+          theme_classic() + theme(axis.text.x = element_text(angle = 90, size = 12)) + 
+          theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+          theme(axis.title = element_text(size = 16)) +
+          theme(strip.text = element_text(size = 16)) +
+          guides(fill=guide_legend(title="Age"))
+        # set order for sites for neatness in plots 
+        site_order = c("Turkey_Hill", "Unit_4", "Unit_1", "Unit_2")
+        p$data$site <- as.character(p$data$site)
+        p$data$site <- factor(p$data$site, levels=site_order)
+        ggsave(here("3_r_scripts/age_nva_alpha_site.png"), p, width = 7, height = 7, device = "png")
+        
     # Richness by adult capture number and site
-        coi_adults <- subset_samples(plot_ps, cap_num != "")
+        coi_adults <- subset_samples(coi_pa, cap_num != "")
         p <- plot_richness(coi_adults, x = "cap_num", measures = c("Observed")) + 
           geom_boxplot(alpha = 0.3, aes(fill = cap_num)) + facet_wrap(~ site)
         ggsave(here("3_r_scripts/capnum_alpha_site.png"), p, width = 9, height = 6.5, device = "png")
         
     # Richness by day of year
         # First look at richness with a series of box plots
-        p <- plot_richness(plot_ps, x = "cap_doy", measures = c("Observed")) + 
+        p <- plot_richness(coi_pa, x = "cap_doy", measures = c("Observed")) + 
           geom_boxplot(alpha = 0.3, aes(fill = age.1)) + facet_wrap(~ site)
-        
         # Now look at richness as a loess curve
         richness <- data.table(p$data)
         richness$cap_doy <- as.numeric(richness$cap_doy)
         p <- ggplot(richness, mapping = aes(x = cap_doy, y = value)) + geom_point() + geom_smooth(method = "loess") +
-              theme_classic() + xlab("Capture day of year") + ylab("Alpha Diversity Measure") + facet_wrap(~ age, ncol = 1)
+              xlab("Capture day of year") + ylab("Alpha Diversity Measure") + facet_wrap(~ age, ncol = 1) +
+              theme_classic() +
+              theme(axis.text = element_text(size = 14)) + 
+              theme(axis.title = element_text(size = 16)) +
+              theme(strip.text = element_text(size = 16))
         ggsave(here("3_r_scripts/age_site_richness.png"), p, width = 8.7, height = 6.8, device = "png")
-        
+
+################################################################################
+# Plot Patterns: Taxonomic Groups ----        
     # All genera
-        p <- plot_bar(plot_ps, "family") + theme_classic() + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
+        p <- plot_bar(coi_pa, "family") + theme_classic() + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) + 
               geom_hline(yintercept = 393 * 0.1, linetype = "dotted", col = "coral3") + 
               geom_hline(yintercept = 393 * 0.2, linetype = "dotted", col = "coral3") + 
               geom_hline(yintercept = 393 * 0.3, linetype = "dotted", col = "coral3")
         ggsave(here("3_r_scripts/family_bar.png"), width = 10, height = 4.5, device = "png")
         
     # Genera over 20% split by age
-        p <- plot_bar(coi_20, "family") + theme_classic() + theme(axis.text.x = element_text(angle = 90)) + 
+        p <- plot_bar(coi_20, "family", fill="life_history") + theme_classic() + theme(axis.text.x = element_text(angle = 90)) + 
             facet_wrap(~ age, ncol = 1)
         ggsave(here("3_r_scripts/common_families.png"), width = 10, height = 6, device = "png")
+        # Create a figure that has families color coded by life history
+        # phyloseq automatically draws black borders around every sample which makes it impossible to see the colors of 
+        # aquatic vs. terrestrial samples.
+        # We will have to redefine the function to get it to stop doing this (I found this code on stack overflow)
+        plot_bar_2 <-  function (physeq, x = "Sample", y = "Abundance", fill = NULL, title = NULL, facet_grid = NULL, border_color = NA) 
+        {
+          mdf = psmelt(physeq)
+          p = ggplot(mdf, aes_string(x = x, y = y, fill = fill))
+          p = p + geom_bar(stat = "identity", position = "stack",  color = border_color)
+          p = p + theme(axis.text.x = element_text(angle = -90, hjust = 0))
+          if (!is.null(facet_grid)) {
+            p <- p + facet_grid(facet_grid)
+          }
+          if (!is.null(title)) {
+            p <- p + ggtitle(title)
+          }
+          return(p)
+        }
         
+        p <- plot_bar_2(coi_20, x="family", fill="life_history") + 
+            xlab("Family") +
+            ylab("Number of samples detected in") +
+            theme_classic() + theme(axis.text.x = element_text(angle = 90, size = 12)) + 
+            theme(axis.title = element_text(size = 14)) +
+            theme(legend.title = element_text(size = 14), legend.text = element_text(size = 12)) +
+            theme(strip.text = element_text(size = 12)) +
+            facet_wrap(~ age, ncol = 1) +
+            scale_fill_manual("Life history", values = c("aquatic" = "skyblue1", "terrestrial" = "palegreen3", "both" = "tan4", 
+                                                   "unknown" = "gray"))
+        ggsave(here("3_r_scripts/common_families.png"), width = 10, height = 6, device = "png")
+        
+################################################################################
+# Plot Patterns: Aquatic vs. Terrestrial ----
     # Plot some aquatic vs. terrestrial plots across age and site
-        # Try many different figure options before settling on figure
-        p <- plot_bar(plot_ps, x="age.1", fill="life_history") + geom_bar(stat="identity")
-        p <- plot_bar(plot_ps, x="age", fill="life_history") + geom_bar(stat="identity")
-        p <- plot_bar(plot_ps, x="age", fill="life_history") + geom_bar(stat="identity") + facet_wrap(~ site)
         
-        # set order for ages for neatness in plots 
-        p1 <- plot_bar(plot_ps, x="age.1", fill="life_history") + geom_bar(stat="identity") + facet_wrap(~ site)
-        age_order = c("6", "12", "15", "SY", "ASY", "AHY")
-        p1$data$age.1 <- as.character(p$data$age.1)
-        p1$data$age.1 <- factor(p$data$age.1, levels=age_order) 
+        # Plot aquatic vs. terrestrial for sites, adults vs. nestlings
+        plot_ra <- psmelt(coi_ra2) # psmelt makes a phyloseq object into a data frame
+        p <- ggplot(plot_ra, aes(x=age, y=Abundance, fill=life_history)) +
+          geom_col(position="fill") +
+          facet_wrap(~ site, ncol = 2) +
+          xlab("Age") +
+          ylab("Relative Abundance") +
+          theme_classic() +
+          theme(axis.title = element_text(size = 16)) + theme(axis.text.x = element_text(angle = 90, size = 14)) +
+          theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+          theme(strip.text = element_text(size = 14)) +
+          scale_fill_manual("Life history", values = c("aquatic" = "skyblue1", "terrestrial" = "palegreen3", "both" = "tan4", 
+                                                       "unknown" = "gray"))
+          # set order for sites for neatness in plots 
+          site_order = c("Turkey_Hill", "Unit_4", "Unit_1", "Unit_2")
+          p$data$site <- as.character(p$data$site)
+          p$data$site <- factor(p$data$site, levels=site_order)
+          
+        ggsave(here("3_r_scripts/lh_age_site.png"), p, width = 7, height = 7, device = "png")
+          
+        # Plot aquatic vs. terrestrial for adults and nestlings full ages
+          p1 <- ggplot(plot_ra, aes(x=age.1, y=Abundance, fill=life_history)) +
+            geom_col(position="fill") +
+            facet_wrap(~ site, ncol = 2) +
+            xlab("Age") +
+            ylab("Relative Abundance") +
+            theme_classic() +
+            theme(axis.title = element_text(size = 16)) + theme(axis.text.x = element_text(angle = 90, size = 14)) +
+            theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+            theme(strip.text = element_text(size = 14)) +
+            scale_fill_manual("Life history", values = c("aquatic" = "skyblue1", "terrestrial" = "palegreen3", "both" = "tan4", 
+                                                       "unknown" = "gray"))
+          # set order for ages for neatness in plots
+          age_order = c("6", "12", "15", "SY", "ASY", "AHY")
+          p1$data$age.1 <- as.character(p$data$age.1)
+          p1$data$age.1 <- factor(p$data$age.1, levels=age_order) 
         
-        ggsave(here("3_r_scripts/lh_age_site.png"), p, width = 6, height = 8, device = "png")
         ggsave(here("3_r_scripts/lh_age1_site.png"), p1, width = 10, height = 8, device = "png")
         
-    # Plot some ordinations
+        # Plot aquatic vs. terrestrial across days
+        p2 <- ggplot(plot_ra, aes(x=cap_doy, y=Abundance, fill=life_history)) +
+          geom_col(position="fill") +
+          xlab("Day of Year") +
+          ylab("Relative Abundance") +
+          theme_classic() +
+          theme(axis.title = element_text(size = 16)) + theme(axis.text.x = element_text(angle = 90, size = 14)) +
+          theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+          theme(strip.text = element_text(size = 14)) +
+          scale_fill_manual("Life history", values = c("aquatic" = "skyblue1", "terrestrial" = "palegreen3", "both" = "tan4", 
+                                                       "unknown" = "gray"))
         
-      # Site
-          ord_data <- ordinate(plot_ps, method = "PCoA", distance = "bray")
-          p <- plot_ordination(plot_ps, ord_data, color = "site", title = "Bray-Curtis PCoA") + 
+        ggsave(here("3_r_scripts/lh_doy.png"), p2, width = 10, height = 8, device = "png")
+        
+        # Plot aquatic vs. terrestrial across days and separated by adults vs. nestlings
+        p3 <- ggplot(plot_ra, aes(x=cap_doy, y=Abundance, fill=life_history)) +
+          geom_col(position="fill") +
+          facet_wrap(~ age, ncol = 1) +
+          xlab("Day of Year") +
+          ylab("Relative Abundance") +
+          theme_classic() +
+          theme(axis.title = element_text(size = 16)) + theme(axis.text.x = element_text(angle = 90, size = 14)) +
+          theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+          theme(strip.text = element_text(size = 14)) +
+          scale_fill_manual("Life history", values = c("aquatic" = "skyblue1", "terrestrial" = "palegreen3", "both" = "tan4", 
+                                                       "unknown" = "gray"))
+        
+        ggsave(here("3_r_scripts/lh_doy_age.png"), p3, width = 10, height = 8, device = "png")
+
+################################################################################
+# Plot Patterns: Ordinations/Beta Diversity ----       
+    # Plot some ordinations using relative abundance and presence/absence
+        ord_data_ra <- ordinate(coi_ra2, method = "PCoA", distance = "bray")
+        ord_data_pa <- ordinate(coi_pa, method = "PCoA", distance = "bray")
+        
+      # Site -- relative abundance
+          p1_ra <- plot_ordination(coi_ra2, ord_data_ra, color = "site", title = "Bray-Curtis PCoA") + 
                 geom_point(size = 2, alpha = .4) + theme_classic() +
-                stat_ellipse(aes(group = site), level = 0.9) 
-          ggsave(here("3_r_scripts/site_ordinate.png"), p, width = 7, height = 5.4, device = "png")
+                stat_ellipse(aes(group = site), level = 0.9) +
+                theme(axis.title = element_text(size = 16)) +
+                theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14))
+          ggsave(here("3_r_scripts/site_ordinate_ra.png"), p1_ra, width = 7, height = 5.4, device = "png")
+        
+      # Site -- presence/absence
+          p1_pa <- plot_ordination(coi_pa, ord_data_pa, color = "site", title = "Bray-Curtis PCoA") + 
+            geom_point(size = 2, alpha = .4) + theme_classic() +
+            stat_ellipse(aes(group = site), level = 0.9) +
+            theme(axis.title = element_text(size = 16)) +
+            theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14))
+          ggsave(here("3_r_scripts/site_ordinate_pa.png"), p1_pa, width = 7, height = 5.4, device = "png")
           
-      # Age
-          p2 <- plot_ordination(plot_ps, ord_data, color = "age", title = "Bray-Curtis PCoA") + 
+      # Age -- relative abundance
+          p2_ra <- plot_ordination(coi_ra2, ord_data_ra, color = "age", title = "Bray-Curtis PCoA") + 
             geom_point(size = 2, alpha = .4) + theme_classic() +
             stat_ellipse(aes(group = age), level = 0.9)
-          ggsave(here("3_r_scripts/age_ordinate.png"), p2, width = 7, height = 5.4, device = "png")
+          ggsave(here("3_r_scripts/age_ordinate_ra.png"), p2_ra, width = 7, height = 5.4, device = "png")
+          
+      # Age -- presence absence
+          p2_pa <- plot_ordination(coi_pa, ord_data_pa, color = "age", title = "Bray-Curtis PCoA") + 
+            geom_point(size = 2, alpha = .4) + theme_classic() +
+            stat_ellipse(aes(group = age), level = 0.9)
+          ggsave(here("3_r_scripts/age_ordinate_pa.png"), p2_pa, width = 7, height = 5.4, device = "png")
+          
+          
+          ###############
           
       # Age and site
-          p3 <- p + facet_wrap(~ age)
+          p3 <- p + facet_wrap(~ age) + 
+            theme(axis.title = element_text(size = 16)) +
+            theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+            theme(strip.text = element_text(size = 14))
           ggsave(here("3_r_scripts/age_site_ordinate.png"), p3, width = 8.2, height = 4.8, device = "png")
           
       # Site and age
-          p4 <- p2 + facet_wrap(~ site)
+          p4 <- p2 + facet_wrap(~ site) +
+            theme(axis.title = element_text(size = 16)) +
+            theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+            theme(strip.text = element_text(size = 14))
           ggsave(here("3_r_scripts/site_age_ordinate.png"), p4, width = 8.2, height = 6.2, device = "png")
 
+
+################################################################################
+################################################################################
+# Point at which Jenny stopped using code
+          
+################################################################################
+# Plot Patterns: Adult vs. Nestling Diets ----
     # Plot adult vs. nestling diets
           adult_20 <- subset_samples(coi_20, age == "Adult")
           six_20 <- subset_samples(coi_20, age.1 == "6")
@@ -296,11 +456,13 @@
               xlim(0.05, 0.9) + ylim(0.05, 0.9)
           p7 <- ggarrange(p1, p2, p3, p4, p5, p6, nrow = 1)
           ggsave(here("3_r_scripts/compare.png"), p7, width = 11, height = 3.4, device = "png")
-          
+
     # Plot network
           p <- plot_net(glom_ps, maxdist = 0.4, point_label = "nest", color = "site")
           ggsave(here("3_r_scripts/network.png"), p, width = 7.5, height = 6.5, device = "png")
-          
+
+################################################################################
+# Plot Patterns: Order over Season ----          
     # Plot season at order level (gets it down to 17 taxa like Ryan & Lily's Ecology Letters paper)
           # Remove negative controls
             ord_ps <- subset_samples(coi_ord, age != "neg_control" & age.1 != "old")
@@ -310,8 +472,6 @@
             ord_ra2 <- filter_taxa(ord_ra, function(x) mean(x) > 1e-5, TRUE)
           # Filter out taxa that aren't in 5% of samples
             ord_ra2 <- prune_taxa(genefilter_sample(ord_ra2, filterfun_sample(function(x) x > 0.01), A = 0.05 * nsamples(ord_ra2)), ord_ra2)
-          # Take out the samples without info for now
-            #ord_ra2 <- subset_samples(ord_ra2, is.na(band) == FALSE)
           # Transform to presence absence
             ord_pa <- transform_sample_counts(ord_ra2, function(x) ceiling(x))
           
@@ -325,15 +485,23 @@
           tax <- tax[, c("otu", "order")]
           season2 <- join(season2, tax, "otu")
           
+        # I do not understand why, but these plots will only work right now if you run this chunk of the code twice.
+          # You have to run it from the line that removes negative control twice.
           p1 <- ggplot(season2, mapping = aes(x = cap_doy, y = present, col = order)) + geom_smooth(method = "loess", se = FALSE) +
             theme_classic() + xlab("Capture day of year") + ylab("Percent of samples detected") +
-            facet_wrap(~ age, ncol = 1) + ylim(0, 1)
+            facet_wrap(~ age, ncol = 1) + ylim(0, 1) +
+            theme(axis.title = element_text(size = 16)) + theme(axis.text.x = element_text(size = 14)) +
+            theme(legend.title = element_text(size = 16), legend.text = element_text(size = 14)) +
+            theme(strip.text = element_text(size = 16))
           ggsave(here("3_r_scripts/age_season.png"), p1, width = 8.7, height = 6.8, device = "png")
           
           p2 <- ggplot(season2, mapping = aes(x = cap_doy, y = present, col = order)) + geom_smooth(method = "loess", se = FALSE) +
             theme_classic() + xlab("Capture day of year") + ylab("Percent of samples detected") +
             facet_wrap(~ site) + ylim(0, 1)
           ggsave(here("3_r_scripts/site_season.png"), p2, width = 11, height = 6.5, device = "png")
+
+################################################################################
+# Plot Patterns: Network of Food Items ----
           
 # Make a network of food items ----
     # This will require some wrangling so putting it in a new section
@@ -379,11 +547,3 @@
           png(here("3_r_scripts/food_network.png"), width = 8.8, height = 8, units = "in", res = 300)
             plot(cl, network, layout = coords, vertex.label = NA)
           dev.off()
-          
-          
-          
-          
-          
-          
-    
-          
